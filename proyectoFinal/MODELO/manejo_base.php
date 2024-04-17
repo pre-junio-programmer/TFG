@@ -63,42 +63,37 @@ class Operaciones_Base {
         }
     }
 
-    public static function insertarUsuario($nombreUsu, $correoUsu, $contraUsu,$direccionUsu,$saldo) {
+    public static function insertarUsuario($nombreUsu, $correoUsu, $contraUsu, $direccionUsu, $saldo) {
+        global $db; // Hacer que la variable $db sea accesible dentro de la función
     
-        //COMPROBAMOS QUE EL NOMBRE INTRODUCIDO NO ESTÉ EN USO
-        $nombreExistente = Operaciones_Base::comprobarCampoUnico($nombreUsu,"name","usuario");
-        //COMPROBAMOS QUE EL CORREO INTRODUCIDO NO ESTÉ EN USO
-        $emailExistente = Operaciones_Base::comprobarCampoUnico($correoUsu,"email","usuario");
-        //OBTENEMOS EL ÚLTIMO ID PARA INSERTAR EL SIGUIENTE USUARIO DE MANERA INCREMENTAL
-        $idMaximo = Operaciones_Base::obtenerUltimoCampo("id_usuario","usuarios");
-        $idNuevo = $idMaximo+1;
-        //ALMACENAMOS EN RESULTADO Campo_Vacio SI ALGUNO DE LOS ELEMENTOS DEL FORMULARIO NO ESTÁ RELLENO
-        if($nombreUsu=="" || $contraUsu=="" || $correoUsu=="" || $direccionUsu==""){
-            $resultado = "Campo_Vacío";
-            return $resultado;
+        // Verificar si algún campo está vacío
+        if(empty($nombreUsu) || empty($correoUsu) || empty($contraUsu) || empty($direccionUsu) || empty($saldo)) {
+            return "Campo_Vacío";
         }
-        //SI nombreExistente ES TRUE(EXISTE) DEVUELVE Nombre_Existente
-        else if($nombreExistente) {
-            $resultado = "Nombre_Existente";
-            return $resultado;
-        //SI emailExistente ES TRUE HACE LO MISMO
-        } else if($emailExistente) {
-            $resultado = "Email_existente";
-            return $resultado;
+    
+        // Verificar si el nombre de usuario ya existe
+        $query = "SELECT * FROM usuarios WHERE nombre_u = '$nombreUsu'";
+        $result = mysqli_query($db, $query);
+        if(mysqli_num_rows($result) > 0) {
+            return "Nombre_Existente";
+        }
+    
+        // Verificar si el correo ya existe
+        $query = "SELECT * FROM usuarios WHERE correo_u = '$correoUsu'";
+        $result = mysqli_query($db, $query);
+        if(mysqli_num_rows($result) > 0) {
+            return "Correo_Existente";
+        }
+    
+        // Insertar el nuevo usuario en la base de datos
+        $query = "INSERT INTO usuarios (nombre_u, correo_u, contra_u, direccion_u, saldo_u) VALUES ('$nombreUsu', '$correoUsu', '$contraUsu', '$direccionUsu', $saldo)";
+        if(mysqli_query($db, $query)) {
+            return "Todo_Correcto";
         } else {
-            //SI TODO HA IDO BIEN INSERTA EN USUARIOS TODOS LOS DATOS DEL USUARIO
-            $sql = "INSERT INTO usuarios (nombre_u, direccion_u, correo_u, contra_u, saldo_u) VALUES (:nombre_u, :direccion_u, :correo_u, :contra_u, :saldo_u)";
-            $resultado = $conexion->prepare($sql);
-            $resultado->bindValue(":nombre_u", $nombreUsu);
-            $resultado->bindValue(":direccion_u", $direccionUsu);
-            $resultado->bindValue(":correo_u", $correoUsu);
-            $resultado->bindValue(":contra_u", $contraUsu);
-            $resultado->bindValue(":saldo_u", $saldo);
-            $resultado->execute();
-            $resultado = "Todo_Correcto";
-            return $resultado;
+            return "Error en la inserción";
         }
     }
+    
     
 
 
