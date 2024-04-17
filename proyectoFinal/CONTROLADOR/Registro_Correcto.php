@@ -1,7 +1,7 @@
 <?php
 include_once "../MODELO/manejo_base.php";
 
-$resultado = Operaciones_Base::insertarUsuario($_POST['nombre_u'], $_POST['correo_u'], $_POST['contra_u'], $_POST['direccion_u'], $_POST['saldo_u']);
+$resultado = Operaciones_Base::insertarUsuario($_POST['nombre'], $_POST['correo'], $_POST['contraseña'], $_POST['direccion'], $_POST['saldo']);
 
 if ($resultado=="Todo_Correcto") {
     //PODEMOS CAMBIARLO A LA PAG PRINCIPAL EN VEZ DE AL INICIO
