@@ -1,7 +1,7 @@
 <?php
 include_once "/app/MODELO/conexion.php";
 
-// Obtener los datos del formulario
+// Obtener los datos del formulario aaaaaaaa
 $id_usuario = $_POST["id_usuario"];
 $nombre = $_POST["nombre"];
 $direccion = $_POST["direccion"];
