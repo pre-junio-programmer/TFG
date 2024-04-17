@@ -1,6 +1,6 @@
 
 <?php
-    require_once "../modelo/Manejo_Base.php";
+    require_once "../modelo/manejo_base.php";
 
     $resultado = Operaciones_Base::insertarUsuario($_POST['nombre'], $_POST['correo'], $_POST['contra'], $_POST['direccion']);
 

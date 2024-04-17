@@ -1,5 +1,3 @@
 <?php
-include_once "/app/MODELO/conexion.php";
-
-header("Location: ./vista/Inicio_Sesion.php");
+header("Location: ./vista/Registro_F.php");
 ?>
