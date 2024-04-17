@@ -1,5 +1,5 @@
 <?php
-include_once "/proyectoFinal/MODELO/conexion.php";
+include_once "/app/proyectoFinal/MODELO/conexion.php";
 ?>
 
 <!DOCTYPE html>
