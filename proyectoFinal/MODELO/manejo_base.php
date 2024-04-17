@@ -75,20 +75,18 @@ class Operaciones_Base {
         }
     }
 
-    public static function insertarUsuario($nombreUsu, $correoUsu, $contraUsu,$direccionUsu) {
-        $conexion = Operaciones_Base::conexion();
+    public static function insertarUsuario($nombreUsu, $correoUsu, $contraUsu,$direccionUsu,$saldo) {
     
         //COMPROBAMOS QUE EL NOMBRE INTRODUCIDO NO ESTÉ EN USO
         $nombreExistente = Operaciones_Base::comprobarCampoUnico($nombreUsu,"name","usuario");
         //COMPROBAMOS QUE EL CORREO INTRODUCIDO NO ESTÉ EN USO
         $emailExistente = Operaciones_Base::comprobarCampoUnico($correoUsu,"email","usuario");
         //OBTENEMOS EL ÚLTIMO ID PARA INSERTAR EL SIGUIENTE USUARIO DE MANERA INCREMENTAL
-        $idMaximo = Operaciones_Base::obtenerUltimoCampo("idusuario","usuario");
+        $idMaximo = Operaciones_Base::obtenerUltimoCampo("id_usuario","usuarios");
         $idNuevo = $idMaximo+1;
-        $saldo=0;
         //ALMACENAMOS EN RESULTADO Campo_Vacio SI ALGUNO DE LOS ELEMENTOS DEL FORMULARIO NO ESTÁ RELLENO
         if($nombreUsu=="" || $contraUsu=="" || $correoUsu=="" || $direccionUsu==""){
-            $resultado = "Campo_Vacio";
+            $resultado = "Campo_Vacío";
             return $resultado;
         }
         //SI nombreExistente ES TRUE(EXISTE) DEVUELVE Nombre_Existente
@@ -101,24 +99,20 @@ class Operaciones_Base {
             return $resultado;
         } else {
             //SI TODO HA IDO BIEN INSERTA EN USUARIOS TODOS LOS DATOS DEL USUARIO
-            $sql = "INSERT INTO users(idusuario,nombreu,correou,direccionu,contra,saldou) VALUES (:id,:usuario,:correo,:direccionu,:contrasena,:saldou)";
+            $conexion = Operaciones_Base::conexion();
+            $sql = "INSERT INTO usuarios (nombre_u, direccion_u, correo_u, contra_u, saldo_u) VALUES (:nombre_u, :direccion_u, :correo_u, :contra_u, :saldo_u)";
             $resultado = $conexion->prepare($sql);
-    
-            $resultado->bindValue(":usuario", $nombreUsu);
-            $resultado->bindValue(":contrasena", $contraUsu);
-            $resultado->bindValue(":correo", $correoUsu);
-            $resultado->bindValue(":direccion", $direccionUsu);
-            $resultado->bindValue(":id", $idNuevo);
-            $resultado->bindValue(":saldou", $saldo);
-    
-    
-            
+            $resultado->bindValue(":nombre_u", $nombreUsu);
+            $resultado->bindValue(":direccion_u", $direccionUsu);
+            $resultado->bindValue(":correo_u", $correoUsu);
+            $resultado->bindValue(":contra_u", $contraUsu);
+            $resultado->bindValue(":saldo_u", $saldo);
             $resultado->execute();
-    
             $resultado = "Todo_Correcto";
             return $resultado;
         }
     }
+    
 
 
 }
