@@ -1,3 +1,3 @@
 <?php
-header("Location: ./vista/Registro_F.php");
+header("Location: /VISTA/Registro_F.php");
 ?>
