@@ -1,22 +1,12 @@
 <?php
+
+include_once "/app/MODELO/conexion.php";
+
 class Operaciones_Base {
-    
-    public static function conexion() {
-        try {
-            $conexion = new PDO('mysql:host=localhost; dbname=pf_adhajr', 'root', '');
-            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $conexion->exec("SET CHARACTER SET UTF8");
-        } catch (Exception $e) {
-            echo "Linea de error: " . $e->getLine();
-            die("Erro" . $e->getMessage());
-        }
-        return $conexion;
-    }
 
  
     //LO USAMOS PARA AVERIGUAR EL ULTIMO CAMPO EN LA TABLA, SOLEMOS USAR EL DATO PARA INCREMENTAR EN 1 EL ID
     public static function obtenerUltimoCampo($campo,$tabla) {
-        $conexion = Operaciones_Base::conexion();
         
             //SELECCIONA EL ULTIMO CAMPO DE LA TABLA DESEADA
             $sql = "SELECT MAX({$campo}) AS ultimo_id FROM {$tabla}";
@@ -29,7 +19,6 @@ class Operaciones_Base {
 
     //COMPROBAMOS QUE EL VALOR INTRODUCIDO EN EL FORMULARIO NO EXISTA EN LA TABLA, PARA CONTROLAR DUPLICADOS
     public static function comprobarCampoUnico($valor,$campo,$tabla) {
-        $conexion = Operaciones_Base::conexion();
 
         //BUSCA EN LA TABLA DESEADA SI EXISTE EL VALOR QUE INTRODUCIMOS EN EL CAMPO QUE QUEREMOS
         $buscarCampo = "SELECT COUNT(*) as count FROM {$tabla} WHERE {$campo} = :valor";
@@ -46,7 +35,6 @@ class Operaciones_Base {
 
     //COMPRUEBA LAS CREDENCIALES DEL USUARIO
     public static function inicioExitoso($nombreIntroducido, $contraIntroducida) {
-        $conexion = Operaciones_Base::conexion();
         //COMPRUEBA QUE EL NOMBRE INTRODUCIDO EXISTA
         $nombreExistente = Operaciones_Base::comprobarCampoUnico($nombreIntroducido,"name","usuario");
         //SI EXISTE(TRUE) SELECCIONA LA CONTRASEÑA DONDE EL NOMBRE ES IGUAL AL DEL FORMULARIO
@@ -99,7 +87,6 @@ class Operaciones_Base {
             return $resultado;
         } else {
             //SI TODO HA IDO BIEN INSERTA EN USUARIOS TODOS LOS DATOS DEL USUARIO
-            $conexion = Operaciones_Base::conexion();
             $sql = "INSERT INTO usuarios (nombre_u, direccion_u, correo_u, contra_u, saldo_u) VALUES (:nombre_u, :direccion_u, :correo_u, :contra_u, :saldo_u)";
             $resultado = $conexion->prepare($sql);
             $resultado->bindValue(":nombre_u", $nombreUsu);
