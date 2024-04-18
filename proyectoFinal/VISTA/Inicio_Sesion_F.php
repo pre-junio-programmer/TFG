@@ -42,15 +42,15 @@ if (isset($_SESSION['mensaje'])) {
     </form>
     
     <script>
-        function alternarTipoContraseña() {
-            var campoContraseña = document.getElementById("contraseña");
-            if (campoContraseña.type === "password") {
-                campoContraseña.type = "text";
+        function alternarTipoContrasena() {
+            var campoContrasena = document.getElementById("contraseña");
+            if (campoContrasena.type === "password") {
+                campoContrasena.type = "text";
             } else {
-                campoContraseña.type = "password";
+                campoContrasena.type = "password";
             }
         }
-        document.getElementById("mostrarContrasena").onclick(alternarTipoContraseña);
+        document.getElementById("mostrar_contrasena").onclick(alternarTipoContrasena);
     </script>
 </body>
 </html>
