@@ -14,4 +14,6 @@ if ($resultado=="Todo_Correcto") {
     header("Location:../VISTA/Registro_F.php?error=El correo introducido ya está en uso");
 }
 
+
+
 ?>

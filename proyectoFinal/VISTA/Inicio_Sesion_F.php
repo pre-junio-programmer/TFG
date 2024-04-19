@@ -24,7 +24,7 @@ if (isset($_SESSION['mensaje'])) {
     <?php if ($mensaje != ""): ?>
         <p><?php echo $mensaje; ?></p>
     <?php endif; ?>
-    <form action="../CONTROLADOR/Registro_Correcto.php" method="post">
+    <form action="../CONTROLADOR/Inicio_Correcto.php" method="post">
         
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre">

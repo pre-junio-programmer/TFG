@@ -1,5 +1,12 @@
 <?php
 include_once "/app/MODELO/conexion.php";
+
+$mensajeError_campos = "";
+
+// Mostrar mensaje de error si existe
+if (!empty($mensajeError_campos)) {
+    echo '<p>' . $mensajeError_campos . '</p>';
+}
 ?>
 
 <!DOCTYPE html>
