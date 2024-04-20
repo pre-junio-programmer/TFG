@@ -19,35 +19,31 @@ if (isset($_GET['error']) && $_GET['error'] === "Rellena todos los campos por fa
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Registro de Usuario</title>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 </head>
 <body>
     <h2>Registro de Usuario</h2>
 
     <?php 
-    
     if ($mensaje_campos != ""){
-
         echo $mensaje_campos;
-
     } else if($mensaje_nombre != "") {
-
         echo $mensaje_nombre;
-        
     }
     ?>
 
-        <!-- Aquí incluyes tu componente React -->
-        <div id="registro-form-container"></div>
+    <!-- Aquí incluyes tu componente React -->
+    <div id="registro-form-container"></div>
 
-<!-- Incluye el script de React -->
-<script src="Registro_F.js"></script>
-<!-- Aquí incluye tu script de React que renderiza el componente -->
-<script>
-    // Renderiza el componente React dentro del contenedor con id "registro-form-container"
-    ReactDOM.render(
-        <Registro_F />,
-        document.getElementById('registro-form-container')
-    );
-</script>
+    <!-- Incluye el script de React -->
+    <script src="../App.js"></script>
+    <!-- Aquí incluye tu script de React que renderiza el componente -->
+    <script>
+        // Renderiza el componente React dentro del contenedor con id "registro-form-container"
+        ReactDOM.render(
+            <Registro_F />,
+            document.getElementById('registro-form-container')
+        );
+    </script>
 </body>
 </html>
