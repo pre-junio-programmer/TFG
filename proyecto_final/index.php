@@ -1,7 +1,3 @@
 <?php
-
-echo "Hola";
-
-
-//header("Location: /VISTA/Registro_F.php");
+header("Location: src/VISTA/Registro_F.php");
 ?>
