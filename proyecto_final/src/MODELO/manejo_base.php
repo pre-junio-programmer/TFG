@@ -1,6 +1,6 @@
 <?php
 
-include_once "/app/MODELO/conexion.php";
+include_once "/app/src/MODELO/conexion.php";
 
 class Operaciones_Base {
 

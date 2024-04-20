@@ -1,5 +1,5 @@
 <?php
-include_once "/app/MODELO/conexion.php";
+include_once "/app/src/MODELO/conexion.php";
 
 $mensaje_campos = "";
 $mensaje_nombre = "";
