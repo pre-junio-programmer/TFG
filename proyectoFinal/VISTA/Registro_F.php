@@ -1,14 +1,15 @@
 <?php
 include_once "/app/MODELO/conexion.php";
 
-$mensaje = "";
+$mensaje_campos = "";
+$mensaje_nombre = "";
 
 // Verificar si hay un mensaje de éxito en la URL
 if (isset($_GET['error']) && $_GET['error'] === "Rellena todos los campos por favor") {
-    $mensaje = "Rellena todos los campos por favor";
+    $mensaje_campos = "Rellena todos los campos por favor";
 
 } else if (isset($_GET['error']) && $_GET['error'] === "Nombre_Existente") {
-    $mensaje = "El nombre que has introducido ya está en uso";
+    $mensaje_nombre = "El nombre que has introducido ya está en uso";
 }
 ?>
 
@@ -22,9 +23,18 @@ if (isset($_GET['error']) && $_GET['error'] === "Rellena todos los campos por fa
 <body>
     <h2>Registro de Usuario</h2>
 
-    <?php if ($mensaje != ""): ?>
-        <p><?php echo $mensaje; ?></p>
-    <?php endif; ?>
+    <?php 
+    
+    if ($mensaje_campos != ""){
+
+        echo $mensaje_campos;
+
+    } else if($mensaje_nombre != "") {
+
+        echo $mensaje_nombre;
+        
+    }
+    ?>
 
     <form action="../CONTROLADOR/Registro_Correcto.php" method="post">
         
