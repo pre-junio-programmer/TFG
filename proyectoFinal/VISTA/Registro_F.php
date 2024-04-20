@@ -1,11 +1,14 @@
 <?php
 include_once "/app/MODELO/conexion.php";
 
-$mensajeError_campos = "";
+$mensaje = "";
 
-// Mostrar mensaje de error si existe
-if (!empty($mensajeError_campos)) {
-    echo '<p>' . $mensajeError_campos . '</p>';
+// Verificar si hay un mensaje de éxito en la URL
+if (isset($_GET['error']) && $_GET['error'] === "Rellena todos los campos por favor") {
+    $mensaje = "Rellena todos los campos por favor";
+
+} else if (isset($_GET['error']) && $_GET['error'] === "Nombre_Existente") {
+    $mensaje = "El nombre que has introducido ya está en uso";
 }
 ?>
 
@@ -18,6 +21,11 @@ if (!empty($mensajeError_campos)) {
 </head>
 <body>
     <h2>Registro de Usuario</h2>
+
+    <?php if ($mensaje != ""): ?>
+        <p><?php echo $mensaje; ?></p>
+    <?php endif; ?>
+
     <form action="../CONTROLADOR/Registro_Correcto.php" method="post">
         
         <label for="nombre">Nombre:</label>

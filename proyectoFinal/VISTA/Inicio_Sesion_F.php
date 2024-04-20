@@ -18,10 +18,11 @@ if (isset($_GET['error']) && $_GET['error'] === "Usuario creado con éxito") {
 </head>
 <body>
     <h2>Inicio de Sesion</h2>
-    <!-- Mostrar mensaje de éxito si existe -->
+
     <?php if ($mensaje != ""): ?>
         <p><?php echo $mensaje; ?></p>
     <?php endif; ?>
+    
     <form action="../CONTROLADOR/Inicio_Correcto.php" method="post">
         
         <label for="nombre">Nombre:</label>
@@ -31,8 +32,8 @@ if (isset($_GET['error']) && $_GET['error'] === "Usuario creado con éxito") {
         
         <label for="contraseña">Contraseña:</label>
         <input type="password" id="contraseña" name="contraseña"> 
-        <!-- Agregamos un elemento de imagen que se puede hacer clic para mostrar la contraseña -->
-        <img src="../imagenes/ojo.png" id="mostrarContrasena" width="30px" height="30px" style="cursor: pointer;">
+
+        <img src="../imagenes/ojo.png" id="mostrar" width="30px" height="30px" style="cursor: pointer;">
         
         <br><br>
         
@@ -40,7 +41,7 @@ if (isset($_GET['error']) && $_GET['error'] === "Usuario creado con éxito") {
     </form>
     
     <script>
-        function alternarTipoContrasena() {
+        function click_imagen() {
             var campoContrasena = document.getElementById("contraseña");
             if (campoContrasena.type === "password") {
                 campoContrasena.type = "text";
@@ -48,7 +49,7 @@ if (isset($_GET['error']) && $_GET['error'] === "Usuario creado con éxito") {
                 campoContrasena.type = "password";
             }
         }
-        document.getElementById("mostrarContrasena").addEventListener("click", alternarTipoContrasena);
+        document.getElementById("mostrar").addEventListener("click", click_imagen);
     </script>
 </body>
 </html>
