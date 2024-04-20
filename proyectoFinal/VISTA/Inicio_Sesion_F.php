@@ -1,6 +1,8 @@
 <?php
 include_once "/app/MODELO/conexion.php";
 
+$mensaje = "";
+
 // Verificar si hay un mensaje de éxito en la URL
 if (isset($_GET['error']) && $_GET['error'] === "Usuario creado con éxito") {
     $mensaje = "Usuario creado con éxito";
