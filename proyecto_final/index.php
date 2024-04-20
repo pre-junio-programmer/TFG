@@ -1,5 +1,3 @@
 <?php
-header("Location: src/VISTA/Registro_F.php");
-
-//algo
+header("Location: src/VISTA/Registro_F.js");
 ?>
