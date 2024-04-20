@@ -68,7 +68,7 @@ class Operaciones_Base {
     
         // Verificar si algún campo está vacío
         if(empty($nombreUsu) || empty($correoUsu) || empty($contraUsu) || empty($direccionUsu) || empty($saldo)) {
-            return $mensajeError_campos;
+            return "Campo_Vacío";
         }
     
         // Verificar si el nombre de usuario ya existe

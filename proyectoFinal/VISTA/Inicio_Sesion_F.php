@@ -1,13 +1,9 @@
 <?php
 include_once "/app/MODELO/conexion.php";
 
-// Verificar si hay un mensaje de éxito en la sesión
-if (isset($_SESSION['mensaje'])) {
-    $mensaje = $_SESSION['mensaje'];
-    // Eliminar el mensaje de la sesión para que no se muestre más de una vez
-    unset($_SESSION['mensaje']);
-} else {
-    $mensaje = ""; // Si no hay mensaje, establecer como cadena vacía
+// Verificar si hay un mensaje de éxito en la URL
+if (isset($_GET['error']) && $_GET['error'] === "Usuario creado con éxito") {
+    $mensaje = "Usuario creado con éxito";
 }
 ?>
 
@@ -50,7 +46,7 @@ if (isset($_SESSION['mensaje'])) {
                 campoContrasena.type = "password";
             }
         }
-        document.getElementById("mostrar_contrasena").onclick(alternarTipoContrasena);
+        document.getElementById("mostrarContrasena").addEventListener("click", alternarTipoContrasena);
     </script>
 </body>
 </html>
