@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
-function Registro_F() {
+function Registro_F({ handleSubmit }) {
+  // Estado para controlar la visibilidad de la contraseña
   const [contraseñaVisible, setContraseñaVisible] = useState(false);
 
+  // Función para alternar la visibilidad de la contraseña
   const toggleContraseñaVisibilidad = () => {
     setContraseñaVisible(!contraseñaVisible);
   };
@@ -11,7 +13,8 @@ function Registro_F() {
     <div>
       <h2>Registro de Usuario</h2>
 
-      <form action="../CONTROLADOR/Registro_Correcto.php" method="post">
+      {/* Formulario con evento onSubmit que llama a la función handleSubmit */}
+      <form onSubmit={handleSubmit}>
         <label htmlFor="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" />
 
