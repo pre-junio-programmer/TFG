@@ -14,7 +14,7 @@ header("Location: src/App.js");
     <div id="registro-form-container"></div>
 
     <!-- Incluye el script de React -->
-    <script src="ruta/a/tu/App.js"></script>
+    <script src="src/App.js"></script>
 
     <!-- Aquí incluye tu script de React que renderiza el componente -->
     <script>
