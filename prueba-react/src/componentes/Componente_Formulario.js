@@ -16,7 +16,7 @@ import ojo from './img/ojo.png';
  * @returns {React.Component} Formulario
  */
 
-const Formulario = ({ nombre, metodoEnvio, rutaEnvio, nombreInputs, tipoCampo, opcionesSelect, radioValues, checboxValues, onSubmit }) => {
+  const Formulario = ({ nombre, metodoEnvio, rutaEnvio, nombreInputs, tipoCampo, opcionesSelect, radioValues, checboxValues, onSubmit }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -168,7 +168,7 @@ const Formulario = ({ nombre, metodoEnvio, rutaEnvio, nombreInputs, tipoCampo, o
       <form name={nombre} method={metodoEnvio} action={rutaEnvio} onSubmit={handleSubmit}>
         <h2>{nombre}</h2>
         {renderInputs()}
-        <input type="submit" value="Registrarse" />
+        <input type="submit" value={nombre} />
       </form>
     </div>
   );
