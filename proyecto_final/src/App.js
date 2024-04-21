@@ -29,7 +29,7 @@ function Registro_F() {
 
         <label htmlFor="contraseña">Contraseña:</label>
         <input type={contraseñaVisible ? "text" : "password"} id="contraseña" name="contraseña" />
-        <img src="../imagenes/ojo.png" onClick={toggleContraseñaVisibilidad} width="30px" height="30px" style={{ cursor: 'pointer' }} />
+        <img src="imagenes/ojo.png" onClick={toggleContraseñaVisibilidad} width="30px" height="30px" style={{ cursor: 'pointer' }} />
 
         <br /><br />
 
