@@ -5,18 +5,21 @@ import './index.css';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import reportWebVitals from './reportWebVitals';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
 
-    <Link to="/login">Hola</Link>
-    <Link to="/register">Adios</Link>
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
-  </BrowserRouter>
+    <App />
+//   <BrowserRouter>
+
+//     <Link to="/login">Hola</Link>
+//     <Link to="/register">Adios</Link>
+//     <Routes>
+//       <Route path="/login" element={<Login />} />
+//       <Route path="/register" element={<Register />} />
+//     </Routes>
+//   </BrowserRouter>
 );
 
 reportWebVitals();
