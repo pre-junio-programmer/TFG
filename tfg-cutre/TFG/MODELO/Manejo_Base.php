@@ -3,32 +3,38 @@ class Base_Operaciones {
     
     public static function conexion() {
         try {
-            $conexion = new PDO('mysql:host=localhost; dbname=usermgmt', 'root', '');
+            $host = 'monorail.proxy.rlwy.net';
+            $dbname = 'railway';
+            $username = 'root';
+            $password = 'ggoGcWckkNAxovJZuwHhjgVxqAplZkvP';
+            $port = 54304;
+    
+            $dsn = "mysql:host=$host;port=$port;dbname=$dbname";
+    
+            $conexion = new PDO($dsn, $username, $password);
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $conexion->exec("SET CHARACTER SET UTF8");
         } catch (Exception $e) {
             echo "Linea de error: " . $e->getLine();
-            die("Erro" . $e->getMessage());
+            die("Error: " . $e->getMessage());
         }
         return $conexion;
     }
+    
 
 
 
-    public static function comprobarCampoUnico($valor,$campo) {
+    public static function comprobarCampoUnico($valor, $campo) {
         $conexion = Base_Operaciones::conexion();
-
-        $buscarCampo = "SELECT COUNT(*) as count FROM users WHERE {$campo} = :valor";
+        $buscarCampo = "SELECT COUNT(*) as count FROM Usuario WHERE {$campo} = :valor";
         $ejecutarCampo = $conexion->prepare($buscarCampo);
         $ejecutarCampo->bindValue(":valor", $valor);
         $ejecutarCampo->execute();
-    
-        $existeCampo = $ejecutarCampo->fetch(PDO::FETCH_ASSOC);
-    
         
+        $existeCampo = $ejecutarCampo->fetch(PDO::FETCH_ASSOC);
         return $existeCampo['count'] > 0;
-       
     }
+    
     
 
     public static function obtenerUltimoIdUsuario() {
@@ -83,29 +89,27 @@ class Base_Operaciones {
     
     public static function inicioExitoso($nombreIntroducido, $contraIntroducida) {
         $conexion = Base_Operaciones::conexion();
-        $nombreExistente = Base_Operaciones::comprobarCampoUnico($nombreIntroducido,"name");
-        if($nombreExistente){
-            
-            $sql = "SELECT password FROM users WHERE name = :nombreUsu";
+        $nombreExistente = Base_Operaciones::comprobarCampoUnico($nombreIntroducido, "nombre_u");
+        if ($nombreExistente) {
+            $sql = "SELECT contra_u FROM Usuario WHERE nombre_u = :nombreUsu";
             $resultado = $conexion->prepare($sql);
             $resultado->bindValue(":nombreUsu", $nombreIntroducido);
-            
             $resultado->execute();
             
-            $contraSena= $resultado->fetch()["password"]; 
+            $contraSena = $resultado->fetch()["contra_u"];
             
-            if($contraIntroducida ==$contraSena){
+            if ($contraIntroducida == $contraSena) {
                 session_start();
                 $_SESSION['nombreDeSesion'] = $nombreIntroducido;
-                
                 return true;
-            } else {   
+            } else {
                 return false;
             }
-        } else { 
+        } else {
             return false;
         }
     }
+    
  
     public static function mostrarPinturas($nombreUsuario) {
         $conexion = Base_Operaciones::conexion();
