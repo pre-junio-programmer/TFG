@@ -5,6 +5,7 @@ require_once "../MODELO/Manejo_Base.php";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $categoria = $_POST['categoria'];
     $productos = Base_Operaciones::mostrarProductos($categoria);
+    
 
     foreach ($productos as $producto) {
         echo '<div class="producto">';
