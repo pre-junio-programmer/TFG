@@ -1,0 +1,75 @@
+body {
+    background: linear-gradient(to right, #6600cc, #660099, #660066);
+    color: #ffffff !important;
+}
+
+.divGrande {
+    box-shadow: #fcf7f7 2px 2px 10px 2px;
+    border-radius: 20px;
+}
+
+.divFormulario input text {
+    color: #e71c1c;
+}
+
+.divOjo {
+    background-color: transparent;
+}
+
+.botonEnviar {
+    background: linear-gradient(to right, #008cff, #00b7ff);
+    height: 45px;
+    border: none; 
+    color: white; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+}
+
+.mensajesError {
+    color: #2bff00;
+    font-style: italic;
+
+    margin: 10px
+}
+
+.aBoton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    position: relative;
+    top: 2px;
+    left: 20px;
+    margin: 10px
+}
+
+.aBoton:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+  
+#ojo {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin: 10px;
+}
+
+#formulario {
+    transition: background-color 3s ease;
+}
+
+#formulario:hover {
+    background: linear-gradient(to right, #0059ff, #00ff95);
+    background-color: #222222;
+}
+
+#formulario:focus-within {
+    background-color: #222222;
+}
