@@ -1,2 +1,2 @@
 <?php
-header("Location: ./TFG/VISTA/InicioSesion.html");
+header("Location: ./Pagina_Principal_chakra.js");
