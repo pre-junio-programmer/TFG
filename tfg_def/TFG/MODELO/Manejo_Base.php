@@ -209,6 +209,27 @@ class Base_Operaciones {
     
         return $producto;
     }
+
+    public static function obtenerComentariosPorProducto($id_producto) {
+        $conexion = Base_Operaciones::conexion();
+        
+        $sql = "SELECT u.nombre_u AS nombre_usuario, c.valoracion_c, c.comentario_c 
+                FROM Comentario c
+                JOIN Relacion_Comentario rc ON c.id_comentario = rc.id_comentario
+                JOIN Usuario u ON rc.id_usuario = u.id_usuario
+                WHERE rc.id_producto = :id_producto";
+        
+        $consultaComentario = $conexion->prepare($sql);
+        $consultaComentario->bindParam(":id_producto", $id_producto);
+        $consultaComentario->execute();
+        
+        $comentarios = $consultaComentario->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $comentarios;
+    }
+    
+    
+    
     
 }
 
