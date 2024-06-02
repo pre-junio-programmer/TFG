@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p class="card-text"><?php echo htmlspecialchars($descripcion); ?></p>
                         <h3 class="card-subtitle mb-2 text-muted">Precio: <?php echo htmlspecialchars($precio); ?> €</h3>
                         <h4 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($stock); ?> disponibles</h4>
-                        <a href="#" class="btn btn-primary">Comprar</a>
+                        <a href="#" class="btn btn-primary">Añadir al carrito</a>
                         <br>
                         <br>
                         <form id="ordenForm" method="post" action="">
@@ -137,6 +137,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p>No hay comentarios para este producto.</p>
                 <?php endif; ?>
                 <a href="NuevoComentario.html?producto=<?php echo urlencode($nombre); ?>&id=<?php echo urlencode($id_producto); ?>" class="btn btn-primary">+ Añadir Comentario</a>
+                <br>
+                <br>
+                <a href="PaginaPrincipal.html" class="btn btn-primary">Volver</a>
             </div>
         </div>
     </div>
