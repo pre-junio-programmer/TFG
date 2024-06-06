@@ -20,9 +20,11 @@ function mostrarVentas() {
     });
   })
 }
+
 window.onload = () => {
   mostrarVentas();
 }
+
 let borrarTodo = () => {
   const contenedorVentas = document.getElementById('contenedor_ventas');
   contenedorVentas.innerHTML = '';
