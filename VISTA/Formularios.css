@@ -27,7 +27,7 @@ body {
     margin: 0;
 }
 
-input {
+input:not([type="file"]) {
     height: 50px;
 }
 

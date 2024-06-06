@@ -28,8 +28,6 @@ window.onload = () => {
     } else {
         contenedorError.style.display = "none";
     }
-
-    
     
 
     const nombre = document.getElementById("nombre");
@@ -53,9 +51,15 @@ window.onload = () => {
         verificarCampos();
     });
 
+    const fichero = document.getElementById("fotoPerfil");
+    fichero.addEventListener("change", () => {
+        comprobarFichero(event);
+        verificarCampos();
+    });
+
     const formulario = document.getElementById("formulario");
     formulario.addEventListener("submit", (event) => {
-        if (formularioVacio(nombre, errorNombre) || formularioVacio(direccion, errorDireccion) || !comprobacionEmail()) {
+        if (formularioVacio(nombre, errorNombre) || formularioVacio(direccion, errorDireccion) || !comprobacionEmail() || comprobarFichero(event) == false) {
             event.preventDefault();
         }
     });
@@ -100,3 +104,22 @@ let verificarCampos = () => {
         botonCambiar.disabled = false;
     }
 };
+
+let comprobarFichero = (event) => {
+    const fichero = document.getElementById("fotoPerfil");
+    const errorSubirFoto = document.getElementById("errorSubirFotoPerfil");
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+    let fileName = fichero.value;
+    let fileExtension = fileName.split('.').pop().toLowerCase();
+
+    if (fileName.lastIndexOf('.') === -1 || !allowedExtensions.includes(fileExtension)) {
+        event.preventDefault();
+        errorSubirFoto.innerHTML = `La foto tiene que ser de tipo: ${allowedExtensions.join(', ')}`;
+        errorSubirFoto.style = "color: red; font-style: italic; margin: 10px";
+        fichero.value = '';
+        return false;
+    } else {
+        errorSubirFoto.innerHTML = "";
+        return true;
+    }
+}
