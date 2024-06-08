@@ -2,93 +2,104 @@ html {
     background-color: #222222;
 }
 
+body {
+    background-color: transparent !important;
+}
+
 .navbar {
-    background-color: #000000 !important; 
-    color: #FFFFFF; 
+    background-color: #000000; /* Fondo negro */
+    color: #FFFFFF; /* Texto blanco */
 }
 
 .navbar-brand {
-    color: #FFFFFF; 
+    color: #FFFFFF; /* Texto blanco para la marca */
 }
 
 .navbar-brand:hover {
-    color: #CCCCCC; 
+    color: #CCCCCC; /* Color al pasar el ratón */
 }
 
 .navbar-nav .nav-link {
-    color: #FFFFFF; 
+    color: #FFFFFF; /* Texto blanco para los enlaces */
 }
 
 .navbar-nav .nav-link:hover {
-    color: #1E90FF; 
+    color: #1E90FF; /* Color azul claro al pasar el ratón */
 }
 
 /* Dropdowns */
 .nav-item .dropdown-menu {
-    background-color: #333333; 
+    background-color: #333333; /* Fondo gris oscuro para los dropdowns */
 }
 
 .nav-item .dropdown-item {
-    color: #FFFFFF; 
+    color: #FFFFFF !important; /* Texto blanco para los items del dropdown */
 }
 
 .nav-item .dropdown-item:hover {
-    background-color: #1E90FF; 
-    color: #FFFFFF; 
+    background-color: #1E90FF; /* Fondo azul claro al pasar el ratón */
+    color: #FFFFFF !important; /* Texto blanco al pasar el ratón */
+}
+
+.navbar-nav .nav-item.dropdown:hover .nav-link,
+.navbar-nav .nav-item.dropdown.show .nav-link {
+    color: #FFFFFF !important; /* Mantener el texto blanco cuando el dropdown está abierto */
 }
 
 /* Botón de búsqueda */
 .form-control {
-    background-color: #444444; 
-    color: #FFFFFF; 
-    border: 1px solid #555555; 
+    background-color: #444444; /* Fondo gris oscuro */
+    color: #FFFFFF; /* Texto blanco */
+    border: 1px solid #555555; /* Borde gris medio */
 }
 
 .form-control::placeholder {
-    color: #CCCCCC; 
+    color: #CCCCCC; /* Color del placeholder */
 }
 
 .btn-outline-success {
-    color: #FFFFFF; 
-    border-color: #1E90FF; 
+    color: #FFFFFF; /* Texto blanco */
+    border-color: #1E90FF; /* Borde azul claro */
 }
 
 .btn-outline-success:hover {
-    background-color: #1E90FF; 
-    color: #FFFFFF; 
+    background-color: #1E90FF; /* Fondo azul claro al pasar el ratón */
+    color: #FFFFFF; /* Texto blanco al pasar el ratón */
 }
 
 /* Icono de usuario */
 #botonUsuario img {
-    border: 2px solid #1E90FF; 
+    border: 2px solid #1E90FF; /* Borde azul claro alrededor del icono */
 }
 
 .dropdown-center .dropdown-menu {
-    background-color: #333333; 
+    background-color: #333333; /* Fondo gris oscuro para el dropdown del usuario */
 }
 
 .dropdown-center .dropdown-item {
-    color: #FFFFFF; 
+    color: #FFFFFF !important; /* Texto blanco para los items del dropdown del usuario */
 }
 
 .dropdown-center .dropdown-item:hover {
-    background-color: #1E90FF; 
-    color: #FFFFFF; 
+    background-color: #1E90FF; /* Fondo azul claro al pasar el ratón */
+    color: #FFFFFF !important; /* Texto blanco al pasar el ratón */
 }
 
 /* Saldo del usuario */
 #saldoUsuario, #saldoUsuario + label {
-    color: #FFFFFF !important; 
+    color: #FFFFFF !important; /* Texto blanco */
 }
 
 /* Divider */
 .dropdown-divider {
-    border-color: #555555; 
+    border-color: #555555; /* Color gris medio para el divisor */
 }
 
-#btnUsuario {
-    background-color: transparent;
-    border: none;
+/* Estilos para los productos que salen en cards */
+.productos {
 
-    border-radius: 50%;
+}
+
+#contenedor_productos {
+    background-color: transparent !important;
 }
