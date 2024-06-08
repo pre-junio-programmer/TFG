@@ -2,8 +2,12 @@ html {
     background-color: #222222;
 }
 
+body {
+    background-color: transparent;
+}
+
 .navbar {
-    background-color: #000000 !important; 
+    background-image: linear-gradient(to right, #000000, #ffffff); /* Gradient de negro a gris oscuro */
     color: #FFFFFF; 
 }
 
@@ -71,14 +75,14 @@ html {
     color: #FFFFFF; 
 }
 
-/* Saldo del usuario */
-#saldoUsuario, #saldoUsuario + label {
-    color: #FFFFFF !important; 
-}
-
 /* Divider */
 .dropdown-divider {
     border-color: #555555; 
+}
+
+/* Saldo del usuario */
+#saldoUsuario, #saldoUsuario + label {
+    color: #000000 !important; 
 }
 
 #btnUsuario {
@@ -87,3 +91,21 @@ html {
 
     border-radius: 50%;
 }
+
+#contenedor_productos {
+    background-color: transparent;
+}
+
+.card-title {
+    position: absolute;
+    bottom: 100px;
+}
+
+.card-text {
+    position: absolute;
+    bottom: 30px;
+
+    max-height: 60px;
+    overflow: auto;
+}
+

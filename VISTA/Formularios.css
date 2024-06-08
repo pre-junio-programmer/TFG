@@ -28,7 +28,7 @@ body {
 }
 
 input:not([type="button"]):not([type="submit"]) {
-    width: 200px;
+    width: 350px;
 }
 
 input:not([type="file"]) {
