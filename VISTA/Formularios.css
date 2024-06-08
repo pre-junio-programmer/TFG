@@ -27,6 +27,10 @@ body {
     margin: 0;
 }
 
+input:not([type="button"]):not([type="submit"]) {
+    width: 200px;
+}
+
 input:not([type="file"]) {
     height: 50px;
 }
