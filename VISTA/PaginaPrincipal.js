@@ -17,6 +17,7 @@ function mostrarProductos(categoria) {
 
 window.onload = function() {
   obtenerSaldoUsuario();
+  obtenerNombreUsuario();
 };
 
 function obtenerSaldoUsuario() {
@@ -24,6 +25,15 @@ function obtenerSaldoUsuario() {
     .then(response => response.text())
     .then(data => {
       document.getElementById('saldoUsuario').textContent = data.trim() || '0';
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function obtenerNombreUsuario() {
+  fetch('../CONTROLADOR/Obtener_Nombre_Usuario.php')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('nombre').textContent = data.trim() || 'Nombre de usuario';
     })
     .catch(error => console.error('Error:', error));
 }
