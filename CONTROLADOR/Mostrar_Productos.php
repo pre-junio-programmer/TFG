@@ -28,7 +28,7 @@
             echo '<a href="../VISTA/producto.php?id=' . $producto['id_producto'] . '" class="text-decoration-none text-dark">';
             echo '<div class="card border-dark" style="width: 300px; height: 450px">';
             if ($ruta) {
-                echo '<img src="' . $ruta . '" class="card-img-top img-fluid" style="width: 370px; height: 300px" alt="Producto ' . $id_producto . '">';
+                echo '<img src="' . $ruta . '" class="card-img-top img-fluid" style="width: 370px; height: 280px" alt="Producto ' . $id_producto . '">';
             }
             echo '<div class="card-body">';
             echo '<h5 class="card-title">' . $producto['nombre_p'] . '</h5>';
