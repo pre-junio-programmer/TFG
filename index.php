@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,7 +22,3 @@
     </div>
 </body>
 </html>
-=======
-<?php
-header("Location: ./TFG/VISTA/InicioSesion.html");
->>>>>>> Pruebas

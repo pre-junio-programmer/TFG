@@ -17,10 +17,7 @@ function mostrarProductos(categoria) {
 
 window.onload = function() {
   obtenerSaldoUsuario();
-<<<<<<< HEAD
   obtenerNombreUsuario();
-=======
->>>>>>> Pruebas
 };
 
 function obtenerSaldoUsuario() {
@@ -30,7 +27,6 @@ function obtenerSaldoUsuario() {
       document.getElementById('saldoUsuario').textContent = data.trim() || '0';
     })
     .catch(error => console.error('Error:', error));
-<<<<<<< HEAD
 }
 
 function obtenerNombreUsuario() {
@@ -40,6 +36,4 @@ function obtenerNombreUsuario() {
       document.getElementById('nombre').textContent = data.trim() || 'Nombre de usuario';
     })
     .catch(error => console.error('Error:', error));
-=======
->>>>>>> Pruebas
 }

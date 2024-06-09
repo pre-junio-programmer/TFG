@@ -28,11 +28,6 @@ window.onload = () => {
     } else {
         contenedorError.style.display = "none";
     }
-<<<<<<< HEAD
-=======
-
-    
->>>>>>> Pruebas
     
 
     const nombre = document.getElementById("nombre");
@@ -56,7 +51,6 @@ window.onload = () => {
         verificarCampos();
     });
 
-<<<<<<< HEAD
     const fichero = document.getElementById("fotoPerfil");
     fichero.addEventListener("change", () => {
         comprobarFichero(event);
@@ -66,11 +60,6 @@ window.onload = () => {
     const formulario = document.getElementById("formulario");
     formulario.addEventListener("submit", (event) => {
         if (formularioVacio(nombre, errorNombre) || formularioVacio(direccion, errorDireccion) || !comprobacionEmail() || comprobarFichero(event) == false) {
-=======
-    const formulario = document.getElementById("formulario");
-    formulario.addEventListener("submit", (event) => {
-        if (formularioVacio(nombre, errorNombre) || formularioVacio(direccion, errorDireccion) || !comprobacionEmail()) {
->>>>>>> Pruebas
             event.preventDefault();
         }
     });
@@ -114,7 +103,6 @@ let verificarCampos = () => {
     } else {
         botonCambiar.disabled = false;
     }
-<<<<<<< HEAD
 };
 
 let comprobarFichero = (event) => {
@@ -135,6 +123,3 @@ let comprobarFichero = (event) => {
         return true;
     }
 }
-=======
-};
->>>>>>> Pruebas

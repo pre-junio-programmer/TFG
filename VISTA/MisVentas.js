@@ -20,17 +20,11 @@ function mostrarVentas() {
     });
   })
 }
-<<<<<<< HEAD
 
 window.onload = () => {
   mostrarVentas();
 }
 
-=======
-window.onload = () => {
-  mostrarVentas();
-}
->>>>>>> Pruebas
 let borrarTodo = () => {
   const contenedorVentas = document.getElementById('contenedor_ventas');
   contenedorVentas.innerHTML = '';
