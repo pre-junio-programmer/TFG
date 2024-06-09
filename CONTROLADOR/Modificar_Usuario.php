@@ -7,9 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre = $_POST['nombre'];
     $direccion = $_POST['direccion'];
     $correo = $_POST['email'];
-    
+    $directorio_img = "../img/usuario/";
     $id_usuario = $_SESSION['id_usuario'];
-    $respuesta = Base_Operaciones::updateUser($id_usuario,$nombre,$direccion,$correo);
+    $respuesta = Base_Operaciones::updateUser($id_usuario, $nombre, $direccion, $correo);
 
     if ($respuesta == "A") {
         header("Location: ../VISTA/CambiarInformacionUsuario.html?error=1");
@@ -18,8 +18,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: ../VISTA/CambiarInformacionUsuario.html?error=2");
         exit();
     } else {
-        header("Location: ../VISTA/PaginaPrincipal.html");
-        exit();
+        if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES["foto"]["tmp_name"];
+            $fileExtension = strtolower(pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION));
+            $nuevoNombreArchivo = $id_usuario . "." . $fileExtension;
+            $imagen = $directorio_img . $nuevoNombreArchivo;
+
+            // Eliminar la imagen anterior si existe
+            $imagenesExistentes = glob($directorio_img . $id_usuario . ".*");
+            foreach ($imagenesExistentes as $img) {
+                if (file_exists($img)) {
+                    unlink($img);
+                }
+            }
+
+            if (move_uploaded_file($fileTmpPath, $imagen)) {
+                header("Location: ../VISTA/CambiarInformacionUsuario.html");
+                exit();
+            } else {
+                header("Location: ../VISTA/CambiarInformacionUsuario.html?error=3");
+                exit();
+            }
+        } else {
+            header("Location: ../VISTA/CambiarInformacionUsuario.html");
+            exit();
+        }
     }
 }
 ?>

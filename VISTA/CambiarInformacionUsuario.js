@@ -9,6 +9,7 @@ window.onload = () => {
                 document.getElementById("nombre").value = data[0];
                 document.getElementById("direccion").value = data[1];
                 document.getElementById("email").value = data[2];
+                document.getElementById("fotoPerfil").value = data[3];
             } else {
                 console.error("Error al obtener datos del usuario");
             }

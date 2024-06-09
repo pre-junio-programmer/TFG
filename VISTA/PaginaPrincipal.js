@@ -29,10 +29,21 @@ function mostrarNovedades() {
 
 function obtenerSaldoUsuario() {
   fetch('../CONTROLADOR/Mostrar_Saldo.php')
-    .then(response => response.json())  
+    .then(response => response.text())
     .then(data => {
-      document.getElementById('saldoUsuario').textContent = data.saldo.trim() || '0';
-      document.getElementById('imagen_usuario').src = data.imagen_url;
+      document.getElementById('saldoUsuario').textContent = data.trim() || '0';
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function obtenerImagenUsuario() {
+  fetch('../CONTROLADOR/Mostrar_Imagen.php')
+    .then(response => response.text())
+    .then(data => {
+      var imgElement = document.getElementById('imagen_usuario');
+      if (imgElement) {
+        imgElement.src = data;
+      }
     })
     .catch(error => console.error('Error:', error));
 }
@@ -51,7 +62,7 @@ window.onload = function() {
   };
   xhr.send();
 
-
+  obtenerImagenUsuario();
   obtenerSaldoUsuario();
   mostrarNovedades();
   obtenerNombreUsuario();
