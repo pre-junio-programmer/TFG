@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $direccion = $_POST['direccion'];
     $correo = $_POST['email'];
     
-    $id_usuario = Base_Operaciones::seleccionarValor($nombre_usuario, 'id_usuario', 'nombre_u', 'usuario');
+    $id_usuario = $_SESSION['id_usuario'];
     $respuesta = Base_Operaciones::updateUser($id_usuario,$nombre,$direccion,$correo);
 
     if ($respuesta == "A") {

@@ -3,14 +3,29 @@ session_start();
 require_once "../MODELO/Manejo_Base.php";
 
 $valor_nombre = $_SESSION['nombreDeSesion'];
-$saldo='saldo_u';
-$campo_n='nombre_u';
-$usuario_t='usuario';
-$respuesta = Base_Operaciones::seleccionarValor($valor_nombre, $saldo, $campo_n, $usuario_t);
+$id_usuario=$_SESSION['id_usuario'];
+$respuesta = $_SESSION['saldo_u'];
+$ruta_base = '../img/usuario/';
 
-if($respuesta != null){
-    echo $respuesta;
-} else {
-    echo '0';
+$extensiones = ['jpg', 'png', 'jpeg'];
+
+$imagen_url = '';
+foreach ($extensiones as $extension) {
+    $ruta_imagen = $ruta_base . $id_usuario . '.' . $extension;
+    if (file_exists($ruta_imagen)) {
+        $imagen_url = $ruta_imagen;
+        break;
+    }
 }
+
+if ($imagen_url === '') {
+    $imagen_url = '../img/usuario.png'; 
+}
+
+$response = [
+    'saldo' => $respuesta != null ? $respuesta : '0',
+    'imagen_url' => $imagen_url
+];
+
+echo json_encode($response);
 ?>

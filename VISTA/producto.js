@@ -29,6 +29,17 @@ window.onload = () => {
       creacionDiv.style.display = "none";
     }
   });
+
+  const cantidad = document.getElementById("Cantidad");
+  const errorCantidad = document.getElementById("errorCantidad");
+  const stock = parseInt(document.getElementById("stock").textContent);
+
+  cantidad.addEventListener("input", () => validarCantidad(cantidad, stock, errorCantidad));
+
+  const botonAnadir = document.getElementById("Anadir");
+  actualizarEstadoBoton2(cantidad, botonAnadir);
+
+  cantidad.addEventListener("input", () => actualizarEstadoBoton2(cantidad, botonAnadir, stock));
 };
 
   function cambiarOrden() {
@@ -65,26 +76,37 @@ window.onload = () => {
   }
 
 function formularioVacio (elemento, labelError) {
+
   if (elemento.value.trim() === "") {
+
     let mensajeError = `El campo ${elemento.name} no es valido`;
     labelError.innerHTML = mensajeError;
     labelError.style = "color: red; font-style: italic; margin: 10px";
     return true;
+
   } else if (elemento.name === "Valoracion") {
+
     let valoracion = parseInt(elemento.value.trim());
+
     if (isNaN(valoracion) || valoracion < 1 || valoracion > 5) {
+
       let mensajeError = `La valoración debe ser un número entre 1 y 5`;
       labelError.innerHTML = mensajeError;
       labelError.style = "color: red; font-style: italic; margin: 10px";
       return true;
+
     } else {
+
       labelError.innerHTML = "";
       return false;
     }
+
   } else {
+
     labelError.innerHTML = "";
     return false;
   }
+
 };
 
 function actualizarEstadoBoton (comentario, Valoracion, botonEnviar) {
@@ -94,3 +116,35 @@ function actualizarEstadoBoton (comentario, Valoracion, botonEnviar) {
     botonEnviar.disabled = false;
   }
 };
+
+function actualizarEstadoBoton2(cantidad, botonAnadir, stock) {
+  const cantidadValue = parseInt(cantidad.value.trim());
+  
+  if (isNaN(cantidadValue) || cantidadValue < 1 || cantidadValue > stock) {
+    botonAnadir.disabled = true;
+  } else {
+    botonAnadir.disabled = false;
+  }
+}
+
+function validarCantidad(cantidadInput, stock, errorLabel, botonAnadir) {
+
+  const cantidad = parseInt(cantidadInput.value.trim());
+
+  if (isNaN(cantidad) || cantidad < 1 || cantidad > stock) {
+
+    let mensajeError = isNaN(cantidad) || cantidad < 1
+      ? `La cantidad debe ser un número positivo`
+      : `La cantidad no puede superar el stock disponible (${stock})`;
+    errorLabel.innerHTML = mensajeError;
+    errorLabel.style = "color: red; font-style: italic; margin: 10px";
+    botonAnadir.classList.add("disabled");
+    botonAnadir.setAttribute("aria-disabled", "true");
+
+  } else {
+
+    errorLabel.innerHTML = "";
+    botonAnadir.classList.remove("disabled");
+    botonAnadir.removeAttribute("aria-disabled");
+  }
+}

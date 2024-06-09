@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $contrasena = $_POST['contra'];
 
     
-    $id_usuario = Base_Operaciones::seleccionarValor($nombre_usuario, 'id_usuario', 'nombre_u', 'usuario');
+    $id_usuario = $_SESSION['id_usuario'];
     Base_Operaciones::updateCampo($id_usuario,$contrasena,'id_usuario','contra_u','usuario');
     header("Location: ../VISTA/ModificacionesUsuario.html");
 }
