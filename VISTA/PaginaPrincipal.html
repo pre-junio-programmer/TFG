@@ -13,7 +13,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Click&Buy
+      <a class="navbar-brand" href="#" onclick="mostrarProductos('NOV')">Click&Buy
       </a>
       <button
         class="navbar-toggler"
@@ -28,7 +28,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          
+          <li class="nav-link">
+            <a href="#" class="dropdown-item" onclick="mostrarProductos('NOV')">Novedades</a>
+          </li>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -140,8 +142,9 @@
 
         <div class="dropdown-center me-4">
           <button class="rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnUsuario">
-            <img src="../img/usuario.png" width="65" height="65" class="rounded-circle img-fluid" alt="Usuario">
+            <img src="" width="65" height="65" class="rounded-circle img-fluid" alt="Usuario" id="imagen_usuario">
           </button>
+          
           <ul class="dropdown-menu">
             <li><h5 id="nombre" style="text-align: center; color: white;"></h5></li>
             <li><hr class="dropdown-divider"></li>
@@ -151,7 +154,7 @@
             <li><a class="dropdown-item" href="./MisVentas.html" id="">Mis Ventas</a></li>
             <li><a class="dropdown-item" href="./ModificacionesUsuario.html" id="">Modificaciones del Perfil</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#" style="color: red">Cerrar Sesión</a></li>
+            <li><a id="link-cerrar" class="dropdown-item" href="#" style="color: red">Cerrar Sesión</a></li>
           </ul>
           <label id="saldoUsuario" style="margin-left: 20px; color:black"></label><label style="margin-right: 10px; color:black">&nbsp;€</label>
         </div>          

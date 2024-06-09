@@ -70,7 +70,11 @@ class Base_Operaciones {
             $resultado->execute();
             $resultado = "C";
             session_start();
-            $_SESSION['nombreDeSesion'] = $nombreUsu;
+            $_SESSION['nombreDeSesion'] = $nombreUsu;   
+            $_SESSION['id_usuario'] = $idNuevo;
+            $_SESSION['direccion_u'] = $direccion;
+            $_SESSION['correo_u'] = $correoUsu;
+            $_SESSION['saldo_u'] = 0;
             return $resultado;
         }
     }
@@ -98,16 +102,47 @@ class Base_Operaciones {
             return $resultado;
         }
     }
+
+    public static function insertarVenta($nombreProd, $descripcionProd, $categoriaProd, $precioProd,$cantidadProd,$idUsuario) {
+        $conexion = Base_Operaciones::conexion();
+        $idMaximo = Base_Operaciones::obtenerUltimoId('producto','id_producto');
+        $idNuevo = $idMaximo+1;
+            $sql = "INSERT INTO producto (id_producto,nombre_p,categoria_p,descripcion_p,precio_p,cantidad_p,id_usuario) VALUES (:id,:nombre,:descripcion,:categoria,:precio,:cantidad)";
+            $resultado = $conexion->prepare($sql);
+            $resultado->bindValue(":id", $idNuevo);
+            $resultado->bindValue(":nombre", $nombreProd);
+            $resultado->bindValue(":descripcion", $descripcionProd);
+            $resultado->bindValue(":categoria", $categoriaProd);
+            $resultado->bindValue(":precio", $precioProd);
+            $resultado->bindValue(":cantidad", $cantidadProd);
+            $resultado->execute();  
+            
+            $sql = "INSERT INTO relacion_venta (id_usuario,id_producto,cantidad_vr) VALUES (:id_usu,:id_producto,:cantidad_v)";
+            $resultado = $conexion->prepare($sql);
+            $resultado->bindValue(":id_producto", $idNuevo);
+            $resultado->bindValue(":id_usu", $idUsuario);
+            $resultado->bindValue(":cantidad_v", $cantidadProd);
+          
+    
+    }
     public static function inicioExitoso($nombreIntroducido, $contraIntroducida) {
-        $conexion = Base_Operaciones::conexion();     
+        $conexion = Base_Operaciones::conexion();
+        
         $sql = "SELECT * FROM usuario WHERE nombre_u = :nombreUsu AND contra_u = :contraUsu";
         $resultado = $conexion->prepare($sql);
         $resultado->bindValue(":nombreUsu", $nombreIntroducido);
         $resultado->bindValue(":contraUsu", $contraIntroducida);
-        $resultado->execute();       
-        if($resultado->rowCount() > 0) {
+        $resultado->execute();
+        
+        if ($resultado->rowCount() > 0) {
+            $usuario = $resultado->fetch(PDO::FETCH_ASSOC);
             session_start();
             $_SESSION['nombreDeSesion'] = $nombreIntroducido;
+            $_SESSION['id_usuario'] = $usuario['id_usuario'];
+            $_SESSION['direccion_u'] = $usuario['direccion_u'];
+            $_SESSION['correo_u'] = $usuario['correo_u'];
+            $_SESSION['saldo_u'] = $usuario['saldo_u'];
+            
             return true;
         } else {
             return false; 
@@ -125,9 +160,9 @@ class Base_Operaciones {
     
     public static function extraerDatos($clave, $campo, $tabla) {
         $conexion = Base_Operaciones::conexion();
-        $sql = "SELECT * FROM $tabla WHERE $campo = :id_usuario";
+        $sql = "SELECT * FROM $tabla WHERE $campo = :clave";
         $consultaElemento = $conexion->prepare($sql);
-        $consultaElemento->bindParam(":id_usuario", $clave);
+        $consultaElemento->bindParam(":clave", $clave);
         $consultaElemento->execute();
         $datos = $consultaElemento->fetchAll(PDO::FETCH_ASSOC);
         return $datos;
@@ -188,6 +223,9 @@ class Base_Operaciones {
                 $resultado->bindValue(":correo", $email);
                 $resultado->execute();
                 $_SESSION['nombreDeSesion'] = $nombre;
+                $_SESSION['direccion_u'] = $direccion;
+                $_SESSION['correo_u'] = $email;
+                
                 return "C";
             } 
     }

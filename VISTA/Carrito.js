@@ -29,11 +29,7 @@ window.onload = () => {
     
     calcularTotal();
     
-    const camposCantidad = document.getElementsByName("cantidad");
-    camposCantidad.forEach(campo => {
-        campo.addEventListener("change", calcularTotal);
-    });
-
+  
     const botonEliminarTodo = document.getElementById("eliminarTodo");
     botonEliminarTodo.addEventListener("click", eliminarTodo);
 
@@ -42,7 +38,7 @@ window.onload = () => {
 let eliminarFila = (button) => {
     var row = button.parentNode.parentNode;
     var idProducto = row.querySelector('td:first-child').getAttribute('value');
-    var cantidad = row.querySelector('#cantidad').getAttribute('value');
+    var cantidad = row.querySelector('[name="cantidad"]').getAttribute('value');
   
     fetch('../CONTROLADOR/Borrar_Carrito_Individual.php', {
       method: 'POST',
@@ -66,20 +62,6 @@ let eliminarFila = (button) => {
       }
     })
 }
-let calcularTotal = () => {
-    const filas = document.getElementsByName("filas");
-    let total = 0;
-    const precioTotal = document.getElementById("total");
-
-    filas.forEach(fila => {
-        const precio = parseFloat(fila.querySelector("[name='precio']").textContent);
-        const cantidad = parseInt(fila.querySelector("[name='cantidad']").value);
-        total += precio * cantidad;
-    });
-    
-    precioTotal.textContent = "$" + total.toFixed(2);
-}
-
 let eliminarTodo = () => {
     const filas = Array.from(document.getElementsByName("filas"));
     filas.forEach(fila => {
