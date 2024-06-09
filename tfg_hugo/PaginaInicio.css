@@ -127,6 +127,7 @@ h1 {
 }
 
 .bajar {
+    margin-bottom: 10%;
     animation: bajar 2s ease 0s 1 normal forwards;
 }
 
