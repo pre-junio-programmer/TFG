@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*ANIMACIONES*/
 
 @keyframes izquierda {
@@ -40,6 +41,16 @@ input:not([type="file"]) {
     box-shadow: #fcf7f7 2px 2px 10px 2px;
     border-radius: 20px;
     margin: 0 auto 200px auto; 
+=======
+body {
+    background: linear-gradient(to right, #000000, #aa00ff, #ff00ff);
+    color: #ffffff !important;
+}
+
+.divGrande {
+    box-shadow: #fcf7f7 2px 2px 10px 2px;
+    border-radius: 20px;
+>>>>>>> Pruebas
 }
 
 .divFormulario input text {
@@ -68,7 +79,11 @@ input:not([type="file"]) {
 .aBoton {
     display: inline-block;
     padding: 10px 20px;
+<<<<<<< HEAD
     background: linear-gradient(to right, #008cff, #00b7ff);
+=======
+    background-color: #007bff;
+>>>>>>> Pruebas
     color: #ffffff;
     text-decoration: none;
     border: none;
@@ -111,8 +126,13 @@ input:not([type="file"]) {
     width: 40px;
     height: 40px;
     cursor: pointer;
+<<<<<<< HEAD
     margin: 10px;
     margin-bottom: 12px;
+=======
+    margin-left: 10px;
+    margin: 10px;
+>>>>>>> Pruebas
 }
 
 #ojo2 {
@@ -121,4 +141,8 @@ input:not([type="file"]) {
     cursor: pointer;
     margin-left: 10px;
     margin: 10px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> Pruebas
