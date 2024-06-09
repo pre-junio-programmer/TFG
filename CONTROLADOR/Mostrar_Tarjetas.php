@@ -3,7 +3,7 @@ session_start();
 require_once "../MODELO/Manejo_Base.php";
 
 $valor_nombre = $_SESSION['nombreDeSesion'];
-$id_usuario = Base_Operaciones::seleccionarValor($valor_nombre, 'id_usuario', 'nombre_u', 'usuario');
+$id_usuario = $_SESSION['id_usuario'];
 $tarjetas = Base_Operaciones::extraerDatos($id_usuario, 'id_usuario', 'metodo_pago');
 
 $html = '';

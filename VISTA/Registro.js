@@ -2,13 +2,18 @@ window.onload = () => {
   const contenedorError = document.getElementById("errorMensaje");
   const urlParams = new URLSearchParams(window.location.search);
   const errorUrl = urlParams.get('error');
-  if (errorUrl === '1') {
+  if (errorUrl == '1') {
     contenedorError.innerText = "El nombre que ha introducido ya está en uso";
     contenedorError.style.display = "block";
     
-  } else if (errorUrl === '2') {
+  } else if (errorUrl == '2') {
     contenedorError.innerText = "El correo que ha introducido ya está en uso";
     contenedorError.style.display = "block";
+
+  } else if (errorUrl == '3') {
+      contenedorError.innerText = "La imagen no se ha guardado de manera correcta";
+      contenedorError.style.display = "block";
+
   } else {
     contenedorError.style.display = "none";
   }

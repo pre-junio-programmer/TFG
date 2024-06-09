@@ -14,7 +14,7 @@
             $ruta = '';
 
             foreach ($formatos as $formato) {
-                $src = "../img/{$id_producto}.{$formato}";
+                $src = "../img/productos/{$id_producto}.{$formato}";
                 if (file_exists($src)) {
                     $ruta = $src;
                     break;

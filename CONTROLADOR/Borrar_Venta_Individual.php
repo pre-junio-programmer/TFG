@@ -6,8 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['id_producto'], $_POST['cantidad'])) {
         $nombre_usuario = $_SESSION['nombreDeSesion'];
         
-        $id_usuario = Base_Operaciones::seleccionarValor($nombre_usuario, 'id_usuario', 'nombre_u', 'usuario');
-
+        $id_usuario = $_SESSION['id_usuario'];
         $id_producto = $_POST['id_producto'];
         $cantidad_venta = intval($_POST['cantidad']);
 

@@ -20,8 +20,11 @@ include_once "../CONTROLADOR/Logica_comentario.php"
                         <h1 class="card-title"><?php echo htmlspecialchars($nombre); ?></h1>
                         <p class="card-text"><?php echo htmlspecialchars($descripcion); ?></p>
                         <h3 class="card-subtitle mb-2 text-muted">Precio: <?php echo htmlspecialchars($precio); ?> €</h3>
-                        <h4 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($stock); ?> disponibles</h4>
-                        <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                        <h4 class="card-subtitle mb-2 text-muted" id="stock"><?php echo htmlspecialchars($stock); ?> disponibles</h4>
+                        <input type="number" id="Cantidad" name="Cantidad" class="form-control" placeholder="Introduzca cantidad a comprar">
+                        <label id="errorCantidad" class="mensajesError"></label>
+                        <br>
+                        <input type="submit" value="Añadir al carrito" class="btn btn-primary" id="Anadir">
                         <br>
                         <br>
                         <form id="ordenForm" method="post" action="../CONTROLADOR/Logica_comentario.php?id=<?php echo urlencode($id_producto); ?>">
