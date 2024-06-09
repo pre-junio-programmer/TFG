@@ -1,6 +1,1 @@
-# projectoFinal
-
-Tienda hecha con PHP y React.
-
-- Angel: Backend (PHP)
-- Jorge y Hugo: Frontend (React)
+A simple HTML/JS/CSS starter template
