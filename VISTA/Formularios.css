@@ -27,11 +27,11 @@ body {
     margin: 0;
 }
 
-input:not([type="button"]):not([type="submit"]) {
+input:not([type="button"]):not([type="submit"]):not([type="radio"]) {
     width: 350px;
 }
 
-input:not([type="file"]) {
+input:not([type="file"]):not([type="radio"]) {
     height: 50px;
 }
 
@@ -48,6 +48,8 @@ input:not([type="file"]) {
 
 .divOjo {
     background-color: transparent;
+    display: flex;
+    align-items: center;
 }
 
 .botonEnviar {
@@ -79,12 +81,14 @@ input:not([type="file"]) {
     top: 2px;
     left: 20px;
     margin: 10px
+
+    
 }
 
 .aBoton:hover {
     background-color: #0056b3;
     color: #ffffff;
-}
+}   
 
 .aBotonMalo {
     display: inline-block;
@@ -106,6 +110,15 @@ input:not([type="file"]) {
     background-color: #b41818;
     color: #ffffff;
 }
+
+.input-width {
+    max-width: 350px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
   
 #ojo {
     width: 40px;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,26 +15,24 @@
     </div>
     <div class="d-flex justify-content-center">
       <form action="../CONTROLADOR/Usuario_Correcto.php" method="post" id="formulario">
-        <div class="m-3">
-          <input type="text" id="username" name="usuario" class="form-control" placeholder="Usuario">
+        <div class="form-group">
+          <input type="text" id="username" name="usuario" class="form-control input-width" placeholder="Usuario">
           <label id="errorUsername" class="mensajesError"></label>
-          <br>
         </div>
-        <div class="m-3 input-group">
-          <input type="password" id="password" name="contra" class="form-control" placeholder="Password">
+        <div class="form-group input-group">
+          <input type="password" id="password" name="contra" class="form-control input-width" placeholder="Password">
           <div class="img-fluid divOjo">
             <img src="../img/ojo.png" alt="ojo" class="img-fluid" id="ojo">
           </div>
           <label id="errorPassword" class="mensajesError"></label>
-          <br>
-        </div >
-        <div class="m-3">
-          <input type="submit" value="Sign Up" class="btn botonEnviar" id="Enviar">
-          <a href="Registro.html" class="aBoton">Registrarse</a>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Iniciar sesion" class="btn botonEnviar input-width" id="Enviar">
+          <a href="Registro.html" class="aBoton ms-4">Registrarse</a>
         </div>
       </form>
     </div>
-    <div class="m-3">
+    <div class="form-group">
       <p id="errorMensaje" class="error"></p>
     </div>
   </div>
