@@ -79,6 +79,63 @@ class Base_Operaciones {
         }
     }
 
+    public static function borrarUsuTotal($idUsuario) {
+        $conexion = Base_Operaciones::conexion();
+    
+
+        $selectComentario = "SELECT id_comentario FROM relacion_comentario WHERE id_usuario=:id";
+        $resultadoCom = $conexion->prepare($selectComentario);
+        $resultadoCom->bindValue(":id", $idUsuario);
+        $resultadoCom->execute();
+        $comentarios = $resultadoCom->fetchAll(PDO::FETCH_COLUMN, 0);
+    
+        $borrarRComentario = "DELETE FROM relacion_comentario WHERE id_usuario=:id";
+        $resultadoBRC = $conexion->prepare($borrarRComentario);
+        $resultadoBRC->bindValue(":id", $idUsuario);
+        $resultadoBRC->execute();
+    
+        $borrarComentario = "DELETE FROM comentario WHERE id_comentario=:id";
+        $resultadoBC = $conexion->prepare($borrarComentario);
+        foreach ($comentarios as $idComentario) {
+            $resultadoBC->bindValue(":id", $idComentario);
+            $resultadoBC->execute();
+        }
+
+        $borrarTarjeta = "DELETE FROM metodo_pago WHERE id_usuario=:id";
+        $resultadoBT = $conexion->prepare($borrarTarjeta);
+        $resultadoBT->bindValue(":id", $idUsuario);
+        $resultadoBT->execute();
+
+        $selectVenta = "SELECT id_producto, cantidad_vr FROM relacion_venta WHERE id_usuario=:id";
+        $resultadoVen = $conexion->prepare($selectVenta);
+        $resultadoVen->bindValue(":id", $idUsuario);
+        $resultadoVen->execute();
+        $productos = $resultadoVen->fetchAll(PDO::FETCH_COLUMN, 0);
+    
+        $borrarVenta = "DELETE FROM relacion_venta WHERE id_usuario=:id";
+        $resultadoBV = $conexion->prepare($borrarVenta);
+        $resultadoBV->bindValue(":id", $idUsuario);
+        $resultadoBV->execute();
+    
+        $borrarCompra = "DELETE FROM compra_realizada WHERE id_usuario=:id";
+        $resultadoBC = $conexion->prepare($borrarCompra);
+        $resultadoBC->bindValue(":id", $idUsuario);
+        $resultadoBC->execute();
+    
+        $borrarProducto = "DELETE FROM producto WHERE id_producto=:id";
+        $resultadoBP = $conexion->prepare($borrarProducto);
+        foreach ($productos as $idProducto) {
+            $resultadoBP->bindValue(":id", $idProducto);
+            $resultadoBP->execute();
+        }
+    
+        $borrarUsuario = "DELETE FROM usuario WHERE id_usuario=:id";
+        $resultadoBU = $conexion->prepare($borrarUsuario);
+        $resultadoBU->bindValue(":id", $idUsuario);
+        $resultadoBU->execute();
+    }
+
+
     public static function insertarTarjeta($numTarjeta, $tipoTarjeta, $nombreTarjeta, $fechaTarjeta,$CVV,$nombreUsu) {
         $conexion = Base_Operaciones::conexion();
         $numExistente = Base_Operaciones::comprobarCampoUnico($numTarjeta,"num_tarjeta","metodo_pago");
