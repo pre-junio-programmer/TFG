@@ -13,8 +13,6 @@ window.onload = () => {
     const errorConfirmarPassword = document.getElementById("errorConfirmarPassword");
     confirmarPassword.addEventListener("input", validarFormulario);
 
-    validarFormulario();
-
     const formulario = document.getElementById("formulario");
     formulario.addEventListener("submit", (event) => {
         if (formularioVacio(password, errorPassword) || formularioVacio(confirmarPassword, errorConfirmarPassword)) {
