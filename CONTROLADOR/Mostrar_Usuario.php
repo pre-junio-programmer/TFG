@@ -12,8 +12,24 @@ if (is_array($usuario_datos) && count($usuario_datos) > 0) {
     $nombre_usuario = $primer_usuario['nombre_u'];
     $direccion_usuario = $primer_usuario['direccion_u'];
     $email_usuario = $primer_usuario['correo_u'];
+    $ruta_base = '../img/usuario/';
 
-    $data = $nombre_usuario . '|' . $direccion_usuario . '|' . $email_usuario;
+    $extensiones = ['jpg', 'png', 'jpeg'];
+
+    $imagen_url = '';
+    foreach ($extensiones as $extension) {
+        $ruta_imagen = $ruta_base . $id_usuario . '.' . $extension;
+        if (file_exists($ruta_imagen)) {
+            $imagen_url = $ruta_imagen;
+            break;
+        }
+    }
+
+    if ($imagen_url === '') {
+        $imagen_url = '../img/usuario.png'; 
+    }
+
+    $data = $nombre_usuario . '|' . $direccion_usuario . '|' . $email_usuario . '|'. $imagen_url ;
     echo $data;
 } else {
     echo "No se encontraron datos del usuario.";

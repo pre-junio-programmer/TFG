@@ -7,7 +7,13 @@ $id_usuario = $_SESSION['id_usuario'];
 $ventas = Base_Operaciones::extraerDatos($id_usuario, 'id_usuario', 'relacion_venta');
 
 $html = '<h1>Estos son tus productos a la venta, ' . htmlspecialchars($valor_nombre) . '.</h1>';
-$html .= '<table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Acción</th></tr></thead><tbody>';
+if (empty($ventas)) {
+
+    $html .= '<h2>' . htmlspecialchars($valor_nombre) . ' no tiene ventas</h2>';
+
+} else {
+    
+    $html .= '<table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Acción</th></tr></thead><tbody>';
 
 foreach($ventas as $venta) {
     $id_producto = $venta['id_producto'];
@@ -29,6 +35,8 @@ foreach($ventas as $venta) {
 }
 
 $html .= '</tbody></table>';
+
+}
 
 echo $html;
 ?>

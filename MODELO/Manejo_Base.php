@@ -123,8 +123,8 @@ class Base_Operaciones {
             $resultado->bindValue(":id_usu", $idUsuario);
             $resultado->bindValue(":cantidad_v", $cantidadProd);
           
-    
     }
+
     public static function inicioExitoso($nombreIntroducido, $contraIntroducida) {
         $conexion = Base_Operaciones::conexion();
         

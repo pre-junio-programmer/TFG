@@ -34,7 +34,6 @@ window.onload = function() {
             metodoPagoSeleccionado = radioTarjetaSeleccionada.value;
             document.getElementById("formulario").submit();
         } else {
-            alert("Por favor, selecciona una tarjeta");
             return false;
         }
     });
