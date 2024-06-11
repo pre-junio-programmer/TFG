@@ -382,7 +382,7 @@ class Base_Operaciones {
         $resultado->bindValue(":cantidad", $cantidad);
         $resultado->bindValue(":id_usuario", $idUsuario);
         $resultado->bindValue(":id_producto", $idProducto);
-        $exito = $resultado->execute();
+        $resultado->execute();
     }
     
     public static function obtenerComentariosPorProductoOrdenados($id_producto, $orden) {
