@@ -21,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             Base_Operaciones::borrarElemento($id_producto, 'id_producto', 'producto');
         }
 
-
         echo 'success';
     } else {
         echo 'error: datos incompletos';
