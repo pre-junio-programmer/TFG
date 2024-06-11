@@ -13,21 +13,20 @@
                 <h1>Venta asistida</h1>
             </div>
             <div class="d-flex justify-content-center">
-                <form action="" method="post" id="formulario">
+                <form action="../CONTROLADOR/Anadir_Venta.php" method="post" id="formulario" enctype="multipart/form-data">
                     <div>
-                        <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre producto">
+                        <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" placeholder="Nombre producto">
                         <label id="errorNombreProducto" class="mensajesError"></label>
                         <br>
                     </div>
                     <div>
-                        <textarea class="form-control" id="descripcionProducto" placeholder="Descripcion producto" rows="4" cols="50"></textarea>
+                        <textarea class="form-control" id="descripcionProducto" name="descripcionProducto" placeholder="Descripcion producto" rows="4" cols="50"></textarea>
                         <br>
                     </div>
                     <div>
                         Categoría:
-                        <select id="categoríaProducto" class="form-control">
+                        <select id="categoríaProducto" name="categoríaProducto" class="form-control">
                             <option>Seleccione una categoría</option>
-
                             <option value="VFF">Videojuegos Formato Físico</option>
                             <option value="VFD">Videojuegos Formato Digital</option>
                             <option value="HEL">Electrodomésticos</option>
@@ -47,18 +46,18 @@
                         <br>
                     </div>
                     <div>
-                        <input type="text" class="form-control" id="precioProducto" placeholder="Precio producto">
+                        <input type="text" class="form-control" id="precioProducto" name="precioProducto" placeholder="Precio producto">
                         <label id="errorPrecioProducto" class="mensajesError"></label>
                         <br>
                     </div>
                     <div>
-                        <input type="number" class="form-control" id="cantidadProducto" placeholder="Cantidad producto">
+                        <input type="number" class="form-control" id="cantidadProducto" name="cantidadProducto" placeholder="Cantidad producto">
                         <label id="errorCantidadProducto" class="mensajesError"></label>
                         <br>
                     </div>
                     <div>
                         <p>Foto del producto a vender:</p>
-                        <input type="file" class="form-control" id="subirFoto">
+                        <input type="file" class="form-control" name="foto" id="subirFoto">
                         <label id="errorSubirFoto" class="mensajesError"></label>
                         <br>
                     </div>
@@ -67,6 +66,9 @@
                         <a href="./MisVentas.html" class="aBotonMalo">Cancelar</a>
                     </div>
                 </form>
+            </div>
+            <div class="m-3">
+                <p id="errorMensaje" class="error"></p>
             </div>
         </div>
       </body>

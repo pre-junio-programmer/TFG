@@ -8,24 +8,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $id_usuario = $_SESSION['id_usuario'];
         $id_producto = $_POST['id_producto'];
-        $cantidad_carrito = intval($_POST['cantidad']);
+       
 
-        $cantidad_total_p = Base_Operaciones::seleccionarValor($id_producto, 'cantidad_p', 'id_producto', 'producto');
-        $cantidad_final = $cantidad_total_p - $cantidad_carrito;
-
-        Base_Operaciones::borrarVentaCompra($id_usuario, $id_producto, 'id_usuario', 'id_producto', 'compra_realizada');
-
-        if ($cantidad_final > 0) {
-            Base_Operaciones::updateCampo($id_producto, $cantidad_final, 'id_producto', 'cantidad_p', 'producto');
-        } else {
-            Base_Operaciones::borrarElemento($id_producto, 'id_producto', 'producto');
-        }
+        Base_Operaciones::borrarVentaCompra($id_usuario, $id_producto, 'id_usuario', 'id_producto', 'compra_realizada');        
 
         echo 'success';
     } else {
         echo 'error: datos incompletos';
     }
-} else {
+}else {
     echo 'error: método de solicitud no válido';
 }
 ?>

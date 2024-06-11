@@ -109,5 +109,3 @@ include_once "../CONTROLADOR/Logica_comentario.php"
     </div>
 </body>
 </html>
-
-
