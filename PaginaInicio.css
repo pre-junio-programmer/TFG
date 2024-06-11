@@ -93,7 +93,7 @@
 /* ESTILOS */
 
 html {
-    background: linear-gradient(135deg, #ff8800 0%, #e100ff 100%) !important;
+    background: #222222 !important;
     color: #ffffff !important;
     height: 100%;
     overflow: hidden;

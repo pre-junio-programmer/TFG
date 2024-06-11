@@ -16,6 +16,11 @@ p {
 }
 
 .aBoton {
+    text-align: center;
+
+    height: 50px;
+    width: 200px;
+
     display: inline-block;
     padding: 10px 20px;
     background: linear-gradient(to right, #008cff, #00b7ff);
@@ -37,6 +42,11 @@ p {
 }
 
 .aBotonMalo {
+    text-align: center;
+
+    height: 50px;
+    width: 150px;
+
     display: inline-block;
     padding: 10px 20px;
     background-color: #ff0000;
@@ -46,11 +56,14 @@ p {
     border-radius: 5px;
     cursor: pointer;
     
-    
-    margin-left: 0px;
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+
+    position: relative;
+    top: 0px;
+    left: 20px;
+    margin: 10px
 }
 
 .aBotonMalo:hover {

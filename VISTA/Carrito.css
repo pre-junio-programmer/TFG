@@ -8,6 +8,9 @@ body {
 }
 
 .aBoton {
+    height: 50px;
+    width: 100px;
+
     display: inline-block;
     padding: 10px 20px;
     background: linear-gradient(to right, #008cff, #00b7ff);
@@ -69,3 +72,14 @@ body {
     background-color: #b41818;
     color: #ffffff;
 }
+
+#tablaCarrito td {
+    padding: 10px; 
+    padding-right: 10px;
+}
+
+#tablaCarrito th {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+

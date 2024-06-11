@@ -15,7 +15,7 @@
 /*ESTILOS*/
 
 html {
-    background: linear-gradient(135deg, #e100ff 0%, #0062ff 100%) !important;
+    background: #222222 !important;
     color: #ffffff !important;
     animation: izquierda 2s ease 0s 1 normal forwards !important;
 }
