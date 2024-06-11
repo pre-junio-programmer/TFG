@@ -9,7 +9,7 @@ $ventas = Base_Operaciones::extraerDatos($id_usuario, 'id_usuario', 'relacion_ve
 $html = '<h1>Estos son tus productos a la venta, ' . htmlspecialchars($valor_nombre) . '.</h1>';
 if (empty($ventas)) {
 
-    $html .= '<h2>' . htmlspecialchars($valor_nombre) . ' no tiene ventas</h2>';
+    $html .= '<h2>' . htmlspecialchars($valor_nombre) . ' no tienes ventas</h2>';
 
 } else {
     
