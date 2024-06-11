@@ -5,7 +5,7 @@ window.onload = () => {
     const ojo2 = document.getElementById("ojo2");
     ojo2.addEventListener("click", mostrarConfirmarContrasenia);
 
-    const password = document.getElementById("contra");
+    const password = document.getElementById("password");
     const errorPassword = document.getElementById("errorPassword");
     password.addEventListener("input", validarFormulario);
 
@@ -15,7 +15,7 @@ window.onload = () => {
 
     const formulario = document.getElementById("formulario");
     formulario.addEventListener("submit", (event) => {
-        if (formularioVacio(password, errorPassword) || formularioVacio(confirmarPassword, errorConfirmarPassword)) {
+        if (formularioVacio(password, errorPassword) && formularioVacio(confirmarPassword, errorConfirmarPassword)) {
             event.preventDefault();
         }
     });
@@ -34,7 +34,7 @@ let formularioVacio = (elemento, labelError) => {
 }
 
 let validarFormulario = () => {
-    const password = document.getElementById("contra");
+    const password = document.getElementById("password");
     const confirmarPassword = document.getElementById("confirmarPassword");
 
     const errorPassword = document.getElementById("errorPassword");
@@ -53,7 +53,7 @@ let validarFormulario = () => {
 }
 
 let mostrarContrasenia = () => {
-    let password = document.getElementById("contra");
+    let password = document.getElementById("password");
     let ojo = document.getElementById("ojo");
 
     if (password.type == "password") {
@@ -77,4 +77,3 @@ let mostrarConfirmarContrasenia = () => {
         ojo2.src = "../img/ojo.png";
     }
 }
-
