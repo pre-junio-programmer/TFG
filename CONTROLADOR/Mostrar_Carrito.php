@@ -9,8 +9,11 @@ $total = 0.00;
 $html = '<h1 class="mb-5">Estos son los productos en tu carrito, ' . htmlspecialchars($valor_nombre) . '.</h1>';
 
 if (empty($compras)) {
+
     $html .= '<h2>' . htmlspecialchars($valor_nombre) . ' no tienes productos en el carrito</h2>';
+
 } else {
+  
     $html .= '<table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Acción</th></tr></thead><tbody>';
 
     foreach($compras as $compra) {
