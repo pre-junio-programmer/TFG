@@ -127,6 +127,20 @@ input:not([type="file"]):not([type="radio"]) {
     margin-bottom: 1rem;
 }
 
+.tarjeta {
+    width: 400px;
+}
+
+.tarjeta input[type="radio"] {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.imagenTarjeta {
+    width: 130px;
+    height: 80px;
+
+}
   
 #ojo {
     width: 40px;

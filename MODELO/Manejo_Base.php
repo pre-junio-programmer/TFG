@@ -189,6 +189,7 @@ class Base_Operaciones {
         
         return $idProductoInsertado;
     }
+
     public static function inicioExitoso($nombreIntroducido, $contraIntroducida) {
         $conexion = Base_Operaciones::conexion();
         
