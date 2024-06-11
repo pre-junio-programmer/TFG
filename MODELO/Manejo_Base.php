@@ -27,6 +27,17 @@ class Base_Operaciones {
         }    
     }
 
+    public static function seleccionarValores($valorBuscar, $valorSeleccionar, $campo, $tabla) {
+        $conexion = Base_Operaciones::conexion();
+        $buscarValores = "SELECT {$valorSeleccionar} FROM {$tabla} WHERE {$campo} = :valor";
+        $ejecutarValores = $conexion->prepare($buscarValores);
+        $ejecutarValores->bindValue(":valor", $valorBuscar);
+        $ejecutarValores->execute();
+        $resultados = $ejecutarValores->fetchAll(PDO::FETCH_COLUMN, 0);
+        
+        return $resultados;
+    }
+
     public static function comprobarCampoUnico($valor,$campo,$tabla) {
         $conexion = Base_Operaciones::conexion();
         $buscarCampo = "SELECT COUNT(*) as count FROM {$tabla} WHERE {$campo} = :valor";
@@ -81,63 +92,19 @@ class Base_Operaciones {
 
     public static function borrarUsuTotal($idUsuario) {
         $conexion = Base_Operaciones::conexion();
-        
-        $selectComentario = "SELECT id_comentario FROM Relacion_Comentario WHERE id_usuario = :id";
-        $resultadoCom = $conexion->prepare($selectComentario);
-        $resultadoCom->bindValue(":id", $idUsuario);
-        $resultadoCom->execute();
-        $comentarios = $resultadoCom->fetchAll(PDO::FETCH_COLUMN, 0);
+        $idsComentarios = Base_Operaciones::seleccionarValores($idUsuario,'id_comentario','id_usuario','Relacion_Comentario');
+        Base_Operaciones::borrarElemento($idUsuario,'id_usuario','Relacion_Comentario');
+        Base_Operaciones::borrarElementos($idsComentarios,'id_comentario','comentario');
+        Base_Operaciones::borrarElemento($idUsuario,'id_usuario','Metodo_Pago');
+        $idsProductos = Base_Operaciones::seleccionarValores($idUsuario,'id_producto','id_usuario','Relacion_Venta');
+        Base_Operaciones::borrarElemento($idUsuario,'id_usuario','Relacion_Venta');
+        Base_Operaciones::borrarElemento($idUsuario,'id_usuario','Compra_Realizada');
+        Base_Operaciones::borrarElementos($idsProductos,'id_productos','producto');
+        Base_Operaciones::borrarElemento($idUsuario,'id_usuario','Usuario');
 
-        $borrarRComentario = "DELETE FROM Relacion_Comentario WHERE id_usuario = :id";
-        $resultadoBRC = $conexion->prepare($borrarRComentario);
-        $resultadoBRC->bindValue(":id", $idUsuario);
-        $resultadoBRC->execute();
-
-        if (!empty($comentarios)) {
-            $borrarComentario = "DELETE FROM Comentario WHERE id_comentario = :id";
-            $resultadoBC = $conexion->prepare($borrarComentario);
-            foreach ($comentarios as $idComentario) {
-                $resultadoBC->bindValue(":id", $idComentario);
-                $resultadoBC->execute();
-            }
-        }
-
-        $borrarTarjeta = "DELETE FROM Metodo_Pago WHERE id_usuario = :id";
-        $resultadoBT = $conexion->prepare($borrarTarjeta);
-        $resultadoBT->bindValue(":id", $idUsuario);
-        $resultadoBT->execute();
     
-        $selectVenta = "SELECT id_producto FROM Relacion_Venta WHERE id_usuario = :id";
-        $resultadoVen = $conexion->prepare($selectVenta);
-        $resultadoVen->bindValue(":id", $idUsuario);
-        $resultadoVen->execute();
-        $productos = $resultadoVen->fetchAll(PDO::FETCH_COLUMN, 0);
-    
-        $borrarVenta = "DELETE FROM Relacion_Venta WHERE id_usuario = :id";
-        $resultadoBV = $conexion->prepare($borrarVenta);
-        $resultadoBV->bindValue(":id", $idUsuario);
-        $resultadoBV->execute();
-
-        $borrarCompra = "DELETE FROM Compra_Realizada WHERE id_usuario = :id";
-        $resultadoBC = $conexion->prepare($borrarCompra);
-        $resultadoBC->bindValue(":id", $idUsuario);
-        $resultadoBC->execute();
-    
-     
-        if (!empty($productos)) {
-            $borrarProducto = "DELETE FROM Producto WHERE id_producto = :id";
-            $resultadoBP = $conexion->prepare($borrarProducto);
-            foreach ($productos as $idProducto) {
-                $resultadoBP->bindValue(":id", $idProducto);
-                $resultadoBP->execute();
-            }
-        }
-
-        $borrarUsuario = "DELETE FROM Usuario WHERE id_usuario = :id";
-        $resultadoBU = $conexion->prepare($borrarUsuario);
-        $resultadoBU->bindValue(":id", $idUsuario);
-        $resultadoBU->execute();
     }
+
     public static function insertarTarjeta($numTarjeta, $tipoTarjeta, $nombreTarjeta, $fechaTarjeta,$CVV,$nombreUsu) {
         $conexion = Base_Operaciones::conexion();
         $numExistente = Base_Operaciones::comprobarCampoUnico($numTarjeta,"num_tarjeta","metodo_pago");
@@ -242,6 +209,18 @@ class Base_Operaciones {
         $borrarDefinitivo->execute();
     }
 
+    public static function borrarElementos($valoresBuscar, $campo_comparar, $tabla) {
+        $conexion = Base_Operaciones::conexion();
+        if (!empty($valoresBuscar)) {
+            $borrarProducto = "DELETE FROM {$tabla} WHERE {$campo_comparar} = :valor";
+            $resultadoBP = $conexion->prepare($borrarProducto);
+            foreach ($valoresBuscar as $valorBuscar) {
+                $resultadoBP->bindValue(":valor", $valorBuscar);
+                $resultadoBP->execute();
+            }
+        }
+    }
+
     public static function borrarVentaCompra($id_elemento,$id_elemento2,$campo_comparar,$campo_comparar2,$tabla) {
         $conexion = Base_Operaciones::conexion();
         $borrarTodo = "DELETE FROM {$tabla} WHERE {$campo_comparar} = :fork1 AND {$campo_comparar2}=:fork2";        
@@ -249,6 +228,16 @@ class Base_Operaciones {
         $borrarDefinitivo->bindValue(":fork1", $id_elemento);
         $borrarDefinitivo->bindValue(":fork2", $id_elemento2);
         $borrarDefinitivo->execute();
+    }
+
+    public static function seleccionarVentaCompra($valorABuscar,$id_elemento,$id_elemento2,$campo_comparar,$campo_comparar2,$tabla) {
+        $conexion = Base_Operaciones::conexion();
+        $selectTodo = "SELECT {$valorABuscar} FROM {$tabla} WHERE {$campo_comparar} = :fork1 AND {$campo_comparar2}=:fork2";        
+        $selectDef = $conexion->prepare($selectTodo);
+        $selectDef->bindValue(":fork1", $id_elemento);
+        $selectDef->bindValue(":fork2", $id_elemento2);
+        $resultados = $selectDef->fetchAll(PDO::FETCH_COLUMN, 0);
+        return $resultados;
     }
 
     public static function updateCampo($valor_comparar, $valor_nuevo, $campo_comparar, $campo_update, $tabla) {
