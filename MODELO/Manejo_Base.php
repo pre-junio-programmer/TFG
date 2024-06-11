@@ -81,61 +81,63 @@ class Base_Operaciones {
 
     public static function borrarUsuTotal($idUsuario) {
         $conexion = Base_Operaciones::conexion();
-    
-
-        $selectComentario = "SELECT id_comentario FROM relacion_comentario WHERE id_usuario=:id";
+        
+        $selectComentario = "SELECT id_comentario FROM Relacion_Comentario WHERE id_usuario = :id";
         $resultadoCom = $conexion->prepare($selectComentario);
         $resultadoCom->bindValue(":id", $idUsuario);
         $resultadoCom->execute();
         $comentarios = $resultadoCom->fetchAll(PDO::FETCH_COLUMN, 0);
-    
-        $borrarRComentario = "DELETE FROM relacion_comentario WHERE id_usuario=:id";
+
+        $borrarRComentario = "DELETE FROM Relacion_Comentario WHERE id_usuario = :id";
         $resultadoBRC = $conexion->prepare($borrarRComentario);
         $resultadoBRC->bindValue(":id", $idUsuario);
         $resultadoBRC->execute();
-    
-        $borrarComentario = "DELETE FROM comentario WHERE id_comentario=:id";
-        $resultadoBC = $conexion->prepare($borrarComentario);
-        foreach ($comentarios as $idComentario) {
-            $resultadoBC->bindValue(":id", $idComentario);
-            $resultadoBC->execute();
+
+        if (!empty($comentarios)) {
+            $borrarComentario = "DELETE FROM Comentario WHERE id_comentario = :id";
+            $resultadoBC = $conexion->prepare($borrarComentario);
+            foreach ($comentarios as $idComentario) {
+                $resultadoBC->bindValue(":id", $idComentario);
+                $resultadoBC->execute();
+            }
         }
 
-        $borrarTarjeta = "DELETE FROM metodo_pago WHERE id_usuario=:id";
+        $borrarTarjeta = "DELETE FROM Metodo_Pago WHERE id_usuario = :id";
         $resultadoBT = $conexion->prepare($borrarTarjeta);
         $resultadoBT->bindValue(":id", $idUsuario);
         $resultadoBT->execute();
-
-        $selectVenta = "SELECT id_producto, cantidad_vr FROM relacion_venta WHERE id_usuario=:id";
+    
+        $selectVenta = "SELECT id_producto FROM Relacion_Venta WHERE id_usuario = :id";
         $resultadoVen = $conexion->prepare($selectVenta);
         $resultadoVen->bindValue(":id", $idUsuario);
         $resultadoVen->execute();
         $productos = $resultadoVen->fetchAll(PDO::FETCH_COLUMN, 0);
     
-        $borrarVenta = "DELETE FROM relacion_venta WHERE id_usuario=:id";
+        $borrarVenta = "DELETE FROM Relacion_Venta WHERE id_usuario = :id";
         $resultadoBV = $conexion->prepare($borrarVenta);
         $resultadoBV->bindValue(":id", $idUsuario);
         $resultadoBV->execute();
-    
-        $borrarCompra = "DELETE FROM compra_realizada WHERE id_usuario=:id";
+
+        $borrarCompra = "DELETE FROM Compra_Realizada WHERE id_usuario = :id";
         $resultadoBC = $conexion->prepare($borrarCompra);
         $resultadoBC->bindValue(":id", $idUsuario);
         $resultadoBC->execute();
     
-        $borrarProducto = "DELETE FROM producto WHERE id_producto=:id";
-        $resultadoBP = $conexion->prepare($borrarProducto);
-        foreach ($productos as $idProducto) {
-            $resultadoBP->bindValue(":id", $idProducto);
-            $resultadoBP->execute();
+     
+        if (!empty($productos)) {
+            $borrarProducto = "DELETE FROM Producto WHERE id_producto = :id";
+            $resultadoBP = $conexion->prepare($borrarProducto);
+            foreach ($productos as $idProducto) {
+                $resultadoBP->bindValue(":id", $idProducto);
+                $resultadoBP->execute();
+            }
         }
-    
-        $borrarUsuario = "DELETE FROM usuario WHERE id_usuario=:id";
+
+        $borrarUsuario = "DELETE FROM Usuario WHERE id_usuario = :id";
         $resultadoBU = $conexion->prepare($borrarUsuario);
         $resultadoBU->bindValue(":id", $idUsuario);
         $resultadoBU->execute();
     }
-
-
     public static function insertarTarjeta($numTarjeta, $tipoTarjeta, $nombreTarjeta, $fechaTarjeta,$CVV,$nombreUsu) {
         $conexion = Base_Operaciones::conexion();
         $numExistente = Base_Operaciones::comprobarCampoUnico($numTarjeta,"num_tarjeta","metodo_pago");
@@ -159,28 +161,33 @@ class Base_Operaciones {
             return $resultado;
         }
     }
-
-    public static function insertarVenta($nombreProd, $descripcionProd, $categoriaProd, $precioProd,$cantidadProd,$idUsuario) {
+    public static function insertarVenta($nombreProd, $descripcionProd, $categoriaProd, $precioProd, $cantidadProd, $idUsuario) {
         $conexion = Base_Operaciones::conexion();
         $idMaximo = Base_Operaciones::obtenerUltimoId('producto','id_producto');
-        $idNuevo = $idMaximo+1;
-            $sql = "INSERT INTO producto (id_producto,nombre_p,categoria_p,descripcion_p,precio_p,cantidad_p,id_usuario) VALUES (:id,:nombre,:descripcion,:categoria,:precio,:cantidad)";
-            $resultado = $conexion->prepare($sql);
-            $resultado->bindValue(":id", $idNuevo);
-            $resultado->bindValue(":nombre", $nombreProd);
-            $resultado->bindValue(":descripcion", $descripcionProd);
-            $resultado->bindValue(":categoria", $categoriaProd);
-            $resultado->bindValue(":precio", $precioProd);
-            $resultado->bindValue(":cantidad", $cantidadProd);
-            $resultado->execute();  
-            
-            $sql = "INSERT INTO relacion_venta (id_usuario,id_producto,cantidad_vr) VALUES (:id_usu,:id_producto,:cantidad_v)";
-            $resultado = $conexion->prepare($sql);
-            $resultado->bindValue(":id_producto", $idNuevo);
-            $resultado->bindValue(":id_usu", $idUsuario);
-            $resultado->bindValue(":cantidad_v", $cantidadProd);
-          
+        $idNuevo = $idMaximo + 1;
     
+        $sql = "INSERT INTO producto (id_producto, nombre_p, categoria_p, descripcion_p, precio_p, cantidad_p) VALUES (:id, :nombre, :descripcion, :categoria, :precio, :cantidad)";
+        $resultado = $conexion->prepare($sql);
+        $resultado->bindValue(":id", $idNuevo);
+        $resultado->bindValue(":nombre", $nombreProd);
+        $resultado->bindValue(":descripcion", $descripcionProd);
+        $resultado->bindValue(":categoria", $categoriaProd);
+        $resultado->bindValue(":precio", $precioProd);
+        $resultado->bindValue(":cantidad", $cantidadProd);
+        $resultado->execute();  
+    
+        
+        $idProductoInsertado = $idNuevo;
+    
+        $sql = "INSERT INTO relacion_venta (id_usuario, id_producto, cantidad_vr) VALUES (:id_usuario, :id_producto, :cantidad_v)";
+        $resultado = $conexion->prepare($sql);
+        $resultado->bindValue(":id_producto", $idProductoInsertado);
+        $resultado->bindValue(":id_usuario", $idUsuario);
+        $resultado->bindValue(":cantidad_v", $cantidadProd);
+        $resultado->execute();
+    
+        
+        return $idProductoInsertado;
     }
     public static function inicioExitoso($nombreIntroducido, $contraIntroducida) {
         $conexion = Base_Operaciones::conexion();
@@ -366,6 +373,16 @@ class Base_Operaciones {
         }
     }
     
+    public static function insertarCompra($fecha, $cantidad, $idUsuario, $idProducto) {
+        $conexion = Base_Operaciones::conexion();
+        $sql = "INSERT INTO Compra_Realizada (fecha_c, cantidad_c, id_usuario, id_producto, estado_c) VALUES (:fecha, :cantidad, :id_usuario, :id_producto, NULL)";
+        $resultado = $conexion->prepare($sql);
+        $resultado->bindValue(":fecha", $fecha);
+        $resultado->bindValue(":cantidad", $cantidad);
+        $resultado->bindValue(":id_usuario", $idUsuario);
+        $resultado->bindValue(":id_producto", $idProducto);
+        $exito = $resultado->execute();
+    }
     
     public static function obtenerComentariosPorProductoOrdenados($id_producto, $orden) {
         $conexion = Base_Operaciones::conexion();

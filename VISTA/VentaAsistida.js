@@ -1,4 +1,13 @@
 window.onload = () => {
+    const contenedorError = document.getElementById("errorMensaje");
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorUrl = urlParams.get('error');
+    if (errorUrl == '1') {
+      contenedorError.innerText = "La imagen no se ha introducido correctamente, vuelva a intentarlo";
+      contenedorError.style.display = "block";
+  
+      contenedorError.style.display = "none";
+    }
     const precioProducto = document.getElementById("precioProducto");
     precioProducto.addEventListener('input', function (e) {
         let value = e.target.value;

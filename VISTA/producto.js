@@ -1,79 +1,92 @@
 window.onload = () => {
+  inicializarEventListeners();
+};
+
+function cambiarOrden() {
+  var orden = document.getElementById("orden").value;
+
+  var eliminarDiv = document.getElementById("eliminar");
+  if (eliminarDiv) {
+      eliminarDiv.remove();
+  }
+
+  var comentariosExistente = document.getElementById("comentarios");
+  if (comentariosExistente) {
+      comentariosExistente.remove();
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+              var comentarios = xhr.responseText;
+              var divComentarios = document.createElement("div");
+              divComentarios.setAttribute("id", "comentarios");
+              divComentarios.innerHTML = comentarios;
+              document.body.appendChild(divComentarios);
+              
+              // Reinicializar event listeners después de actualizar el DOM
+              inicializarEventListeners();
+          } else {
+              console.error("Error al obtener comentarios: " + xhr.status);
+          }
+      }
+  };
+  xhr.send("orden=" + orden);
+}
+
+function inicializarEventListeners() {
   const comentario = document.getElementById("comentario");
   const errorComentario = document.getElementById("errorComentario");
-  comentario.addEventListener("input", () => formularioVacio(comentario, errorComentario));
+  if (comentario) comentario.addEventListener("input", () => formularioVacio(comentario, errorComentario));
 
   const Valoracion = document.getElementById("Valoracion");
   const errorValoracion = document.getElementById("errorValoracion");
-  Valoracion.addEventListener("input", () => formularioVacio(Valoracion, errorValoracion));
+  if (Valoracion) Valoracion.addEventListener("input", () => formularioVacio(Valoracion, errorValoracion));
 
   const botonEnviar = document.getElementById("Enviar");
-  actualizarEstadoBoton(comentario, Valoracion, botonEnviar);
+  if (botonEnviar) actualizarEstadoBoton(comentario, Valoracion, botonEnviar);
 
-  comentario.addEventListener("input", () => actualizarEstadoBoton(comentario, Valoracion, botonEnviar));
-  Valoracion.addEventListener("input", () => actualizarEstadoBoton(comentario, Valoracion, botonEnviar));
+  if (comentario) comentario.addEventListener("input", () => actualizarEstadoBoton(comentario, Valoracion, botonEnviar));
+  if (Valoracion) Valoracion.addEventListener("input", () => actualizarEstadoBoton(comentario, Valoracion, botonEnviar));
 
   const formulario = document.getElementById("formulario");
-  formulario.addEventListener("submit", (event) => {
-    if (formularioVacio(comentario, errorComentario) || formularioVacio(Valoracion, errorValoracion)) {
-      event.preventDefault();
-    }
+  if (formulario) formulario.addEventListener("submit", (event) => {
+      if (formularioVacio(comentario, errorComentario) || formularioVacio(Valoracion, errorValoracion)) {
+          event.preventDefault();
+      }
   });
 
-  document.getElementById("mostrarFormulario").addEventListener("click", function(event) {
-    event.preventDefault();
-    const creacionDiv = document.getElementById("Creacion");
-    if (creacionDiv.style.display === "none" || creacionDiv.style.display === "") {
-      creacionDiv.style.display = "block";
-    } else {
-      creacionDiv.style.display = "none";
-    }
+  const mostrarFormulario = document.getElementById("mostrarFormulario");
+  if (mostrarFormulario) mostrarFormulario.addEventListener("click", function(event) {
+      event.preventDefault();
+      const creacionDiv = document.getElementById("Creacion");
+      if (creacionDiv.style.display === "none" || creacionDiv.style.display === "") {
+          creacionDiv.style.display = "block";
+      } else {
+          creacionDiv.style.display = "none";
+      }
   });
 
   const cantidad = document.getElementById("Cantidad");
   const errorCantidad = document.getElementById("errorCantidad");
   const stock = parseInt(document.getElementById("stock").textContent);
 
-  cantidad.addEventListener("input", () => validarCantidad(cantidad, stock, errorCantidad));
+  if (cantidad) cantidad.addEventListener("input", () => validarCantidad(cantidad, stock, errorCantidad));
 
   const botonAnadir = document.getElementById("Anadir");
-  actualizarEstadoBoton2(cantidad, botonAnadir);
+  if (botonAnadir) actualizarEstadoBoton2(cantidad, botonAnadir);
 
-  cantidad.addEventListener("input", () => actualizarEstadoBoton2(cantidad, botonAnadir, stock));
-};
+  if (cantidad) cantidad.addEventListener("input", () => actualizarEstadoBoton2(cantidad, botonAnadir, stock));
 
-  function cambiarOrden() {
-      var orden = document.getElementById("orden").value;
-
-      var eliminarDiv = document.getElementById("eliminar");
-          if (eliminarDiv) {
-              eliminarDiv.remove();
-          }
-
-      var comentariosExistente = document.getElementById("comentarios");
-          if (comentariosExistente) {
-              comentariosExistente.remove();
-          }
-
-  
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "", true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = function() {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-              if (xhr.status === 200) {
-                  var comentarios = xhr.responseText;
-                  var divComentarios = document.createElement("div");
-                  divComentarios.setAttribute("id", "comentarios");
-                  divComentarios.innerHTML = comentarios;
-                  document.body.appendChild(divComentarios);
-              } else {
-                  console.error("Error al obtener comentarios: " + xhr.status);
-              }
-          }
-      };
-      xhr.send("orden=" + orden);
+  if (botonAnadir) {
+    botonAnadir.addEventListener("click", function() {
+      AniadirProducto();
+    });
   }
+}
 
 function formularioVacio (elemento, labelError) {
 
@@ -138,13 +151,24 @@ function validarCantidad(cantidadInput, stock, errorLabel, botonAnadir) {
       : `La cantidad no puede superar el stock disponible (${stock})`;
     errorLabel.innerHTML = mensajeError;
     errorLabel.style = "color: red; font-style: italic; margin: 10px";
-    botonAnadir.classList.add("disabled");
-    botonAnadir.setAttribute("aria-disabled", "true");
 
   } else {
-
     errorLabel.innerHTML = "";
-    botonAnadir.classList.remove("disabled");
-    botonAnadir.removeAttribute("aria-disabled");
   }
+}
+
+function AniadirProducto() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id_producto = urlParams.get('id');
+  const cantidad = document.getElementById("Cantidad").value;
+
+    fetch(`../CONTROLADOR/Aniadir_Producto.php?id=${id_producto}&cantidad=${cantidad}`)
+      .then(response => response.text())
+      .then(data => {
+        alert("Compra realizada con éxito");
+      })
+      .catch(error => {
+        console.error('Hubo un problema al realizar la solicitud:', error);
+        alert('Hubo un problema al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.');
+      });
 }
