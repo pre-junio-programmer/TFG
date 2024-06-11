@@ -80,6 +80,12 @@ function inicializarEventListeners() {
   if (botonAnadir) actualizarEstadoBoton2(cantidad, botonAnadir);
 
   if (cantidad) cantidad.addEventListener("input", () => actualizarEstadoBoton2(cantidad, botonAnadir, stock));
+
+  if (botonAnadir) {
+    botonAnadir.addEventListener("click", function() {
+      AniadirProducto();
+    });
+  }
 }
 
 function formularioVacio (elemento, labelError) {
@@ -145,14 +151,24 @@ function validarCantidad(cantidadInput, stock, errorLabel, botonAnadir) {
       : `La cantidad no puede superar el stock disponible (${stock})`;
     errorLabel.innerHTML = mensajeError;
     errorLabel.style = "color: red; font-style: italic; margin: 10px";
-    botonAnadir.classList.add("disabled");
-    botonAnadir.setAttribute("aria-disabled", "true");
 
   } else {
-
     errorLabel.innerHTML = "";
-    botonAnadir.classList.remove("disabled");
-    botonAnadir.removeAttribute("aria-disabled");
   }
 }
 
+function AniadirProducto() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id_producto = urlParams.get('id');
+  const cantidad = document.getElementById("Cantidad").value;
+
+    fetch(`../CONTROLADOR/Aniadir_Producto.php?id=${id_producto}&cantidad=${cantidad}`)
+      .then(response => response.text())
+      .then(data => {
+        alert("Compra realizada con éxito");
+      })
+      .catch(error => {
+        console.error('Hubo un problema al realizar la solicitud:', error);
+        alert('Hubo un problema al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.');
+      });
+}
