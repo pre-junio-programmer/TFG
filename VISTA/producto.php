@@ -9,6 +9,7 @@ include_once "../CONTROLADOR/Logica_comentario.php"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Producto</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Producto.css">
     <script src="producto.js"></script>
 </head>
 <body>
@@ -17,10 +18,10 @@ include_once "../CONTROLADOR/Logica_comentario.php"
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <h1 class="card-title"><?php echo htmlspecialchars($nombre); ?></h1>
-                        <p class="card-text"><?php echo htmlspecialchars($descripcion); ?></p>
-                        <h3 class="card-subtitle mb-2 text-muted">Precio: <?php echo htmlspecialchars($precio); ?> €</h3>
-                        <h4 class="card-subtitle mb-2 text-muted" id="stock"><?php echo htmlspecialchars($stock); ?> disponibles</h4>
+                        <h1 class="card-title titulo"><?php echo htmlspecialchars($nombre); ?></h1>
+                        <p class="card-text descripcion"><?php echo htmlspecialchars($descripcion); ?></p>
+                        <h3 class="card-subtitle mb-4 mt-2">Precio: <?php echo htmlspecialchars($precio); ?> €</h3>
+                        <h4 class="card-subtitle mb-4" id="stock"><?php echo htmlspecialchars($stock); ?> disponibles</h4>
                         <input type="number" id="Cantidad" name="Cantidad" class="form-control" placeholder="Introduzca cantidad a comprar">
                         <label id="errorCantidad" class="mensajesError"></label>
                         <br>

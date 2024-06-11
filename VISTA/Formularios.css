@@ -15,7 +15,7 @@
 /*ESTILOS*/
 
 html {
-    background: linear-gradient(135deg, #e100ff 0%, #0062ff 100%) !important;
+    background: #222222 !important;
     color: #ffffff !important;
     animation: izquierda 2s ease 0s 1 normal forwards !important;
 }
@@ -68,6 +68,11 @@ input:not([type="file"]):not([type="radio"]) {
 }
 
 .aBoton {
+    text-align: center;
+
+    height: 50px;
+    width: 130px;
+
     display: inline-block;
     padding: 10px 20px;
     background: linear-gradient(to right, #008cff, #00b7ff);
@@ -91,19 +96,22 @@ input:not([type="file"]):not([type="radio"]) {
 }   
 
 .aBotonMalo {
+    height: 50px;
+    width: 100px;
+    
     display: inline-block;
     padding: 10px 20px;
     background-color: #ff0000;
-    color: #ffffff;
+    color: #ffffff; 
     text-decoration: none;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 
     position: relative;
-    top: 2px;
+    top: 0px;
     left: 20px;
-    margin: 10px
+    margin: 10px;   
 }
 
 .aBotonMalo:hover {

@@ -5,8 +5,8 @@ require_once "../MODELO/Manejo_Base.php";
 $valor_nombre = $_SESSION['nombreDeSesion'];
 $id_usuario = $_SESSION['id_usuario'];
 $compras = Base_Operaciones::extraerDatos($id_usuario, 'id_usuario', 'compra_realizada');
-$total=0.00;
-$html = '<h1>Estos son los productos en tu carrito, ' . htmlspecialchars($valor_nombre) . '.</h1>';
+$total = 0.00;
+$html = '<h1 class="mb-5">Estos son los productos en tu carrito, ' . htmlspecialchars($valor_nombre) . '.</h1>';
 $html .= '<table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Acción</th></tr></thead><tbody>';
 
 foreach($compras as $compra) {
