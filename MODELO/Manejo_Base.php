@@ -125,6 +125,17 @@ class Base_Operaciones {
           
     }
 
+    public static function insertarCompra($fecha, $cantidad, $idUsuario, $idProducto) {
+        $conexion = Base_Operaciones::conexion();
+        $sql = "INSERT INTO Compra_Realizada (fecha_c, cantidad_c, id_usuario, id_producto, estado_c) VALUES (:fecha, :cantidad, :id_usuario, :id_producto, NULL)";
+        $resultado = $conexion->prepare($sql);
+        $resultado->bindValue(":fecha", $fecha);
+        $resultado->bindValue(":cantidad", $cantidad);
+        $resultado->bindValue(":id_usuario", $idUsuario);
+        $resultado->bindValue(":id_producto", $idProducto);
+        $exito = $resultado->execute();
+    }
+
     public static function inicioExitoso($nombreIntroducido, $contraIntroducida) {
         $conexion = Base_Operaciones::conexion();
         
