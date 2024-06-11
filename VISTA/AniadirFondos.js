@@ -20,7 +20,7 @@ window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const errorUrl = urlParams.get('error');
     if (errorUrl == '1') {
-        contenedorError.innerText = "No hay suficiente dinero en la tarjeta";
+        contenedorError.innerText = "No hay suficiente dinero en la tarjetas";
         contenedorError.style.display = "block";
     } else {
         contenedorError.style.display = "none";
