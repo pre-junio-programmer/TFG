@@ -7,7 +7,7 @@ $id_usuario = $_SESSION['id_usuario'];
 $saldo_u=$_SESSION['saldo_u'];
 $compras = Base_Operaciones::extraerDatos($id_usuario, 'id_usuario', 'compra_realizada');
 $total = 0.00;
-$html = '<h1 class="mb-5">Estos son los productos en tu carrito, ' . htmlspecialchars($valor_nombre) . '.</h1>';
+$html = '<h1 class="mb-5">Estos son los productos en tu carrito, ' . $valor_nombre . '. y este es tu saldo '.$saldo_u.'€</h1>';
 
 if (empty($compras)) {
 
