@@ -171,6 +171,7 @@ function AniadirProducto() {
         cantidadInput.value = "";
       } else {
         alert(data.message);
+        cantidadInput.value = "";
       }
     })
     .catch(error => {
