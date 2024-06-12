@@ -164,10 +164,14 @@ function AniadirProducto() {
   const cantidad = cantidadInput.value;
 
   fetch(`../CONTROLADOR/Aniadir_Producto.php?id=${id_producto}&cantidad=${cantidad}`)
-    .then(response => response.text())
+    .then(response => response.json())
     .then(data => {
-      alert("Producto añadido a la cesta con éxito");
-      cantidadInput.value = "";
+      if (data.status === 'success') {
+        alert(data.message);
+        cantidadInput.value = "";
+      } else {
+        alert(data.message);
+      }
     })
     .catch(error => {
       console.error('Hubo un problema al realizar la solicitud:', error);
