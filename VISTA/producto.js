@@ -160,15 +160,17 @@ function validarCantidad(cantidadInput, stock, errorLabel, botonAnadir) {
 function AniadirProducto() {
   const urlParams = new URLSearchParams(window.location.search);
   const id_producto = urlParams.get('id');
-  const cantidad = document.getElementById("Cantidad").value;
+  const cantidadInput = document.getElementById("Cantidad");
+  const cantidad = cantidadInput.value;
 
-    fetch(`../CONTROLADOR/Aniadir_Producto.php?id=${id_producto}&cantidad=${cantidad}`)
-      .then(response => response.text())
-      .then(data => {
-        alert("Compra realizada con éxito");
-      })
-      .catch(error => {
-        console.error('Hubo un problema al realizar la solicitud:', error);
-        alert('Hubo un problema al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.');
-      });
+  fetch(`../CONTROLADOR/Aniadir_Producto.php?id=${id_producto}&cantidad=${cantidad}`)
+    .then(response => response.text())
+    .then(data => {
+      alert("Compra realizada con éxito");
+      cantidadInput.value = "";
+    })
+    .catch(error => {
+      console.error('Hubo un problema al realizar la solicitud:', error);
+      alert('Hubo un problema al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.');
+    });
 }

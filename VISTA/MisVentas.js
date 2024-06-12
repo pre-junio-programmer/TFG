@@ -26,9 +26,26 @@ window.onload = () => {
 }
 
 let borrarTodo = () => {
-  const contenedorVentas = document.getElementById('contenedor_ventas');
-  contenedorVentas.innerHTML = '';
-};
+  fetch('../CONTROLADOR/Borrar_Ventas.php', {
+    method: 'POST'
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.text();
+  })
+  .then(data => {
+    if (data.trim() == 'success') {
+      window.location.reload();
+    } else {
+      console.error('Error al eliminar todas las ventas:', data);
+    }
+  })
+  .catch(error => {
+    console.error('Error en la solicitud de eliminación de todas las ventas:', error);
+  });
+}
 
 let eliminarFila = (button) => {
   var row = button.parentNode.parentNode;
