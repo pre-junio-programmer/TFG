@@ -1,0 +1,111 @@
+html {
+    background-color: #222222;
+}
+
+body {
+    background-color: transparent;
+}
+
+.navbar {
+    background-image: linear-gradient(to right, #000000, #ffffff); /* Gradient de negro a gris oscuro */
+    color: #FFFFFF; 
+}
+
+.navbar-brand {
+    color: #FFFFFF; 
+}
+
+.navbar-brand:hover {
+    color: #CCCCCC; 
+}
+
+.navbar-nav .nav-link {
+    color: #FFFFFF; 
+}
+
+.navbar-nav .nav-link:hover {
+    color: #1E90FF; 
+}
+
+/* Dropdowns */
+.nav-item .dropdown-menu {
+    background-color: #333333; 
+}
+
+.nav-item .dropdown-item {
+    color: #FFFFFF; 
+}
+
+.nav-item .dropdown-item:hover {
+    background-color: #1E90FF; 
+    color: #FFFFFF; 
+}
+
+/* Botón de búsqueda */
+.form-control {
+    background-color: #444444; 
+    color: #FFFFFF; 
+    border: 1px solid #555555; 
+}
+
+.form-control::placeholder {
+    color: #CCCCCC; 
+}
+
+.btn-outline-success {
+    color: #FFFFFF; 
+    border-color: #1E90FF; 
+}
+
+.btn-outline-success:hover {
+    background-color: #1E90FF; 
+    color: #FFFFFF; 
+}
+
+.dropdown-center .dropdown-menu {
+    background-color: #333333; 
+}
+
+.dropdown-center .dropdown-item {
+    color: #FFFFFF; 
+}
+
+.dropdown-center .dropdown-item:hover {
+    background-color: #1E90FF; 
+    color: #FFFFFF; 
+}
+
+/* Divider */
+.dropdown-divider {
+    border-color: #555555; 
+}
+
+/* Saldo del usuario */
+#saldoUsuario, #saldoUsuario + label {
+    color: #000000 !important; 
+}
+
+#btnUsuario {
+    background-color: transparent;
+    border: none;
+
+    border-radius: 50%;
+}
+
+#contenedor_productos {
+    background-color: transparent;
+}
+
+.card-title {
+    position: absolute;
+    bottom: 100px;
+}
+
+.card-text {
+    position: absolute;
+    bottom: 30px;
+
+    max-height: 60px;
+    overflow: auto;
+}
+
