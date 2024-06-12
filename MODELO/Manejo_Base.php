@@ -338,6 +338,24 @@ class Base_Operaciones {
     
         return $producto;
     }
+
+    public static function obtenerProductosPorUsuario($id_usuario) {
+        $conexion = Base_Operaciones::conexion();
+    
+        $query = "SELECT p.id_producto 
+                  FROM producto p
+                  JOIN relacion_venta rv ON p.id_producto = rv.id_producto
+                  WHERE rv.id_usuario = :id_usuario";
+
+        $stmt = $conexion->prepare($query);
+        $stmt->bindValue(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $productos;
+    }
+    
     public static function agregarComentario($id_usuario, $id_producto, $valoracion, $comentario) {
         $conexion = Base_Operaciones::conexion();
     

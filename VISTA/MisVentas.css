@@ -70,12 +70,12 @@ body {
     color: #ffffff;
 }
 
-#tablaCarrito td {
+#tablaVentas td {
     padding: 10px; 
     padding-right: 10px;
 }
 
-#tablaCarrito th {
+#tablaVentas th {
     padding-left: 20px;
     padding-right: 20px;
 }
