@@ -26,5 +26,7 @@ let generarAlert = () => {
             }
         };
         xhr.send(); 
+    } else {
+        alert("Por favor, escriba 'CONFIRMAR' correctamente para borrar el usuario.");
     }
 }
