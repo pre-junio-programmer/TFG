@@ -1,0 +1,66 @@
+html {
+    background-color: #222222;
+}
+
+body {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+p {
+    font-size: 20px;
+}
+
+.aBoton {
+    text-align: center;
+
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(to right, #008cff, #00b7ff);
+    color: #ffffff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    margin-left: 0px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.aBoton:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+.aBotonMalo {
+    text-align: center;
+
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff0000;
+    color: #ffffff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    position: relative;
+    top: 0px;
+    left: 20px;
+    margin: 10px
+}
+
+.aBotonMalo:hover {
+    background-color: #b41818;
+    color: #ffffff;
+}
