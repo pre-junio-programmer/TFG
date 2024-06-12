@@ -166,7 +166,7 @@ function AniadirProducto() {
   fetch(`../CONTROLADOR/Aniadir_Producto.php?id=${id_producto}&cantidad=${cantidad}`)
     .then(response => response.text())
     .then(data => {
-      alert("Compra realizada con éxito");
+      alert("Producto añadido a la cesta con éxito");
       cantidadInput.value = "";
     })
     .catch(error => {
