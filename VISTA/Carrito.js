@@ -20,6 +20,7 @@ function mostrarProducto() {
     });
   })
 }
+
 window.onload = () => {
   mostrarProducto();
   const botonesEliminar = document.getElementsByName("botonEliminar");
@@ -27,25 +28,26 @@ window.onload = () => {
       boton.addEventListener("click", () => eliminarFila(boton));
   });
   
-  calcularTotal();
   
-
   const botonEliminarTodo = document.getElementById("eliminarTodo");
   botonEliminarTodo.addEventListener("click", eliminarTodo);
 
+  const botonComprar = document.getElementById("comprar");
+  botonComprar.addEventListener("click", comprar);
+
   document.addEventListener("DOMContentLoaded", mostrarProducto);
 }
+
 let eliminarFila = (button) => {
   var row = button.parentNode.parentNode;
   var idProducto = row.querySelector('td:first-child').getAttribute('value');
-  var cantidad = row.querySelector('[name="cantidad"]').getAttribute('value');
 
   fetch('../CONTROLADOR/Borrar_Carrito_Individual.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: `id_producto=${idProducto}&cantidad=${cantidad}`
+    body: `id_producto=${idProducto}`
   })
   .then(response => {
     if (!response.ok) {
@@ -62,10 +64,63 @@ let eliminarFila = (button) => {
     }
   })
 }
+
 let eliminarTodo = () => {
-  const filas = Array.from(document.getElementsByName("filas"));
-  filas.forEach(fila => {
-      fila.parentNode.removeChild(fila);
+  fetch('../CONTROLADOR/Borrar_Carrito.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: ''
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.text();
+  })
+  .then(data => {
+    if (data.trim() === 'success') {
+      
+      const filas = Array.from(document.querySelectorAll("#bodyTablaCarrito tr"));
+      filas.forEach(fila => fila.parentNode.removeChild(fila));
+      window.location.reload();
+    } else {
+      console.error('Error al eliminar todos los productos:', data);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
   });
-  calcularTotal();
 }
+
+
+function comprar() {
+  const total = document.getElementById("total").textContent.trim();
+  fetch('../CONTROLADOR/Pagar_Carrito.php', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `total=${total}`
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+      return response.text();
+  })
+  .then(data => {
+      if (data.trim() === 'success') {
+          window.location.href = '../VISTA/Carrito.html';
+      } else if (data.trim() === 'error') {
+          window.location.href = '../VISTA/Carrito.html?error=1';
+      } else {
+          console.error('Unexpected response:', data);
+      }
+  })
+  .catch(error => {
+      console.error('Error:', error);
+  });
+}
+
