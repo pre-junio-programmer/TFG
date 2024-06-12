@@ -4,7 +4,6 @@ require_once "../MODELO/Manejo_Base.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['id_producto'], $_POST['cantidad'])) {
-        $nombre_usuario = $_SESSION['nombreDeSesion'];
         
         $id_usuario = $_SESSION['id_usuario'];
         $id_producto = $_POST['id_producto'];
@@ -18,7 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($cantidad_final > 0) {
             Base_Operaciones::updateCampo($id_producto, $cantidad_final, 'id_producto', 'cantidad_p', 'producto');
         } else {
+            
             Base_Operaciones::borrarElemento($id_producto, 'id_producto', 'producto');
+            
+            $ruta = "../img/productos/";
+            $rutaArchivos = glob($ruta . $id_producto . '.*');
+            foreach ($rutaArchivos as $rutaArchivo) {
+                if (file_exists($rutaArchivo)) {
+                    unlink($rutaArchivo);
+                }
+            }
         }
 
 

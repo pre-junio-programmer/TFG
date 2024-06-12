@@ -133,7 +133,7 @@ class Base_Operaciones {
         $idMaximo = Base_Operaciones::obtenerUltimoId('producto','id_producto');
         $idNuevo = $idMaximo + 1;
     
-        $sql = "INSERT INTO producto (id_producto, nombre_p, categoria_p, descripcion_p, precio_p, cantidad_p) VALUES (:id, :nombre, :descripcion, :categoria, :precio, :cantidad)";
+        $sql = "INSERT INTO producto (id_producto, nombre_p, categoria_p, descripcion_p, precio_p, cantidad_p) VALUES (:id, :nombre, :categoria, :descripcion, :precio, :cantidad)";
         $resultado = $conexion->prepare($sql);
         $resultado->bindValue(":id", $idNuevo);
         $resultado->bindValue(":nombre", $nombreProd);
