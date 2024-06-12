@@ -14,8 +14,8 @@ if (empty($compras)) {
     $html .= '<h2>' . htmlspecialchars($valor_nombre) . ' no tienes productos en el carrito</h2>';
 
 } else {
-  
-    $html .= '<table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Acción</th></tr></thead><tbody>';
+    // Array para acumular los productos
+    $productos_acumulados = [];
 
     foreach($compras as $compra) {
         $id_producto = $compra['id_producto'];
@@ -23,18 +23,32 @@ if (empty($compras)) {
 
         if (isset($producto[0])) {
             $producto = $producto[0];
-            $html .= '<tr name="filas">';
-            $html .= '<td id="'.$producto['id_producto'].'" value="'.$producto['id_producto'].'">' . htmlspecialchars($producto['nombre_p']) . '</td>';
-            $html .= '<td name="precio" value="' . htmlspecialchars($producto['precio_p']) . '">' . htmlspecialchars($producto['precio_p']) . '€</td>';
-            $html .= '<td name="cantidad" value="' . htmlspecialchars($compra['cantidad_c']) . '">' . htmlspecialchars($compra['cantidad_c']) . '</td>';
-            $html .= '<td><button class="eliminar-btn" name="botonEliminar" href="Carrito.html">Eliminar</button></td>';
-            $html .= '</tr>';
+            if (isset($productos_acumulados[$id_producto])) {
+                // Si el producto ya está en el array, acumula la cantidad y el precio
+                $productos_acumulados[$id_producto]['cantidad'] += $compra['cantidad_c'];
+            } else {
+                // Si el producto no está en el array, agrega una nueva entrada
+                $productos_acumulados[$id_producto] = [
+                    'nombre' => $producto['nombre_p'],
+                    'precio' => $producto['precio_p'],
+                    'cantidad' => $compra['cantidad_c']
+                ];
+            }
         } else {
-            $html .= '<tr name="filas">';
-            $html .= '<td colspan="4">Producto no encontrado (ID: ' . htmlspecialchars($id_producto) . ')</td>';
-            $html .= '</tr>';
+            
         }
-        $total = $total + ($producto['precio_p'] * $compra['cantidad_c']);
+    }
+
+    $html .= '<table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Acción</th></tr></thead><tbody>';
+
+    foreach($productos_acumulados as $id_producto => $datos_producto) {
+        $html .= '<tr name="filas">';
+        $html .= '<td id="'.$id_producto.'" value="'.$id_producto.'">' . htmlspecialchars($datos_producto['nombre']) . '</td>';
+        $html .= '<td name="precio" value="' . htmlspecialchars($datos_producto['precio']) . '">' . htmlspecialchars($datos_producto['precio']) . '€</td>';
+        $html .= '<td name="cantidad" value="' . htmlspecialchars($datos_producto['cantidad']) . '">' . htmlspecialchars($datos_producto['cantidad']) . '</td>';
+        $html .= '<td><button class="eliminar-btn" name="botonEliminar" href="Carrito.html">Eliminar</button></td>';
+        $html .= '</tr>';
+        $total += $datos_producto['precio'] * $datos_producto['cantidad'];
     }
 
     $html .= '</tbody>
