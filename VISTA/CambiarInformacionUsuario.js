@@ -54,13 +54,15 @@ window.onload = () => {
 
     const fichero = document.getElementById("fotoPerfil");
     fichero.addEventListener("change", () => {
-        comprobarFichero(event);
+        if (fichero.value) {
+            comprobarFichero(event);
+        }
         verificarCampos();
     });
 
     const formulario = document.getElementById("formulario");
     formulario.addEventListener("submit", (event) => {
-        if (formularioVacio(nombre, errorNombre) || formularioVacio(direccion, errorDireccion) || !comprobacionEmail() || comprobarFichero(event) == false) {
+        if (formularioVacio(nombre, errorNombre) || formularioVacio(direccion, errorDireccion) || !comprobacionEmail() || (fichero.value && !comprobarFichero(event))) {
             event.preventDefault();
         }
     });
