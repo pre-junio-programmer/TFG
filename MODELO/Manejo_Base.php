@@ -230,14 +230,6 @@ class Base_Operaciones {
         $borrarDefinitivo->execute();
     }
 
-    public static function borrarTodoCarrito($id_usuario) {
-        $conexion = Base_Operaciones::conexion();
-        $borrarTodo = "DELETE FROM compra_realizada WHERE id_usuario = :id_usuario";        
-        $borrarDefinitivo = $conexion->prepare($borrarTodo);
-        $borrarDefinitivo->bindValue(":id_usuario", $id_usuario);
-        $borrarDefinitivo->execute();
-    }
-
     public static function seleccionarVentaCompra($valorABuscar,$id_elemento,$id_elemento2,$campo_comparar,$campo_comparar2,$tabla) {
         $conexion = Base_Operaciones::conexion();
         $selectTodo = "SELECT {$valorABuscar} FROM {$tabla} WHERE {$campo_comparar} = :fork1 AND {$campo_comparar2}=:fork2";        

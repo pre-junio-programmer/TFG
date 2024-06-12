@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_SESSION['id_usuario'])) {
         $id_usuario = $_SESSION['id_usuario'];
         
-        Base_Operaciones::borrarTodoCarrito($id_usuario);
+        Base_Operaciones::borrarElemento($id_usuario, 'id_usuario', 'compra_realizada');
         echo 'success';
     } else {
         echo 'error: usuario no autenticado';
