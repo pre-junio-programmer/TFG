@@ -246,7 +246,7 @@ class Base_Operaciones {
         $resultado = $conexion->prepare($sql);
         $resultado->bindValue(":elementoNuevo", $valor_nuevo);
         $resultado->bindValue(":elementoBuscar", $valor_comparar);
-        return $resultado->execute();
+        $resultado->execute();
     }
 
     public static function comprobarCampoUnicoUser($valor, $campo, $id_usuario) {
@@ -365,7 +365,7 @@ class Base_Operaciones {
     
     public static function insertarCompra($fecha, $cantidad, $idUsuario, $idProducto) {
         $conexion = Base_Operaciones::conexion();
-        $sql = "INSERT INTO Compra_Realizada (fecha_c, cantidad_c, id_usuario, id_producto, estado_c) VALUES (:fecha, :cantidad, :id_usuario, :id_producto, NULL)";
+        $sql = "INSERT INTO Compra_Realizada (fecha_c, cantidad_c, id_usuario, id_producto) VALUES (:fecha, :cantidad, :id_usuario, :id_producto)";
         $resultado = $conexion->prepare($sql);
         $resultado->bindValue(":fecha", $fecha);
         $resultado->bindValue(":cantidad", $cantidad);

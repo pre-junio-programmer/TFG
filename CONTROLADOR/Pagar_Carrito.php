@@ -8,10 +8,10 @@ $saldo = floatval($_SESSION['saldo_u']);
 $coste_total = $_POST['total'];
 $coste_total = floatval($coste_total);
 
-$saldo_final = $saldo - $coste_total/21;
+$saldo_final = $saldo - $coste_total;
 
 if ($saldo_final >= 0) {
-    $_SESSION['saldo_u'] = $saldo_final;
+    $_SESSION['saldo_u'] = number_format($saldo_final, 2, '.', '');
     Base_Operaciones::updateCampo($id_usuario, $saldo_final, 'id_usuario', 'saldo_u', 'usuario');
     $idsProductos = Base_Operaciones::seleccionarValores($id_usuario,'id_producto','id_usuario','compra_realizada');
 
