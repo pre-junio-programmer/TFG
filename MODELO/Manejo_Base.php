@@ -246,7 +246,7 @@ class Base_Operaciones {
         $resultado = $conexion->prepare($sql);
         $resultado->bindValue(":elementoNuevo", $valor_nuevo);
         $resultado->bindValue(":elementoBuscar", $valor_comparar);
-        return $resultado->execute();
+        $resultado->execute();
     }
 
     public static function comprobarCampoUnicoUser($valor, $campo, $id_usuario) {

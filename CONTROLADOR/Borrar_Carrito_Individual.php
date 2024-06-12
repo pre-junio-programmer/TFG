@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_usuario = $_SESSION['id_usuario'];
         $id_producto = $_POST['id_producto'];
        
-
         Base_Operaciones::borrarVentaCompra($id_usuario, $id_producto, 'id_usuario', 'id_producto', 'compra_realizada');        
 
         echo 'success';
