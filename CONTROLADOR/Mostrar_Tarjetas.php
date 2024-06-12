@@ -18,7 +18,7 @@ foreach ($tarjetas as $tarjeta) {
             $html .= '<img src="../img/tarjetas/visa.jpg" class="imagenTarjeta img-fluid">';
             break;
         case '2':
-            $html .= '<img src="../img/tarjetas/mastercard.png class="imagenTarjeta img-fluid">';
+            $html .= '<img src="../img/tarjetas/mastercard.png" class="imagenTarjeta img-fluid">';
             break;
         case '3':
             $html .= '<img src="../img/tarjetas/discover.png" class="imagenTarjeta img-fluid">';

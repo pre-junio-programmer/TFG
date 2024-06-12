@@ -236,6 +236,7 @@ class Base_Operaciones {
         $selectDef = $conexion->prepare($selectTodo);
         $selectDef->bindValue(":fork1", $id_elemento);
         $selectDef->bindValue(":fork2", $id_elemento2);
+        $selectDef->execute();
         $resultados = $selectDef->fetchAll(PDO::FETCH_COLUMN, 0);
         return $resultados;
     }
