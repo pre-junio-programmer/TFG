@@ -250,6 +250,16 @@ class Base_Operaciones {
         $resultado->execute();
     }
 
+    public static function updateVentaCompra($valor_comparar,$valor_comparar2, $valor_nuevo, $campo_comparar,$campo_comparar2, $campo_update, $tabla) {
+        $conexion = Base_Operaciones::conexion();
+        $sql = "UPDATE {$tabla} SET {$campo_update} = :elementoNuevo WHERE {$campo_comparar} = :elementoBuscar AND {$campo_comparar2}= :elementoBuscar2";
+        $resultado = $conexion->prepare($sql);
+        $resultado->bindValue(":elementoNuevo", $valor_nuevo);
+        $resultado->bindValue(":elementoBuscar", $valor_comparar);
+        $resultado->bindValue(":elementoBuscar2", $valor_comparar2);
+        $resultado->execute();
+    }
+
     public static function comprobarCampoUnicoUser($valor, $campo, $id_usuario) {
         $conexion = Base_Operaciones::conexion();
         $buscarCampo = "SELECT COUNT(*) as count FROM usuario WHERE {$campo} = :valor AND id_usuario != :id_usuario";
