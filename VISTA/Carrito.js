@@ -22,6 +22,17 @@ function mostrarProducto() {
 }
 
 window.onload = () => {
+  const contenedorError = document.getElementById("mensaje-error");
+  const urlParams = new URLSearchParams(window.location.search);
+  const errorUrl = urlParams.get('error');
+  if (errorUrl == '1') {
+    contenedorError.innerText = "El saldo es inferior al coste de los productos";
+    contenedorError.style.display = "block";
+    
+  } else {
+    contenedorError.style.display = "none";
+  }
+
   mostrarProducto();
   const botonesEliminar = document.getElementsByName("botonEliminar");
   botonesEliminar.forEach(boton => {
@@ -35,7 +46,6 @@ window.onload = () => {
   const botonComprar = document.getElementById("comprar");
   botonComprar.addEventListener("click", comprar);
 
-  document.addEventListener("DOMContentLoaded", mostrarProducto);
 }
 
 let eliminarFila = (button) => {

@@ -19,21 +19,19 @@ if ($saldo_final >= 0) {
         $resultadoCompra = Base_Operaciones::seleccionarVentaCompra('cantidad_c', $id_usuario, $id_producto, 'id_usuario', 'id_producto', 'compra_realizada');
         $sumaCompra = array_sum($resultadoCompra);
     
-        $cantidadesProductos = Base_Operaciones::seleccionarValor($id_producto, 'cantidad_p', 'id_producto', 'producto');
-    
+        $cantidadesProductos = intval(Base_Operaciones::seleccionarValor($id_producto, 'cantidad_p', 'id_producto', 'producto'));
+        $sumaCompra = intval($sumaCompra);
+
         $cantidad_final = $cantidadesProductos - $sumaCompra;
         $cantidad_final = intval($cantidad_final);
 
-        if ($cantidad_final>0){
+        if ($cantidad_final > 0){
             Base_Operaciones::updateCampo($id_producto, $cantidad_final, 'id_producto', 'cantidad_p', 'producto');
             Base_Operaciones::borrarVentaCompra($id_usuario, $id_producto, 'id_usuario', 'id_producto', 'compra_realizada');
-        }else{
-            
+        } else {
             Base_Operaciones::borrarVentaCompra($id_usuario, $id_producto, 'id_usuario', 'id_producto', 'compra_realizada');
             Base_Operaciones::borrarElemento($id_producto, 'id_producto', 'producto');
-
         }
-    
     }
     echo 'success';
 } else {

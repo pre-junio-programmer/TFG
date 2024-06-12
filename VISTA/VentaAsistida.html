@@ -20,13 +20,12 @@
                         <br>
                     </div>
                     <div>
-                        <textarea class="form-control" id="descripcionProducto" name="descripcionProducto" placeholder="Descripcion producto" rows="4" cols="50"></textarea>
+                        <textarea class="form-control" id="descripcionProducto" name="descripcionProducto" placeholder="Descripcion producto" rows="4" cols="50" style="max-width:350px"></textarea>
                         <br>
                     </div>
                     <div>
-                        Categoría:
-                        <select id="categoriaProducto" name="categoriaProducto" class="form-control">
-                            <option value="Seleccione una categoria">Seleccione una categoria</option>
+                        Seleccione Categoría:
+                        <select id="categoriaProducto" name="categoriaProducto" class="form-control" style="max-width:350px";>
                             <option value="VFF">Videojuegos Formato Físico</option>
                             <option value="VFD">Videojuegos Formato Digital</option>
                             <option value="HEL">Electrodomésticos</option>
@@ -41,6 +40,7 @@
                             <option value="LFD">Libros Formato Digital</option>
                             <option value="PFF">Películas Formato Físico</option>
                             <option value="PFD">Películas Formato Digital</option>
+                            <option value="NOV">Otra</option>
                         </select>
                         <label id="errorCategoriaProducto" class="mensajesError"></label>
                         <br>
