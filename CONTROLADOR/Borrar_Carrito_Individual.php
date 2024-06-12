@@ -3,7 +3,7 @@ session_start();
 require_once "../MODELO/Manejo_Base.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['id_producto'], $_POST['cantidad'])) {
+    if (isset($_POST['id_producto'])) {
         $nombre_usuario = $_SESSION['nombreDeSesion'];
         
         $id_usuario = $_SESSION['id_usuario'];

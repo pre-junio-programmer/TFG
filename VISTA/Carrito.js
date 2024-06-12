@@ -35,7 +35,6 @@ window.onload = () => {
   const botonComprar = document.getElementById("comprar");
   botonComprar.addEventListener("click", comprar);
 
-  document.addEventListener("DOMContentLoaded", mostrarProducto);
 }
 
 let eliminarFila = (button) => {
