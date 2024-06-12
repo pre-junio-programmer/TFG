@@ -35,14 +35,20 @@ window.onload = () => {
 
     const categoríaProducto = document.getElementById("categoríaProducto");
     const errorCategoríaProducto = document.getElementById("errorCategoríaProducto");
-    categoríaProducto.addEventListener("input", () => formularioVacio(categoríaProducto, errorCategoríaProducto));
+    categoríaProducto.addEventListener("input", () => {
+        formularioVacio(categoríaProducto, errorCategoríaProducto);
+        validarSeleccionCategoria(categoríaProducto, errorCategoríaProducto);
+    });
 
     const errorPrecioProducto = document.getElementById("errorPrecioProducto");
     precioProducto.addEventListener("input", () => formularioVacio(precioProducto, errorPrecioProducto));
 
     const cantidadProducto = document.getElementById("cantidadProducto");
     const errorCantidadProducto = document.getElementById("errorCantidadProducto");
-    cantidadProducto.addEventListener("input", () => formularioVacio(cantidadProducto, errorCantidadProducto));
+    cantidadProducto.addEventListener("input", () => {
+        formularioVacio(cantidadProducto, errorCantidadProducto);
+        validarCantidadPositiva(cantidadProducto, errorCantidadProducto);
+    });
 
     const botonEnviar = document.getElementById("Enviar");
     if (nombreProducto.value.trim() === "" || categoríaProducto.value.trim() === "" || precioProducto.value.trim() === "" || cantidadProducto.value.trim() === "") {
@@ -70,6 +76,38 @@ let formularioVacio = (elemento, labelError) => {
     } else {
         labelError.innerHTML = "";
         botonEnviar.disabled = false;
+    }
+}
+
+let validarCantidadPositiva = (elemento, labelError) => {
+    let botonEnviar = document.getElementById("Enviar");
+
+    if (parseFloat(elemento.value) < 0) {
+        let mensajeError = `El campo ${elemento.id} no puede ser negativo`;
+        labelError.innerHTML = mensajeError;
+        labelError.style = "color: red; font-style: italic; margin: 10px";
+        botonEnviar.disabled = true;
+        return true;
+    } else {
+        labelError.innerHTML = "";
+        botonEnviar.disabled = false;
+        return false;
+    }
+}
+
+let validarSeleccionCategoria = (elemento, labelError) => {
+    let botonEnviar = document.getElementById("Enviar");
+
+    if (elemento.value === "Seleccione una categoría") {
+        let mensajeError = `Categoria no valida`;
+        labelError.innerHTML = mensajeError;
+        labelError.style = "color: red; font-style: italic; margin: 10px";
+        botonEnviar.disabled = true;
+        return true;
+    } else {
+        labelError.innerHTML = "";
+        botonEnviar.disabled = false;
+        return false;
     }
 }
 
