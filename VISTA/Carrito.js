@@ -66,11 +66,34 @@ let eliminarFila = (button) => {
 }
 
 let eliminarTodo = () => {
-  const filas = Array.from(document.getElementsByName("filas"));
-  filas.forEach(fila => {
-      fila.parentNode.removeChild(fila);
+  fetch('../CONTROLADOR/Borrar_Carrito.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: ''
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.text();
+  })
+  .then(data => {
+    if (data.trim() === 'success') {
+      
+      const filas = Array.from(document.querySelectorAll("#bodyTablaCarrito tr"));
+      filas.forEach(fila => fila.parentNode.removeChild(fila));
+      window.location.reload();
+    } else {
+      console.error('Error al eliminar todos los productos:', data);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
   });
 }
+
 
 function comprar() {
   const total = document.getElementById("total").textContent.trim();
