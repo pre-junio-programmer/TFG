@@ -11,7 +11,7 @@ $html = '<h1 class="mb-5" id="saldoNombre" value="'.$saldo_u.'">Estos son los pr
 
 if (empty($compras)) {
 
-    $html .= '<h2>' . htmlspecialchars($valor_nombre) . ' no tienes productos en el carrito</h2>';
+    $html .= '<h2>' .  $valor_nombre . ' no tienes productos en el carrito</h2>';
 
 } else {
     // Array para acumular los productos
@@ -43,9 +43,9 @@ if (empty($compras)) {
 
     foreach($productos_acumulados as $id_producto => $datos_producto) {
         $html .= '<tr name="filas">';
-        $html .= '<td id="'.$id_producto.'" value="'.$id_producto.'">' . htmlspecialchars($datos_producto['nombre']) . '</td>';
-        $html .= '<td name="precio" value="' . htmlspecialchars($datos_producto['precio']) . '">' . htmlspecialchars($datos_producto['precio']) . '€</td>';
-        $html .= '<td name="cantidad" value="' . htmlspecialchars($datos_producto['cantidad']) . '">' . htmlspecialchars($datos_producto['cantidad']) . '</td>';
+        $html .= '<td id="'.$id_producto.'" value="'.$id_producto.'">' .  $datos_producto['nombre'] . '</td>';
+        $html .= '<td name="precio" value="' .  $datos_producto['precio'] . '">' .  $datos_producto['precio'] . '€</td>';
+        $html .= '<td name="cantidad" value="' .  $datos_producto['cantidad'] . '">' .  $datos_producto['cantidad'] . '</td>';
         $html .= '<td><button class="eliminar-btn" name="botonEliminar" href="Carrito.html">Eliminar</button></td>';
         $html .= '</tr>';
         $total += $datos_producto['precio'] * $datos_producto['cantidad'];
@@ -56,7 +56,7 @@ if (empty($compras)) {
         <tr><td></td></tr>
         <tr id="total-row">
             <td>Total:</td>
-            <td id="total" value="'.htmlspecialchars($total).'">'.htmlspecialchars($total).'€</td>
+            <td id="total" value="'. $total.'">'. $total.'€</td>
         </tr>
     </tfoot>
     </table>';
