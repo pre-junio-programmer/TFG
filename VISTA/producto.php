@@ -9,6 +9,7 @@ include_once "../CONTROLADOR/Logica_comentario.php"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Producto</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./Producto.css">
     <script src="producto.js"></script>
 </head>
@@ -62,8 +63,19 @@ include_once "../CONTROLADOR/Logica_comentario.php"
                         <tbody>
                             <?php foreach ($comentarios as $comentario): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($comentario['nombre_usuario']); ?></td>
-                                    <td><?php echo htmlspecialchars($comentario['valoracion_c']); ?></td>
+                                <td><?php echo htmlspecialchars($comentario['nombre_usuario']); ?></td>
+                                <td>
+                                    <?php
+                                        $valoracion = (int)$comentario['valoracion_c'];
+                                        for ($i = 0; $i < 5; $i++) {
+                                            if ($i < $valoracion) {
+                                                echo '<i class="fas fa-star star-rating"></i>';
+                                            } else {
+                                                echo '<i class="far fa-star star-rating"></i>';
+                                            }
+                                        }
+                                    ?>
+                                </td>
                                     <td><?php echo htmlspecialchars($comentario['comentario_c']); ?></td>
                                     <?php if (isset($_SESSION['nombreDeSesion']) && $_SESSION['nombreDeSesion'] === $comentario['nombre_usuario']): ?>
                                         <td>
