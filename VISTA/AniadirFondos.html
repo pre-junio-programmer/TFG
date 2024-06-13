@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="AniadirFondos.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="./AniadirFondos.css">
+  <title>Añadir fondos</title>
+</head>
+<body>
+  <div class="container divGrande">
+    <div class="d-flex justify-content-center m-4">
+      <h1>Añadir fondos</h1>
+    </div>
+    <div class="d-flex justify-content-center">
+      <form id="formulario" action="../CONTROLADOR/Anadir_Saldo.php" method="post">
+        <div id="infoTarjetas" class="mb-3 mt-2">
+        
+        </div>
+        <div>
+          <input type="number" step="any" class="form-control" id="cantidadIntroducida" name="cantidadIntroducida" placeholder="Cantidad a Añadir" style="display: inline-block; width: 400px;"><label id="cantidadIntroducida_Error" class="mensajesError"></label>
+            <br>
+        </div>
+        <div m-2>
+          <input type="submit" value="Añadir fondos" id="Aniadir" class="btn botonEnviar m-2 ms-5">
+          <a href="./PaginaPrincipal.html" class="btn aBotonMalo m-2">Volver</a>
+        </div>
+      </form>
+    </div>
+    <div class="m-3">
+      <p id="errorMensaje" class="error"></p>
+    </div>
+  </div>  
+</body>
+</html>
