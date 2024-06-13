@@ -1,0 +1,41 @@
+* {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+html {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+body {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+h3 {
+    color: #ffffff;
+}
+
+h4 {
+    color: #ffffff;
+}
+
+.titulo {
+    font-style: italic;
+    margin-bottom: 30px;
+    font-size: 50px;
+}
+
+.descripcion {
+    font-size: 20px;
+}
+
+.star-rating {
+  color: gold;
+  font-size: 1.5rem;
+}
+
+.star-rating .fa-star {
+  margin-right: 5px;
+}
