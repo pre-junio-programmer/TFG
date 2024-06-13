@@ -2,7 +2,7 @@ window.onload = () => {
     const contenedorError = document.getElementById("errorMensaje");
     const urlParams = new URLSearchParams(window.location.search);
     const errorUrl = urlParams.get('error');
-    if (errorUrl === '1') {
+    if (errorUrl == '1') {
       contenedorError.innerText = "El numero de tarjeta que ha introducido ya está en uso";
       contenedorError.style.display = "block";
     } else {
@@ -27,7 +27,7 @@ window.onload = () => {
     cvv.addEventListener("input", () => formularioVacio(cvv, errorCvv));
 
     const botonEnviar = document.getElementById("Enviar"); 
-    if (numeroTarjeta.value.trim() === "" || nombre.value.trim() === "" || cvv.value.trim() === "") {
+    if (numeroTarjeta.value.trim() == "" || nombre.value.trim() == "" || cvv.value.trim() == "") {
         botonEnviar.disabled = true;
     } else {
         botonEnviar.disabled = false;
@@ -84,7 +84,7 @@ let limiteCvv = () => {
 let formularioVacio = (elemento, labelError) => {
     let botonEnviar = document.getElementById("Enviar");
 
-    if (elemento.value.trim() === "") {
+    if (elemento.value.trim() == "") {
         let mensajeError = `El campo ${elemento.name} no puede estar vacio`;
         labelError.innerHTML = mensajeError;
         labelError.style = "color: red; font-style: italic; margin: 10px";

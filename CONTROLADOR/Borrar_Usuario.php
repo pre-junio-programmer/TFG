@@ -1,7 +1,7 @@
 <?php
 require_once "../MODELO/Manejo_Base.php";
 session_start();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_SESSION['id_usuario'])) {
 
         //LLAMA AL USERKILLER EN MANEJO BASE Y BORRA TODAS LAS TRAZAS DEL USUARIO

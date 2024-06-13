@@ -2,7 +2,7 @@
     session_start();
     require_once "../MODELO/Manejo_Base.php";
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $categoria = $_POST['categoria'];
 
         //SELECCIONA LOS PRODUCTOS DE LA BASE DONDE LA CATEGORIA ES IGUAL A LA SELECCIONADA EN EL MENU

@@ -22,7 +22,7 @@ window.onload = () => {
     let password = document.getElementById("password");
     let ojo = document.getElementById("ojo");
 
-    if (password.type === "password") {
+    if (password.type == "password") {
       password.type = "text";
       ojo.src = "../img/ojo.png";
     } else {
@@ -71,7 +71,7 @@ window.onload = () => {
 };
 
 let formularioVacio = (elemento, labelError) => {
-  if (elemento.value.trim() === "") {
+  if (elemento.value.trim() == "") {
     let mensajeError = `El campo ${elemento.name} no puede estar vacio`;
     labelError.innerHTML = mensajeError;
     labelError.style = "color: red; font-style: italic; margin: 10px";
@@ -104,7 +104,7 @@ let verificarCampos = () => {
   const email = document.getElementById("email");
   const botonEnviar = document.getElementById("Enviar");
 
-  if (nombre.value.trim() === "" || password.value.trim() === "" || direccion.value.trim() === "" || email.value.trim() === "" || !comprobacionEmail()) {
+  if (nombre.value.trim() == "" || password.value.trim() == "" || direccion.value.trim() == "" || email.value.trim() == "" || !comprobacionEmail()) {
     botonEnviar.disabled = true;
   } else {
     botonEnviar.disabled = false;

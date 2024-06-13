@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     //SE HACE BIEN EL UPDATE Y ADEMAS SE COMPRUEBA SI EXISTIA LA FOTO EN LA CARPETA DE IMG/USUARIO Y SE SUSTITUYE
     } else {
-        if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] === UPLOAD_ERR_OK) {
+        if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] == UPLOAD_ERR_OK) {
             $fileTmpPath = $_FILES["foto"]["tmp_name"];
             $fileExtension = strtolower(pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION));
             $nuevoNombreArchivo = $id_usuario . "." . $fileExtension;

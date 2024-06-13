@@ -2,7 +2,7 @@
 session_start();
 require_once "../MODELO/Manejo_Base.php";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_usuario = $_SESSION['id_usuario'];
 
     //OBTIENE TODOS LOS PRODUCTOS A LA VENTA DEL USUARIO

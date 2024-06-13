@@ -19,15 +19,15 @@ function cambiarOrden() {
   xhr.open("POST", "", true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function() {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status === 200) {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+          if (xhr.status == 200) {
               var comentarios = xhr.responseText;
               var divComentarios = document.createElement("div");
               divComentarios.setAttribute("id", "comentarios");
               divComentarios.innerHTML = comentarios;
               document.body.appendChild(divComentarios);
               
-              // Reinicializar event listeners después de actualizar el DOM
+              
               inicializarEventListeners();
           } else {
               console.error("Error al obtener comentarios: " + xhr.status);
@@ -63,7 +63,7 @@ function inicializarEventListeners() {
   if (mostrarFormulario) mostrarFormulario.addEventListener("click", function(event) {
       event.preventDefault();
       const creacionDiv = document.getElementById("Creacion");
-      if (creacionDiv.style.display === "none" || creacionDiv.style.display === "") {
+      if (creacionDiv.style.display == "none" || creacionDiv.style.display == "") {
           creacionDiv.style.display = "block";
       } else {
           creacionDiv.style.display = "none";
@@ -90,14 +90,14 @@ function inicializarEventListeners() {
 
 function formularioVacio (elemento, labelError) {
 
-  if (elemento.value.trim() === "") {
+  if (elemento.value.trim() == "") {
 
     let mensajeError = `El campo ${elemento.name} no es valido`;
     labelError.innerHTML = mensajeError;
     labelError.style = "color: red; font-style: italic; margin: 10px";
     return true;
 
-  } else if (elemento.name === "Valoracion") {
+  } else if (elemento.name == "Valoracion") {
 
     let valoracion = parseInt(elemento.value.trim());
 
@@ -123,7 +123,7 @@ function formularioVacio (elemento, labelError) {
 };
 
 function actualizarEstadoBoton (comentario, Valoracion, botonEnviar) {
-  if (comentario.value.trim() === "" || Valoracion.value.trim() === "" || Valoracion.value.trim() < 1 || Valoracion.value.trim() > 5) {
+  if (comentario.value.trim() == "" || Valoracion.value.trim() == "" || Valoracion.value.trim() < 1 || Valoracion.value.trim() > 5) {
     botonEnviar.disabled = true;
   } else {
     botonEnviar.disabled = false;
@@ -166,7 +166,7 @@ function AniadirProducto() {
   fetch(`../CONTROLADOR/Aniadir_Producto.php?id=${id_producto}&cantidad=${cantidad}`)
     .then(response => response.json())
     .then(data => {
-      if (data.status === 'success') {
+      if (data.status == 'success') {
         alert(data.message);
         cantidadInput.value = "";
       } else {
