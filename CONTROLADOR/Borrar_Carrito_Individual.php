@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $id_usuario = $_SESSION['id_usuario'];
         $id_producto = $_POST['id_producto'];
-       
+       //BORRAMOS LA VENTA EXCLUSIVAMENTE DONDE EL ID ES IGUAL AL DEL USUARIO Y CONTIENE EL PRODUCTO DE LA FILA A ELIMINAR
         Base_Operaciones::borrarVentaCompra($id_usuario, $id_producto, 'id_usuario', 'id_producto', 'compra_realizada');        
 
         echo 'success';

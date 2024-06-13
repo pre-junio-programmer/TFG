@@ -4,9 +4,13 @@ require_once "../MODELO/Manejo_Base.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $categoria = 'NOV';
+    //EXTRAE TODOS LOS PRODUCTOS CON CATEGORIA NOV
     $productos = Base_Operaciones::mostrarProductos($categoria);
 
     $contador = 0;
+
+    //POR CADA PRODUCTO CARGA EN TIEMPO DE EJECUCION SU CARD CON LA IMAGEN, SIGUIENDO 
+    // LA MISMA LOGICA QUE AL CARGAR LA IMAGEN DEL USUARIO
 
     foreach ($productos as $producto) {
         $id_producto = $producto['id_producto'];
@@ -20,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 break;
             }
         }
+        //CADA 3 PRODUCTOS CREA UNA NUEVA FILA PARA MOSTRARLOS ORDENADOS
         if ($contador % 3 == 0) {
             echo '<div class="row">';
         }

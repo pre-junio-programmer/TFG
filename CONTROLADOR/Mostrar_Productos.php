@@ -4,10 +4,13 @@
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $categoria = $_POST['categoria'];
+
+        //SELECCIONA LOS PRODUCTOS DE LA BASE DONDE LA CATEGORIA ES IGUAL A LA SELECCIONADA EN EL MENU
         $productos = Base_Operaciones::mostrarProductos($categoria);
 
         $contador = 0;
 
+        //SIGUE LA MISMA LÓGICA QUE MOSTRAR_NOVEDADES
         foreach ($productos as $producto) {
             $id_producto = $producto['id_producto'];
             $formatos = ['jpeg', 'png', 'jpg'];
