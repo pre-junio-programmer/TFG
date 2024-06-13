@@ -4,10 +4,14 @@ require_once "../MODELO/Manejo_Base.php";
 
 $valor_nombre = $_SESSION['nombreDeSesion'];
 $id_usuario = $_SESSION['id_usuario'];
+
+//EXTRAE TODAS LAS TARJETAS DE UN USUARIO
 $tarjetas = Base_Operaciones::extraerDatos($id_usuario, 'id_usuario', 'metodo_pago');
 
 $html = '';
 
+
+//POR CADA TARGETA MUESTRA LA INFO, UNA FOTO Y UN RADIOBUTTON PARA SELECCIONARLA
 foreach ($tarjetas as $tarjeta) {
     $html .= '<div class="tarjeta">';
     $html .= '<div class="card">';

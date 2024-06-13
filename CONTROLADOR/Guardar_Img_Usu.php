@@ -3,6 +3,7 @@ $directorio_img = "../img/usuario";
 
 
 if (isset($_FILES["file"])) {
+    //SI HA RECIBIDO LA IMAGEN LE ASIGNA UN NOMBRE Y LA GUARDA EN EL DIRECTORIO ASIGNADO
     $imagen = $directorio_img . basename($_FILES["file"]["name"]);
     $subidaOk = 1;
     $extension_img = strtolower(pathinfo($imagen, PATHINFO_EXTENSION)); 

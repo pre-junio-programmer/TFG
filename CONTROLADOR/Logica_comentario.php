@@ -52,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } elseif (isset($_POST['orden']) && !empty($_POST['orden'])) {
         $orden = $_POST['orden'];
-        if ($orden === 'mas-valorados') {
+        if ($orden == 'mas-valorados') {
             $comentarios = Base_Operaciones::obtenerComentariosPorProductoOrdenados($id_producto, 'desc');
-        } elseif ($orden === 'menos-valorados') {
+        } elseif ($orden == 'menos-valorados') {
             $comentarios = Base_Operaciones::obtenerComentariosPorProductoOrdenados($id_producto, 'asc');
-        } elseif ($orden === 'orden-normal') {
+        } elseif ($orden == 'orden-normal') {
             $comentarios = Base_Operaciones::obtenerComentariosPorProducto($id_producto);
         }
     } elseif (isset($_POST['id_comentario']) && !empty($_POST['id_comentario'])) {

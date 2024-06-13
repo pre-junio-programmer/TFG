@@ -22,7 +22,7 @@ window.onload = () => {
 }
 
 let formularioVacio = (elemento, labelError) => {
-    if (elemento.value.trim() === "") {
+    if (elemento.value.trim() == "") {
         let mensajeError = `El campo ${elemento.name} no puede estar vacio`;
         labelError.innerHTML = mensajeError;
         labelError.style = "color: red; font-style: italic; margin: 10px";

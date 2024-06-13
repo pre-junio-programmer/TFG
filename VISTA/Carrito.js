@@ -90,7 +90,7 @@ let eliminarTodo = () => {
     return response.text();
   })
   .then(data => {
-    if (data.trim() === 'success') {
+    if (data.trim() == 'success') {
       
       const filas = Array.from(document.querySelectorAll("#bodyTablaCarrito tr"));
       filas.forEach(fila => fila.parentNode.removeChild(fila));
@@ -121,9 +121,9 @@ function comprar() {
       return response.text();
   })
   .then(data => {
-      if (data.trim() === 'success') {
+      if (data.trim() == 'success') {
           window.location.href = '../VISTA/Carrito.html';
-      } else if (data.trim() === 'error') {
+      } else if (data.trim() == 'error') {
           window.location.href = '../VISTA/Carrito.html?error=1';
       } else {
           console.error('Unexpected response:', data);

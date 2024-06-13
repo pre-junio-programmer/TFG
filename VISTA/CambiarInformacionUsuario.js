@@ -9,7 +9,6 @@ window.onload = () => {
                 document.getElementById("nombre").value = data[0];
                 document.getElementById("direccion").value = data[1];
                 document.getElementById("email").value = data[2];
-                document.getElementById("fotoPerfil").value = data[3];
             } else {
                 console.error("Error al obtener datos del usuario");
             }
@@ -20,10 +19,10 @@ window.onload = () => {
     const contenedorError = document.getElementById("errorMensaje");
     const parametrosDeUrl = new URLSearchParams(window.location.search);
     const errorUrl = parametrosDeUrl.get('error');
-    if (errorUrl === '1') {
+    if (errorUrl == '1') {
         contenedorError.innerText = "El nombre que ha introducido ya está en uso";
         contenedorError.style.display = "block";
-    } else if (errorUrl === '2') {
+    } else if (errorUrl == '2') {
         contenedorError.innerText = "El correo que ha introducido ya está en uso";
         contenedorError.style.display = "block";
     } else {
@@ -69,7 +68,7 @@ window.onload = () => {
 };
 
 let formularioVacio = (elemento, labelError) => {
-    if (elemento.value.trim() === "") {
+    if (elemento.value.trim() == "") {
         let mensajeError = `El campo ${elemento.name} no puede estar vacio`;
         labelError.innerHTML = mensajeError;
         labelError.style = "color: red; font-style: italic; margin: 10px";
@@ -115,7 +114,7 @@ let comprobarFichero = (event) => {
     let fileName = fichero.value;
     let fileExtension = fileName.split('.').pop().toLowerCase();
 
-    if (fileName.lastIndexOf('.') === -1 || !allowedExtensions.includes(fileExtension)) {
+    if (fileName.lastIndexOf('.') == -1 || !allowedExtensions.includes(fileExtension)) {
         event.preventDefault();
         errorSubirFoto.innerHTML = `La foto tiene que ser de tipo: ${allowedExtensions.join(', ')}`;
         errorSubirFoto.style = "color: red; font-style: italic; margin: 10px";

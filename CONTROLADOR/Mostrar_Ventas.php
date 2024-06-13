@@ -4,8 +4,10 @@ require_once "../MODELO/Manejo_Base.php";
 
 $valor_nombre = $_SESSION['nombreDeSesion'];
 $id_usuario = $_SESSION['id_usuario'];
+//EXTRAE LAS VENTAS DE LA TABLA RELACION_VENTA DEL CLIENTE
 $ventas = Base_Operaciones::extraerDatos($id_usuario, 'id_usuario', 'relacion_venta');
 
+//MUESTRA LAS VENTAS DEL USUARIO UNA A UNA EXTAYENDO LOS DATOS DEL PRODUCTO EN TIEMPO DE EJECUCION
 $html = '<h1>Estos son tus productos a la venta, ' . htmlspecialchars($valor_nombre) . '.</h1>';
 if (empty($ventas)) {
 

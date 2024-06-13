@@ -39,9 +39,10 @@ if ($saldo_final >= 0) {
             Base_Operaciones::updateCampo($id_producto, $cantidad_final, 'id_producto', 'cantidad_p', 'producto');
             Base_Operaciones::borrarVentaCompra($id_usuario, $id_producto, 'id_usuario', 'id_producto', 'compra_realizada');
         } else {
-            Base_Operaciones::borrarVentaCompra($id_usuario, $id_producto, 'id_usuario', 'id_producto', 'compra_realizada');
+            Base_Operaciones::borrarElemento($id_producto,'id_producto','compra_realizada');
             Base_Operaciones::borrarVentaCompra($idVendedor, $id_producto, 'id_usuario', 'id_producto', 'relacion_venta');
             Base_Operaciones::borrarElemento($id_producto, 'id_producto', 'producto');
+            
         }
     }
     echo 'success';
