@@ -25,8 +25,8 @@ foreach($ventas as $venta) {
         $producto = $producto[0];
         $html .= '<tr name="filas">';
         $html .= '<td id="'.$producto['id_producto'].'" value="'.$producto['id_producto'].'">' . htmlspecialchars($producto['nombre_p']) . '</td>';
-        $html .= '<td>' . htmlspecialchars($producto['precio_p']) . '</td>';
-        $html .= '<td id="cantidad" value="' . htmlspecialchars($venta['cantidad_vr']) . '">' . htmlspecialchars($venta['cantidad_vr']) . '</td>';
+        $html .= '<td style="text-align: center">' . htmlspecialchars($producto['precio_p']) . '</td>';
+        $html .= '<td id="cantidad" style="text-align: center" value="' . htmlspecialchars($venta['cantidad_vr']) . '">' . htmlspecialchars($venta['cantidad_vr']) . '</td>';
         $html .= '<td><button class="eliminar-btn" name="botonEliminar" href="MisVentas.html">Eliminar</button></td>';
         $html .= '</tr>';
     } else {
