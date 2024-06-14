@@ -8,15 +8,12 @@
     <link rel="stylesheet" href="paginaInicio.css">
 </head>
 <body>
-    <div>
-        <div class="bajar">
-            <header>
-                <h1>Bienvenidos a <i>Click&Buy</i></h1>
-            </header>
-        </div>
-
-        <div class="arriba">
-            <a href="./VISTA/InicioSesion.html">Inicio Sesión</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="header-container">
+        <header class="bajar">
+            <h1>Bienvenidos a <i>Click&Buy</i></h1>
+        </header>
+        <div class="links-container arriba">
+            <a href="./VISTA/InicioSesion.html">Inicio Sesión</a>
             <a href="./VISTA/Registro.html">Registrarse</a>
         </div>
     </div>
