@@ -19,17 +19,15 @@ window.onload = () => {
     const contenedorError = document.getElementById("errorMensaje");
     const parametrosDeUrl = new URLSearchParams(window.location.search);
     const errorUrl = parametrosDeUrl.get('error');
-    if (errorUrl === '1') {
+    if (errorUrl == '1') {
         contenedorError.innerText = "El nombre que ha introducido ya está en uso";
         contenedorError.style.display = "block";
-    } else if (errorUrl === '2') {
+    } else if (errorUrl == '2') {
         contenedorError.innerText = "El correo que ha introducido ya está en uso";
         contenedorError.style.display = "block";
     } else {
         contenedorError.style.display = "none";
     }
-
-    
     
 
     const nombre = document.getElementById("nombre");
@@ -53,16 +51,24 @@ window.onload = () => {
         verificarCampos();
     });
 
+    const fichero = document.getElementById("fotoPerfil");
+    fichero.addEventListener("change", () => {
+        if (fichero.value) {
+            comprobarFichero(event);
+        }
+        verificarCampos();
+    });
+
     const formulario = document.getElementById("formulario");
     formulario.addEventListener("submit", (event) => {
-        if (formularioVacio(nombre, errorNombre) || formularioVacio(direccion, errorDireccion) || !comprobacionEmail()) {
+        if (formularioVacio(nombre, errorNombre) || formularioVacio(direccion, errorDireccion) || !comprobacionEmail() || (fichero.value && !comprobarFichero(event))) {
             event.preventDefault();
         }
     });
 };
 
 let formularioVacio = (elemento, labelError) => {
-    if (elemento.value.trim() === "") {
+    if (elemento.value.trim() == "") {
         let mensajeError = `El campo ${elemento.name} no puede estar vacio`;
         labelError.innerHTML = mensajeError;
         labelError.style = "color: red; font-style: italic; margin: 10px";
@@ -100,3 +106,22 @@ let verificarCampos = () => {
         botonCambiar.disabled = false;
     }
 };
+
+let comprobarFichero = (event) => {
+    const fichero = document.getElementById("fotoPerfil");
+    const errorSubirFoto = document.getElementById("errorSubirFotoPerfil");
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+    let fileName = fichero.value;
+    let fileExtension = fileName.split('.').pop().toLowerCase();
+
+    if (fileName.lastIndexOf('.') == -1 || !allowedExtensions.includes(fileExtension)) {
+        event.preventDefault();
+        errorSubirFoto.innerHTML = `La foto tiene que ser de tipo: ${allowedExtensions.join(', ')}`;
+        errorSubirFoto.style = "color: red; font-style: italic; margin: 10px";
+        fichero.value = '';
+        return false;
+    } else {
+        errorSubirFoto.innerHTML = "";
+        return true;
+    }
+}

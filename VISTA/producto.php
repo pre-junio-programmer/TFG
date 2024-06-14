@@ -9,6 +9,8 @@ include_once "../CONTROLADOR/Logica_comentario.php"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Producto</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./Producto.css">
     <script src="producto.js"></script>
 </head>
 <body>
@@ -17,11 +19,14 @@ include_once "../CONTROLADOR/Logica_comentario.php"
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <h1 class="card-title"><?php echo htmlspecialchars($nombre); ?></h1>
-                        <p class="card-text"><?php echo htmlspecialchars($descripcion); ?></p>
-                        <h3 class="card-subtitle mb-2 text-muted">Precio: <?php echo htmlspecialchars($precio); ?> €</h3>
-                        <h4 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($stock); ?> disponibles</h4>
-                        <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                        <h1 class="card-title titulo"><?php echo htmlspecialchars($nombre); ?></h1>
+                        <p class="card-text descripcion"><?php echo htmlspecialchars($descripcion); ?></p>
+                        <h3 class="card-subtitle mb-4 mt-2">Precio: <?php echo htmlspecialchars($precio); ?> €</h3>
+                        <h4 class="card-subtitle mb-4" id="stock"><?php echo htmlspecialchars($stock); ?> disponibles</h4>
+                        <input type="number" id="Cantidad" name="Cantidad" class="form-control" placeholder="Introduzca cantidad a comprar">
+                        <label id="errorCantidad" class="mensajesError"></label>
+                        <br>
+                        <input type="submit" value="Añadir al carrito" class="btn btn-primary" id="Anadir">
                         <br>
                         <br>
                         <form id="ordenForm" method="post" action="../CONTROLADOR/Logica_comentario.php?id=<?php echo urlencode($id_producto); ?>">
@@ -58,8 +63,19 @@ include_once "../CONTROLADOR/Logica_comentario.php"
                         <tbody>
                             <?php foreach ($comentarios as $comentario): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($comentario['nombre_usuario']); ?></td>
-                                    <td><?php echo htmlspecialchars($comentario['valoracion_c']); ?></td>
+                                <td><?php echo htmlspecialchars($comentario['nombre_usuario']); ?></td>
+                                <td>
+                                    <?php
+                                        $valoracion = (int)$comentario['valoracion_c'];
+                                        for ($i = 0; $i < 5; $i++) {
+                                            if ($i < $valoracion) {
+                                                echo '<i class="fas fa-star star-rating"></i>';
+                                            } else {
+                                                echo '<i class="far fa-star star-rating"></i>';
+                                            }
+                                        }
+                                    ?>
+                                </td>
                                     <td><?php echo htmlspecialchars($comentario['comentario_c']); ?></td>
                                     <?php if (isset($_SESSION['nombreDeSesion']) && $_SESSION['nombreDeSesion'] === $comentario['nombre_usuario']): ?>
                                         <td>
@@ -105,5 +121,3 @@ include_once "../CONTROLADOR/Logica_comentario.php"
     </div>
 </body>
 </html>
-
-

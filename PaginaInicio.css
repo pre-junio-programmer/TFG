@@ -93,7 +93,7 @@
 /* ESTILOS */
 
 html {
-    background: linear-gradient(135deg, #ff8800 0%, #e100ff 100%) !important;
+    background: #222222 !important;
     color: #ffffff !important;
     height: 100%;
     overflow: hidden;
@@ -101,7 +101,7 @@ html {
 
 body {
     background-color: transparent !important;
-	color: #ffffff !important; 
+    color: #ffffff !important; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,28 +112,23 @@ body {
 
 div {
     background-color: transparent !important;
+    text-align: center;
 }
 
 h1 {
-    position: absolute;
-    top: 20%;
-    left: 30%;
     font-size: 100px;
     white-space: nowrap;
+    margin: 0;
 }
 
 .arriba {
-    position: absolute;
-    top: 50%;
-    left: 40%;
     animation: subir 2s ease 0s 1 normal forwards;
+    margin-top: 20px;
 }
 
 .bajar {
-    position: absolute;
-    top: 20%;
-    left: 27%;
     animation: bajar 2s ease 0s 1 normal forwards;
+    margin-bottom: 50px;
 }
 
 a {
@@ -145,9 +140,6 @@ a {
     border: none !important;
     border-radius: 5px !important;
     cursor: pointer !important;
-    position: relative !important;
-    top: 2px !important;
-    left: 20px !important;
     margin: 10px !important;
 }
 

@@ -2,7 +2,7 @@ window.onload = () => {
   const contenedorError = document.getElementById("errorMensaje");
   const urlParams = new URLSearchParams(window.location.search);
   const errorUrl = urlParams.get('error');
-  if (errorUrl === '1') {
+  if (errorUrl == '1') {
     contenedorError.innerText = "El nombre o la contraseña que ha introducido no son correctos";
     contenedorError.style.display = "block";
   } else {
@@ -16,7 +16,7 @@ window.onload = () => {
     let password = document.getElementById("password");
     let ojo = document.getElementById("ojo");
 
-    if (password.type === "password") {
+    if (password.type == "password") {
       password.type = "text";
       ojo.src = "../img/invisible.png";
     } else {
@@ -53,7 +53,7 @@ window.onload = () => {
 };
 
 let formularioVacio = (elemento, labelError) => {
-  if (elemento.value.trim() === "") {
+  if (elemento.value.trim() == "") {
     let mensajeError = `El campo ${elemento.name} no puede estar vacío`;
     labelError.innerHTML = mensajeError;
     labelError.style = "color: red; font-style: italic; margin: 10px";

@@ -27,6 +27,17 @@ class Base_Operaciones {
         }    
     }
 
+    public static function seleccionarValores($valorBuscar, $valorSeleccionar, $campo, $tabla) {
+        $conexion = Base_Operaciones::conexion();
+        $buscarValores = "SELECT {$valorSeleccionar} FROM {$tabla} WHERE {$campo} = :valor";
+        $ejecutarValores = $conexion->prepare($buscarValores);
+        $ejecutarValores->bindValue(":valor", $valorBuscar);
+        $ejecutarValores->execute();
+        $resultados = $ejecutarValores->fetchAll(PDO::FETCH_COLUMN, 0);
+        
+        return $resultados;
+    }
+
     public static function comprobarCampoUnico($valor,$campo,$tabla) {
         $conexion = Base_Operaciones::conexion();
         $buscarCampo = "SELECT COUNT(*) as count FROM {$tabla} WHERE {$campo} = :valor";
@@ -70,9 +81,28 @@ class Base_Operaciones {
             $resultado->execute();
             $resultado = "C";
             session_start();
-            $_SESSION['nombreDeSesion'] = $nombreUsu;
+            $_SESSION['nombreDeSesion'] = $nombreUsu;   
+            $_SESSION['id_usuario'] = $idNuevo;
+            $_SESSION['direccion_u'] = $direccion;
+            $_SESSION['correo_u'] = $correoUsu;
+            $_SESSION['saldo_u'] = 0;
             return $resultado;
         }
+    }
+
+    public static function borrarUsuTotal($idUsuario) {
+        $conexion = Base_Operaciones::conexion();
+        $idsComentarios = Base_Operaciones::seleccionarValores($idUsuario,'id_comentario','id_usuario','Relacion_Comentario');
+        Base_Operaciones::borrarElemento($idUsuario,'id_usuario','Relacion_Comentario');
+        Base_Operaciones::borrarElementos($idsComentarios,'id_comentario','comentario');
+        Base_Operaciones::borrarElemento($idUsuario,'id_usuario','Metodo_Pago');
+        $idsProductos = Base_Operaciones::seleccionarValores($idUsuario,'id_producto','id_usuario','Relacion_Venta');
+        Base_Operaciones::borrarElemento($idUsuario,'id_usuario','Relacion_Venta');
+        Base_Operaciones::borrarElemento($idUsuario,'id_usuario','Compra_Realizada');
+        Base_Operaciones::borrarElementos($idsProductos,'id_productos','producto');
+        Base_Operaciones::borrarElemento($idUsuario,'id_usuario','Usuario');
+
+    
     }
 
     public static function insertarTarjeta($numTarjeta, $tipoTarjeta, $nombreTarjeta, $fechaTarjeta,$CVV,$nombreUsu) {
@@ -98,16 +128,121 @@ class Base_Operaciones {
             return $resultado;
         }
     }
+    public static function insertarVenta($nombreProd, $descripcionProd, $categoriaProd, $precioProd, $cantidadProd, $idUsuario) {
+        $conexion = Base_Operaciones::conexion();
+    
+        //SE COMPRUEBA QUE EXISTE EL PRODUCTO EN LA TABLA PRODUCTO
+        $sql = "SELECT id_producto, cantidad_p FROM producto WHERE nombre_p = :nombre AND descripcion_p = :descripcion AND categoria_p = :categoria AND precio_p = :precio";
+        $resultado = $conexion->prepare($sql);
+        $resultado->bindValue(":nombre", $nombreProd);
+        $resultado->bindValue(":descripcion", $descripcionProd);
+        $resultado->bindValue(":categoria", $categoriaProd);
+        $resultado->bindValue(":precio", $precioProd);
+        $resultado->execute();
+        $productoExistente = $resultado->fetch(PDO::FETCH_ASSOC);
+    
+        if ($productoExistente) {
+            $idProductoExistente = $productoExistente['id_producto'];
+            
+            //SE COMPRUEBA SI EXISTE LA IMAGEN DEL PRODUCTO EN LA CARPETA productos
+            $directorio_img = "../img/productos/";
+            $fileExtension = strtolower(pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION));
+            $imagenExistente = $directorio_img . $idProductoExistente . "." . $fileExtension;
+            
+            if (file_exists($imagenExistente)) {
+                //SI LA FOTO YA EXISTE SE ACTUALIZA LA CANTIDAD SIN CREAR UNA NUEVA FILA
+                $nuevaCantidad = $productoExistente['cantidad_p'] + $cantidadProd;
+    
+                $sql = "UPDATE producto SET cantidad_p = :cantidad WHERE id_producto = :id";
+                $resultado = $conexion->prepare($sql);
+                $resultado->bindValue(":cantidad", $nuevaCantidad);
+                $resultado->bindValue(":id", $idProductoExistente);
+                $resultado->execute();
+    
+                //SE ACTUALIZA LA TABLA RELACION VENTA CON LA NUEVA CANTIDAD DEL PRODUCTO
+                $sql = "UPDATE relacion_venta SET cantidad_vr = cantidad_vr + :cantidad WHERE id_usuario = :id_usuario AND id_producto = :id_producto";
+                $resultado = $conexion->prepare($sql);
+                $resultado->bindValue(":cantidad", $cantidadProd);
+                $resultado->bindValue(":id_usuario", $idUsuario);
+                $resultado->bindValue(":id_producto", $idProductoExistente);
+                $resultado->execute();
+    
+                return $idProductoExistente;
+            } else {
+                //SI LA FOTO NO EXISTE SE INSERTA UN NUEVO REGISTRO
+                $idMaximo = Base_Operaciones::obtenerUltimoId('producto', 'id_producto');
+                $idNuevo = $idMaximo + 1;
+    
+                $sql = "INSERT INTO producto (id_producto, nombre_p, categoria_p, descripcion_p, precio_p, cantidad_p) VALUES (:id, :nombre, :categoria, :descripcion, :precio, :cantidad)";
+                $resultado = $conexion->prepare($sql);
+                $resultado->bindValue(":id", $idNuevo);
+                $resultado->bindValue(":nombre", $nombreProd);
+                $resultado->bindValue(":descripcion", $descripcionProd);
+                $resultado->bindValue(":categoria", $categoriaProd);
+                $resultado->bindValue(":precio", $precioProd);
+                $resultado->bindValue(":cantidad", $cantidadProd);
+                $resultado->execute();
+    
+                $idProductoInsertado = $idNuevo;
+    
+                $sql = "INSERT INTO relacion_venta (id_usuario, id_producto, cantidad_vr) VALUES (:id_usuario, :id_producto, :cantidad_v)";
+                $resultado = $conexion->prepare($sql);
+                $resultado->bindValue(":id_producto", $idProductoInsertado);
+                $resultado->bindValue(":id_usuario", $idUsuario);
+                $resultado->bindValue(":cantidad_v", $cantidadProd);
+                $resultado->execute();
+    
+                return $idProductoInsertado;
+            }
+        } else {
+            //SI EL PRODUCTO NO EXISTE SE INSERTA UN NUEVO REGISTRO
+            $idMaximo = Base_Operaciones::obtenerUltimoId('producto', 'id_producto');
+            $idNuevo = $idMaximo + 1;
+    
+            $sql = "INSERT INTO producto (id_producto, nombre_p, categoria_p, descripcion_p, precio_p, cantidad_p) VALUES (:id, :nombre, :categoria, :descripcion, :precio, :cantidad)";
+            $resultado = $conexion->prepare($sql);
+            $resultado->bindValue(":id", $idNuevo);
+            $resultado->bindValue(":nombre", $nombreProd);
+            $resultado->bindValue(":descripcion", $descripcionProd);
+            $resultado->bindValue(":categoria", $categoriaProd);
+            $resultado->bindValue(":precio", $precioProd);
+            $resultado->bindValue(":cantidad", $cantidadProd);
+            $resultado->execute();
+    
+            $idProductoInsertado = $idNuevo;
+    
+            $sql = "INSERT INTO relacion_venta (id_usuario, id_producto, cantidad_vr) VALUES (:id_usuario, :id_producto, :cantidad_v)";
+            $resultado = $conexion->prepare($sql);
+            $resultado->bindValue(":id_producto", $idProductoInsertado);
+            $resultado->bindValue(":id_usuario", $idUsuario);
+            $resultado->bindValue(":cantidad_v", $cantidadProd);
+            $resultado->execute();
+    
+            return $idProductoInsertado;
+        }
+    }
+    
+    
+    
+
     public static function inicioExitoso($nombreIntroducido, $contraIntroducida) {
-        $conexion = Base_Operaciones::conexion();     
+        $conexion = Base_Operaciones::conexion();
+        
         $sql = "SELECT * FROM usuario WHERE nombre_u = :nombreUsu AND contra_u = :contraUsu";
         $resultado = $conexion->prepare($sql);
         $resultado->bindValue(":nombreUsu", $nombreIntroducido);
         $resultado->bindValue(":contraUsu", $contraIntroducida);
-        $resultado->execute();       
-        if($resultado->rowCount() > 0) {
+        $resultado->execute();
+        
+        if ($resultado->rowCount() > 0) {
+            $usuario = $resultado->fetch(PDO::FETCH_ASSOC);
             session_start();
             $_SESSION['nombreDeSesion'] = $nombreIntroducido;
+            $_SESSION['id_usuario'] = $usuario['id_usuario'];
+            $_SESSION['direccion_u'] = $usuario['direccion_u'];
+            $_SESSION['correo_u'] = $usuario['correo_u'];
+            $_SESSION['saldo_u'] = $usuario['saldo_u'];
+            
             return true;
         } else {
             return false; 
@@ -125,9 +260,9 @@ class Base_Operaciones {
     
     public static function extraerDatos($clave, $campo, $tabla) {
         $conexion = Base_Operaciones::conexion();
-        $sql = "SELECT * FROM $tabla WHERE $campo = :id_usuario";
+        $sql = "SELECT * FROM $tabla WHERE $campo = :clave";
         $consultaElemento = $conexion->prepare($sql);
-        $consultaElemento->bindParam(":id_usuario", $clave);
+        $consultaElemento->bindParam(":clave", $clave);
         $consultaElemento->execute();
         $datos = $consultaElemento->fetchAll(PDO::FETCH_ASSOC);
         return $datos;
@@ -142,6 +277,18 @@ class Base_Operaciones {
         $borrarDefinitivo->execute();
     }
 
+    public static function borrarElementos($valoresBuscar, $campo_comparar, $tabla) {
+        $conexion = Base_Operaciones::conexion();
+        if (!empty($valoresBuscar)) {
+            $borrarProducto = "DELETE FROM {$tabla} WHERE {$campo_comparar} = :valor";
+            $resultadoBP = $conexion->prepare($borrarProducto);
+            foreach ($valoresBuscar as $valorBuscar) {
+                $resultadoBP->bindValue(":valor", $valorBuscar);
+                $resultadoBP->execute();
+            }
+        }
+    }
+
     public static function borrarVentaCompra($id_elemento,$id_elemento2,$campo_comparar,$campo_comparar2,$tabla) {
         $conexion = Base_Operaciones::conexion();
         $borrarTodo = "DELETE FROM {$tabla} WHERE {$campo_comparar} = :fork1 AND {$campo_comparar2}=:fork2";        
@@ -151,13 +298,34 @@ class Base_Operaciones {
         $borrarDefinitivo->execute();
     }
 
+    public static function seleccionarVentaCompra($valorABuscar,$id_elemento,$id_elemento2,$campo_comparar,$campo_comparar2,$tabla) {
+        $conexion = Base_Operaciones::conexion();
+        $selectTodo = "SELECT {$valorABuscar} FROM {$tabla} WHERE {$campo_comparar} = :fork1 AND {$campo_comparar2}=:fork2";        
+        $selectDef = $conexion->prepare($selectTodo);
+        $selectDef->bindValue(":fork1", $id_elemento);
+        $selectDef->bindValue(":fork2", $id_elemento2);
+        $selectDef->execute();
+        $resultados = $selectDef->fetchAll(PDO::FETCH_COLUMN, 0);
+        return $resultados;
+    }
+
     public static function updateCampo($valor_comparar, $valor_nuevo, $campo_comparar, $campo_update, $tabla) {
         $conexion = Base_Operaciones::conexion();
         $sql = "UPDATE {$tabla} SET {$campo_update} = :elementoNuevo WHERE {$campo_comparar} = :elementoBuscar";
         $resultado = $conexion->prepare($sql);
         $resultado->bindValue(":elementoNuevo", $valor_nuevo);
         $resultado->bindValue(":elementoBuscar", $valor_comparar);
-        return $resultado->execute();
+        $resultado->execute();
+    }
+
+    public static function updateVentaCompra($valor_comparar,$valor_comparar2, $valor_nuevo, $campo_comparar,$campo_comparar2, $campo_update, $tabla) {
+        $conexion = Base_Operaciones::conexion();
+        $sql = "UPDATE {$tabla} SET {$campo_update} = :elementoNuevo WHERE {$campo_comparar} = :elementoBuscar AND {$campo_comparar2}= :elementoBuscar2";
+        $resultado = $conexion->prepare($sql);
+        $resultado->bindValue(":elementoNuevo", $valor_nuevo);
+        $resultado->bindValue(":elementoBuscar", $valor_comparar);
+        $resultado->bindValue(":elementoBuscar2", $valor_comparar2);
+        $resultado->execute();
     }
 
     public static function comprobarCampoUnicoUser($valor, $campo, $id_usuario) {
@@ -188,6 +356,9 @@ class Base_Operaciones {
                 $resultado->bindValue(":correo", $email);
                 $resultado->execute();
                 $_SESSION['nombreDeSesion'] = $nombre;
+                $_SESSION['direccion_u'] = $direccion;
+                $_SESSION['correo_u'] = $email;
+                
                 return "C";
             } 
     }
@@ -246,6 +417,24 @@ class Base_Operaciones {
     
         return $producto;
     }
+
+    public static function obtenerProductosPorUsuario($id_usuario) {
+        $conexion = Base_Operaciones::conexion();
+    
+        $query = "SELECT p.id_producto 
+                  FROM producto p
+                  JOIN relacion_venta rv ON p.id_producto = rv.id_producto
+                  WHERE rv.id_usuario = :id_usuario";
+
+        $stmt = $conexion->prepare($query);
+        $stmt->bindValue(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $productos;
+    }
+    
     public static function agregarComentario($id_usuario, $id_producto, $valoracion, $comentario) {
         $conexion = Base_Operaciones::conexion();
     
@@ -271,6 +460,16 @@ class Base_Operaciones {
         }
     }
     
+    public static function insertarCompra($fecha, $cantidad, $idUsuario, $idProducto) {
+        $conexion = Base_Operaciones::conexion();
+        $sql = "INSERT INTO Compra_Realizada (fecha_c, cantidad_c, id_usuario, id_producto) VALUES (:fecha, :cantidad, :id_usuario, :id_producto)";
+        $resultado = $conexion->prepare($sql);
+        $resultado->bindValue(":fecha", $fecha);
+        $resultado->bindValue(":cantidad", $cantidad);
+        $resultado->bindValue(":id_usuario", $idUsuario);
+        $resultado->bindValue(":id_producto", $idProducto);
+        $resultado->execute();
+    }
     
     public static function obtenerComentariosPorProductoOrdenados($id_producto, $orden) {
         $conexion = Base_Operaciones::conexion();
@@ -291,7 +490,33 @@ class Base_Operaciones {
         return $comentarios;
     }
 
-}
+    public static function borrarComentariosAsociados($id_usuario, $id_producto) {
+        $conexion = Base_Operaciones::conexion();
 
+        $seleccionarComentarios = "SELECT id_comentario FROM Relacion_Comentario WHERE id_usuario = :id_usuario AND id_producto = :id_producto";
+        $ejecutarSeleccion = $conexion->prepare($seleccionarComentarios);
+        $ejecutarSeleccion->bindValue(":id_usuario", $id_usuario);
+        $ejecutarSeleccion->bindValue(":id_producto", $id_producto);
+        $ejecutarSeleccion->execute();
+        $comentarios = $ejecutarSeleccion->fetchAll(PDO::FETCH_ASSOC);
+    
+
+        foreach ($comentarios as $comentario) {
+            $id_comentario = $comentario['id_comentario'];
+            $borrarRelacionComentario = "DELETE FROM Relacion_Comentario WHERE id_comentario = :id_comentario";
+            $ejecutarBorrado = $conexion->prepare($borrarRelacionComentario);
+            $ejecutarBorrado->bindValue(":id_comentario", $id_comentario);
+            $ejecutarBorrado->execute();
+    
+
+            $borrarComentario = "DELETE FROM Comentario WHERE id_comentario = :id_comentario";
+            $ejecutarBorradoComentario = $conexion->prepare($borrarComentario);
+            $ejecutarBorradoComentario->bindValue(":id_comentario", $id_comentario);
+            $ejecutarBorradoComentario->execute();
+        }
+    }
+    
+
+}
 
 ?>

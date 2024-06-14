@@ -7,63 +7,73 @@ window.onload = () => {
 
     const password = document.getElementById("contra");
     const errorPassword = document.getElementById("errorPassword");
-    password.addEventListener("input", () => formularioVacio(password, errorPassword));
+    password.addEventListener("input", validarFormulario);
 
     const confirmarPassword = document.getElementById("confirmarPassword");
     const errorConfirmarPassword = document.getElementById("errorConfirmarPassword");
-    confirmarPassword.addEventListener("input", () => formularioVacio(confirmarPassword, errorConfirmarPassword));
-
-    let botonCambiar = document.getElementById("Cambiar");
-    // if (password.value.trim() === "" || confirmarPassword.value.trim() === "") {
-    //     botonCambiar.disabled = true;
-    // } else {
-    //     botonCambiar.disabled = false;
-    // }
+    confirmarPassword.addEventListener("input", validarFormulario);
 
     const formulario = document.getElementById("formulario");
     formulario.addEventListener("submit", (event) => {
-        if (formularioVacio(password, errorPassword) || formularioVacio(confirmarPassword, errorConfirmarPassword)) {
+        if (formularioVacio(password, errorPassword) && formularioVacio(confirmarPassword, errorConfirmarPassword)) {
             event.preventDefault();
         }
     });
 }
 
 let formularioVacio = (elemento, labelError) => {
-    // let botonEnviar = document.getElementById("Enviar");
-    
-    // if (elemento.value.trim() === "") {
-    //     let mensajeError = `El campo ${elemento.name} no puede estar vacio`;
-    //     labelError.innerHTML = mensajeError;
-    //     labelError.style = "color: red; font-style: italic; margin: 10px";
-    //     botonEnviar.disabled = true;
-    // } else {
-    //     labelError.innerHTML = "";
-    //     botonEnviar.disabled = false;
-    // }
+    if (elemento.value.trim() == "") {
+        let mensajeError = `El campo ${elemento.name} no puede estar vacio`;
+        labelError.innerHTML = mensajeError;
+        labelError.style = "color: red; font-style: italic; margin: 10px";
+        return true;
+    } else {
+        labelError.innerHTML = "";
+        return false;
+    }
+}
+
+let validarFormulario = () => {
+    const password = document.getElementById("contra");
+    const confirmarPassword = document.getElementById("confirmarPassword");
+
+    const errorPassword = document.getElementById("errorPassword");
+    const errorConfirmarPassword = document.getElementById("errorConfirmarPassword");
+
+    const botonCambiar = document.getElementById("Cambiar");
+
+    const passwordVacio = formularioVacio(password, errorPassword);
+    const confirmarPasswordVacio = formularioVacio(confirmarPassword, errorConfirmarPassword);
+
+    if (passwordVacio || confirmarPasswordVacio || password.value.trim() !== confirmarPassword.value.trim()) {
+        botonCambiar.disabled = true;
+    } else {
+        botonCambiar.disabled = false;
+    }
 }
 
 let mostrarContrasenia = () => {
-    let password = document.getElementById("password");
+    let password = document.getElementById("contra");
     let ojo = document.getElementById("ojo");
-    
+
     if (password.type == "password") {
         password.type = "text";
-        ojo.src = "../img/ojo.png";
+        ojo.src = "../img/invisible.png";
     } else {
         password.type = "password";
-        ojo.src = "../img/invisible.png";
+        ojo.src = "../img/ojo.png";
     }
 }
 
 let mostrarConfirmarContrasenia = () => {
     let confirmarPassword = document.getElementById("confirmarPassword");
     let ojo2 = document.getElementById("ojo2");
-    
+
     if (confirmarPassword.type == "password") {
         confirmarPassword.type = "text";
-        ojo2.src = "../img/ojo.png";
+        ojo2.src = "../img/invisible.png";
     } else {
         confirmarPassword.type = "password";
-        ojo2.src = "../img/invisible.png";
+        ojo2.src = "../img/ojo.png";
     }
 }

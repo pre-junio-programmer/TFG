@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="InformacionTarjeta.js"></script>
-    <link rel="stylesheet" href="Formularios.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="Formularios.css">
     <title>Información Tarjeta</title>
 </head>
 <body>
@@ -15,13 +15,12 @@
         </div>
         <div class="d-flex justify-content-center">
             <form id="formulario" action="../CONTROLADOR/Anadir_Tarjeta.php" method="post">
-                <div class="">
-                    <input type="text" id="numero" name="numero" class="form-control" placeholder="Numero de tarjeta">
+                <div class="form-group">
+                    <input type="text" id="numero" name="numero" class="form-control input-width" placeholder="Numero de tarjeta">
                     <label id="errorNumero" class="mensajesError"></label>
-                    <br>
                 </div>
-                <div class="m-3">
-                    <select name="tipoTarjeta" id="tipoTarjeta" class="form-control">
+                <div class="form-group">
+                    <select name="tipoTarjeta" id="tipoTarjeta" class="form-control input-width">
                         <option value="" disabled selected>Seleccione el tipo de tarjeta</option>
                         <option value="Visa">Visa</option>
                         <option value="MasterCard">MasterCard</option>
@@ -29,30 +28,27 @@
                         <option value="American Express">American Express</option>
                     </select>
                 </div>
-                <div class="">
-                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre de titular">
+                <div class="form-group">
+                    <input type="text" id="nombre" name="nombre" class="form-control input-width" placeholder="Nombre de titular">
                     <label id="errorNombre" class="mensajesError"></label>
-                    <br>
                 </div>
-                <div class="">
-                    <input type="month" id="fecha" name="fecha" class="form-control" placeholder="Fecha Caduducidad: Año/Mes">
-                    <br>
+                <div class="form-group">
+                    <input type="month" id="fecha" name="fecha" class="form-control input-width" placeholder="Fecha Caducidad: Año/Mes">
                 </div>
-                <div class="input-group">
-                    <input type="password" id="cvv" name="cvv" class="form-control" placeholder="CVV">
+                <div class="form-group input-group">
+                    <input type="password" id="cvv" name="cvv" class="form-control input-width" placeholder="CVV">
                     <div class="img-fluid divOjo">
                         <img src="../img/ojo.png" alt="ojo" class="img-fluid" id="ojo">
                     </div>
                     <label id="errorCvv" class="mensajesError"></label>
-                    <br>
                 </div>
-                <div class="m-3">
-                    <input type="submit" value="Enviar" class="btn botonEnviar" id="Enviar">
+                <div class="form-group">
+                    <input type="submit" value="Añadir" class="btn aBoton" id="Enviar">
+                    <button type="button" class="btn aBotonMalo" onclick="location.href='./PaginaPrincipal.html'">Volver</button>
                 </div>
               </form>
-              <div class="m-3">
+              <div class="form-group">
                 <p id="errorMensaje" class="error"></p>
-
               </div>
         </div>
     </div>

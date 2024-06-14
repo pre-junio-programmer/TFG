@@ -2,6 +2,7 @@
 session_start();
 require_once "../MODELO/Manejo_Base.php";
 
+//RECOGEMOS LOS DATOS DE LA TARJETA DEL FORMULARIO Y LOS INSERTAMOS EN LA BASE DE DATOS
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $numeroT = $_POST['numero'];
     $tipoT = $_POST['tipoTarjeta'];
@@ -10,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $csvT = $_POST['cvv'];
     $nombreUsu=$_SESSION['nombreDeSesion'];
 
+    //TRANSFORMAMOS DE TEXTO A NUMÉRICO PARA MANEJARLO MEJOR POSTERIORMENTE
     switch ($tipoT) {
         case 'Visa':
             $tipoTarjeta= "1";
@@ -30,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $respuesta = Base_Operaciones::insertarTarjeta($numeroT, $tipoTarjeta, $nombreT, $fechaCadT,$csvT,$nombreUsu);
 
+    //SI YA HAY UN NUMERO DE TARJETA IGUAL(RESPUESTA A) DEVOLVEMOS AL FORMULARIO CON ERROR
     if ($respuesta == "A") {
         header("Location: ../VISTA/InformacionTarjeta.html?error=1");
         exit();

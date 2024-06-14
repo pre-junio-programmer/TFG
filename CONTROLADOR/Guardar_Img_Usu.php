@@ -1,24 +1,12 @@
 <?php
-$directorio_img = "../img";
+$directorio_img = "../img/usuario";
 
 
 if (isset($_FILES["file"])) {
+    //SI HA RECIBIDO LA IMAGEN LE ASIGNA UN NOMBRE Y LA GUARDA EN EL DIRECTORIO ASIGNADO
     $imagen = $directorio_img . basename($_FILES["file"]["name"]);
     $subidaOk = 1;
-    $extension_img = strtolower(pathinfo($imagen, PATHINFO_EXTENSION));
-
-    
-
-    if ($_FILES["file"]["size"] > 500000) { 
-        echo "Lo siento, el archivo es demasiado grande.";
-        $subidaOk = 0;
-    }
-
-    
-    if ($extension_img != "jpg" && $extension_img != "png" && $extension_img != "jpeg") {
-        echo "Lo siento, solo se permiten archivos JPG, JPEG o PNG.";
-        $subidaOk = 0;
-    }
+    $extension_img = strtolower(pathinfo($imagen, PATHINFO_EXTENSION)); 
 
     if ($subidaOk==1){
         if (move_uploaded_file($_FILES["file"]["tmp_name"], $imagen)) {
@@ -28,21 +16,7 @@ if (isset($_FILES["file"])) {
         }
     }
         
-    
 } else {
     echo "No se ha recibido ningún archivo.";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
